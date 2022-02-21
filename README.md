@@ -1,16 +1,31 @@
 # Be Rich
 
-## Manage your asset.
+## Manage your assets online using "Asset Portfolio"
 
----
+<br/>
+<br/>
+<br/>
 
-### Frontend
+# Use
 
-React.js
-Material UI
+## Frontend (Javascript)
 
----
+- React.js
+- Material UI
 
-### Backend
+<br/>
 
-Nest.js
+## Backend (Typescript)
+
+- Nest.ts
+- TypeORM + MySQL
+- Json Web Token
+- Encrypted Password (Salt)
+- Email Verify
+
+<br/>
+<br/>
+
+# Example
+
+![example](https://user-images.githubusercontent.com/46606085/154889436-6ecfe35c-7b44-444d-a67d-c458aeb3170a.png)
