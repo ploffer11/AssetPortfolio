@@ -2,8 +2,6 @@
 Manage your assets online using "Asset Portfolio"
 
 <br/>
-<br/>
-<br/>
 
 # Frontend (Javascript)
 
@@ -20,7 +18,6 @@ Manage your assets online using "Asset Portfolio"
 - Encrypted Password (Salt)
 - Email Verify
 
-<br/>
 <br/>
 
 # Example
