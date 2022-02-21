@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -8,146 +7,24 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
-import Icon from "@mui/material/Icon";
 
-import EditableTableCell from "./EditableTableCell";
+import AssetTableRow from "./AssetTableRow";
 import EarningRateTableCell from "./EarningRateTableCell";
-import CurrentPriceTableCell from "./CurrentPriceTableCell";
-import getAssetCode from "../CompanyManager";
 import SortButton from "./SortButton";
-
-const AssetTableRow = ({ row, changeRow, checked, setChecked }) => {
-  const closure = (colName) => {
-    return (newCol) => {
-      row[colName] = newCol;
-      changeRow(row);
-    };
-  };
-
-  return (
-    <TableRow
-      key={row.name}
-      sx={{
-        backgroundColor:
-          row.name === "새로운 자산" ? "rgba(221,220,218,1)" : "transparent",
-      }}
-    >
-      <TableCell>
-        <Checkbox
-          sx={{
-            "&.Mui-checked": {
-              color: "rgba(0,153,102,1)",
-            },
-          }}
-          checked={checked}
-          onChange={(e) => setChecked(e.target.checked)}
-        />
-      </TableCell>
-      <TableCell>{row.idx}</TableCell>
-
-      <EditableTableCell
-        content={row.name}
-        type="text"
-        changeCol={closure("name")}
-      />
-
-      <EditableTableCell content={row.count} changeCol={closure("count")} />
-      <EditableTableCell content={row.price} changeCol={closure("price")} />
-      {getAssetCode(row.name) === undefined ? (
-        <EditableTableCell
-          content={row.currentPrice}
-          changeCol={closure("currentPrice")}
-          questionMark
-        />
-      ) : (
-        <CurrentPriceTableCell
-          content={row.currentPrice}
-          assetCode={getAssetCode(row.name)}
-          changeCol={closure("currentPrice")}
-        />
-      )}
-      <TableCell>{(row.price * row.count).toLocaleString()}</TableCell>
-      <TableCell>{(row.currentPrice * row.count).toLocaleString()}</TableCell>
-      <EarningRateTableCell
-        buyPrice={row.price * row.count}
-        evalPrice={row.currentPrice * row.count}
-      />
-      <EditableTableCell
-        content={row.buyDate}
-        type="date"
-        changeCol={closure("buyDate")}
-      />
-      <EditableTableCell
-        content={row.goalDate}
-        type="date"
-        changeCol={closure("goalDate")}
-      />
-      <EditableTableCell
-        content={row.sellDate}
-        type="date"
-        changeCol={closure("sellDate")}
-      />
-    </TableRow>
-  );
-};
+import useAsset from "../hook/useAsset";
 
 const AssetTable = () => {
-  const [asset, setAsset] = useState([]);
+  const [asset, setAsset, createAsset, addAsset, insertAsset] = useAsset();
   const [checked, setChecked] = useState([]);
   const [count, setCount] = useState(1);
   const [focus, setFocus] = useState(-1);
+  const [insertIdx, setInsertIdx] = useState(null);
 
   const sum = (str) => {
     return asset.reduce((sum, row) => sum + row[str] * row["count"], 0);
-  };
-
-  const createAsset = (
-    idx,
-    name,
-    price,
-    count,
-    buyDate = "-",
-    goalDate = "-",
-    sellDate = "-"
-  ) => {
-    return {
-      idx,
-      name,
-      price,
-      count,
-      buyDate,
-      goalDate,
-      sellDate,
-      currentPrice: 0,
-    };
-  };
-
-  const addAsset = (
-    name,
-    price,
-    count,
-    buyDate = "-",
-    goalDate = "-",
-    sellDate = "-"
-  ) => {
-    setAsset(
-      asset.concat(
-        createAsset(
-          asset.length + 1,
-          name,
-          price,
-          count,
-          buyDate,
-          goalDate,
-          sellDate
-        )
-      )
-    );
-    setChecked(checked.concat(false));
   };
 
   useEffect(() => {
@@ -225,6 +102,7 @@ const AssetTable = () => {
             variant="contained"
             onClick={() => {
               addAsset(`새로운 자산 ` + count, 0, 1, "-", "-", "-");
+              setChecked(checked.concat(false));
               setCount(count + 1);
             }}
           >
@@ -244,10 +122,8 @@ const AssetTable = () => {
                 transition: "background-color 1s",
               },
               "& td": {
-                width: "1rem",
-                height: "2.5rem",
+                width: "0.5rem",
                 fontSize: "1.05rem",
-                flexGrow: 0,
               },
               "& th": {
                 backgroundColor: "rgba(53,63,81,0.8)",
@@ -319,6 +195,9 @@ const AssetTable = () => {
                       setChecked([...checked]);
                     }}
                     checked={checked[idx]}
+                    insertAsset={insertAsset}
+                    insertIdx={insertIdx}
+                    setInsertIdx={setInsertIdx}
                   />
                 );
               })}
@@ -328,7 +207,7 @@ const AssetTable = () => {
                   borderTop: "2px solid gray",
                 }}
               >
-                <TableCell colSpan="4" align="center">
+                <TableCell colSpan="6" align="center">
                   합계
                 </TableCell>
                 <TableCell>{sum("price").toLocaleString()}</TableCell>
@@ -340,6 +219,22 @@ const AssetTable = () => {
                 <TableCell></TableCell>
                 <TableCell></TableCell>
                 <TableCell></TableCell>
+              </TableRow>
+
+              <TableRow
+                id="placeholder"
+                draggable="true"
+                onDragOver={(e) => {
+                  e.preventDefault();
+                }}
+              >
+                <TableCell
+                  colSpan="12"
+                  align="center"
+                  sx={{ backgroundColor: "rgba(160,218,169,1)" }}
+                >
+                  여기에 삽입됩니다.
+                </TableCell>
               </TableRow>
             </TableBody>
           </Table>
