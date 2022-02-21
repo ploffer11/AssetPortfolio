@@ -7,6 +7,7 @@ const EditableTableCell = ({ content, changeCol, align, type = "number" }) => {
   const [isEditableNow, setIsEditableNow] = useState(false);
   const [text, setText] = useState(content);
 
+  console.log("render editable cell");
   return (
     <TableCell sx={{ cursor: "pointer" }} align={align}>
       <Box
