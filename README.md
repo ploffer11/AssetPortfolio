@@ -1,21 +1,18 @@
 # Be Rich
-
-## Manage your assets online using "Asset Portfolio"
+Manage your assets online using "Asset Portfolio"
 
 <br/>
 <br/>
 <br/>
 
-# Use
-
-## Frontend (Javascript)
+# Frontend (Javascript)
 
 - React.js
 - Material UI
 
 <br/>
 
-## Backend (Typescript)
+# Backend (Typescript)
 
 - Nest.ts
 - TypeORM + MySQL
