@@ -22,4 +22,4 @@ Manage your assets online using "Asset Portfolio"
 
 # Example
 
-![example](https://user-images.githubusercontent.com/46606085/154889436-6ecfe35c-7b44-444d-a67d-c458aeb3170a.png)
+![example](https://user-images.githubusercontent.com/46606085/154890295-d9dffc64-630c-42a3-942e-5f3fbd9bb38f.png)
