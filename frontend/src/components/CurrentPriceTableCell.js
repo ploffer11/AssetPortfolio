@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TableCell from "@mui/material/TableCell";
 import { TaskAlt } from "@mui/icons-material";
+import PriceBox from "./PriceBox";
 
 const CurrentPriceTableCell = ({ content, assetCode, changeCol }) => {
   useEffect(() => {
@@ -41,14 +42,25 @@ const CurrentPriceTableCell = ({ content, assetCode, changeCol }) => {
     document.body.append(scriptTag);
   }, []);
 
-  return (
+  return assetCode === undefined ? (
     <TableCell
       sx={{
         fontWeight: "bold",
       }}
     >
-      <TaskAlt color="success" />
-      {content.toLocaleString()}
+      <PriceBox price={content}>
+        <TaskAlt color="disabled" />
+      </PriceBox>
+    </TableCell>
+  ) : (
+    <TableCell
+      sx={{
+        fontWeight: "bold",
+      }}
+    >
+      <PriceBox price={content}>
+        <TaskAlt color="success" />
+      </PriceBox>
     </TableCell>
   );
 };

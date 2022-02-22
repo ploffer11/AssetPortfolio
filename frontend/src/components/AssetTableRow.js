@@ -8,6 +8,7 @@ import EditableTableCell from "./EditableTableCell";
 import EarningRateTableCell from "./EarningRateTableCell";
 import CurrentPriceTableCell from "./CurrentPriceTableCell";
 import getAssetCode from "../CompanyManager";
+import PriceBox from "./PriceBox";
 
 const AssetTableRow = ({
   row,
@@ -75,10 +76,6 @@ const AssetTableRow = ({
           );
 
           if (insertElement.firstChild.nextSibling !== null) {
-            console.log(
-              +insertElement.firstChild.nextSibling.innerText - 1,
-              "<----"
-            );
             let currentIdx =
               +insertElement.firstChild.nextSibling.innerText - 1;
             if (insertIdx !== currentIdx)
@@ -87,7 +84,7 @@ const AssetTableRow = ({
         }
       }}
     >
-      <TableCell>
+      <TableCell sx={{ width: "40px" }}>
         <Checkbox
           sx={{
             "&.Mui-checked": {
@@ -98,7 +95,7 @@ const AssetTableRow = ({
           onChange={(e) => setChecked(e.target.checked)}
         />
       </TableCell>
-      <TableCell>{row.idx}</TableCell>
+      <TableCell sx={{ width: "40px" }}>{row.idx}</TableCell>
 
       <EditableTableCell
         content={row.name}
@@ -107,22 +104,31 @@ const AssetTableRow = ({
       />
 
       <EditableTableCell content={row.count} changeCol={closure("count")} />
-      <EditableTableCell content={row.price} changeCol={closure("price")} />
-      {getAssetCode(row.name) === undefined ? (
+      <EditableTableCell
+        content={row.price}
+        changeCol={closure("price")}
+        type="price"
+      />
+      {/* {getAssetCode(row.name) === undefined ? (
         <EditableTableCell
           content={row.currentPrice}
           changeCol={closure("currentPrice")}
           questionMark
+          type="price"
         />
-      ) : (
-        <CurrentPriceTableCell
-          content={row.currentPrice}
-          assetCode={getAssetCode(row.name)}
-          changeCol={closure("currentPrice")}
-        />
-      )}
-      <TableCell>{(row.price * row.count).toLocaleString()}</TableCell>
-      <TableCell>{(row.currentPrice * row.count).toLocaleString()}</TableCell>
+      ) : ( */}
+      <CurrentPriceTableCell
+        content={row.currentPrice}
+        assetCode={getAssetCode(row.name)}
+        changeCol={closure("currentPrice")}
+      />
+      {/* )} */}
+      <TableCell>
+        <PriceBox price={row.price * row.count} />
+      </TableCell>
+      <TableCell>
+        <PriceBox price={row.currentPrice * row.count} />
+      </TableCell>
       <EarningRateTableCell
         buyPrice={row.price * row.count}
         evalPrice={row.currentPrice * row.count}

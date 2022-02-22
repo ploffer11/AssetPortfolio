@@ -8,6 +8,7 @@ const useAsset = () => {
     name,
     price,
     count,
+    currentPrice = 0,
     buyDate = "-",
     goalDate = "-",
     sellDate = "-"
@@ -20,7 +21,7 @@ const useAsset = () => {
       buyDate,
       goalDate,
       sellDate,
-      currentPrice: 0,
+      currentPrice,
     };
   };
 
@@ -28,6 +29,7 @@ const useAsset = () => {
     name,
     price,
     count,
+    currentPrice = 0,
     buyDate = "-",
     goalDate = "-",
     sellDate = "-"
@@ -39,6 +41,7 @@ const useAsset = () => {
           name,
           price,
           count,
+          currentPrice,
           buyDate,
           goalDate,
           sellDate

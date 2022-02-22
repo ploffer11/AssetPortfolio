@@ -1,18 +1,28 @@
 import { Box } from "@mui/material";
 import TableCell from "@mui/material/TableCell";
 import TextField from "@mui/material/TextField";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import PriceBox from "./PriceBox";
 
 const EditableTableCell = ({ content, changeCol, align, type = "number" }) => {
   const [isEditableNow, setIsEditableNow] = useState(false);
   const [text, setText] = useState(content);
+  const [width, setWidth] = useState({});
+  const ref = useRef(null);
 
-  console.log("render editable cell");
   return (
-    <TableCell sx={{ cursor: "pointer" }} align={align}>
+    <TableCell
+      sx={{
+        cursor: "pointer",
+        ...width,
+        textAlign: type === "number" ? "right" : "left",
+      }}
+      align={align}
+    >
       <Box
-        sx={{ width: "90%" }}
+        ref={ref}
         onDoubleClick={() => {
+          setWidth({ width: `${ref.current.parentNode.clientWidth - 32}px` });
           setIsEditableNow(true);
         }}
         onBlur={() => {
@@ -34,19 +44,23 @@ const EditableTableCell = ({ content, changeCol, align, type = "number" }) => {
             sx={{
               "& input": {
                 textShadow: "1px 1px 1px black",
+                textAlign:
+                  type === "price" || type === "number" ? "right" : "left",
               },
             }}
             InputLabelProps={{
               shrink: true,
             }}
             onChange={(event) => {
-              if (type === "number") {
+              if (type === "number" || type === "price") {
                 let num = parseInt(event.target.value);
                 setText(isNaN(num) ? 0 : num);
               } else setText(event.target.value);
             }}
             autoFocus
           />
+        ) : type === "price" ? (
+          <PriceBox price={text} />
         ) : (
           <Box>{text.toLocaleString()}</Box>
         )}
