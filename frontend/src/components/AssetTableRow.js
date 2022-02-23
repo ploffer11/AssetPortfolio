@@ -94,7 +94,7 @@ const AssetTableRow = ({
               color: "rgba(0,153,102,1)",
             },
           }}
-          checked={checked}
+          checked={checked || false}
           onChange={(e) => setChecked(e.target.checked)}
         />
       </TableCell>

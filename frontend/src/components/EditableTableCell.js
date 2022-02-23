@@ -1,3 +1,4 @@
+import { TaskAlt } from "@mui/icons-material";
 import { Box } from "@mui/material";
 import TableCell from "@mui/material/TableCell";
 import TextField from "@mui/material/TextField";
@@ -44,7 +45,6 @@ const EditableTableCell = ({
     >
       <Box
         ref={ref}
-        onClick={() => setIsUpdateNow()}
         onDoubleClick={() => {
           setWidth({ width: `${ref.current.parentNode.clientWidth - 32}px` });
           setIsEditableNow(true);
@@ -83,7 +83,13 @@ const EditableTableCell = ({
             autoFocus
           />
         ) : type === "price" ? (
-          <PriceBox price={text} />
+          edit ? (
+            <PriceBox price={text}>
+              <TaskAlt color="disable" onClick={() => setIsUpdateNow()} />
+            </PriceBox>
+          ) : (
+            <PriceBox price={text} />
+          )
         ) : (
           <Box>{text.toLocaleString()}</Box>
         )}
