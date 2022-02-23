@@ -1,23 +1,37 @@
 import { Box } from "@mui/material";
 import TableCell from "@mui/material/TableCell";
 import TextField from "@mui/material/TextField";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PriceBox from "./PriceBox";
 
-const EditableTableCell = ({ content, changeCol, align, type = "number" }) => {
+const EditableTableCell = ({
+  content,
+  changeCol,
+  align,
+  type = "number",
+  edit = false,
+  setIsUpdateNow = () => {},
+}) => {
   const [isEditableNow, setIsEditableNow] = useState(false);
   const [text, setText] = useState(content);
   const [width, setWidth] = useState({});
   const ref = useRef(null);
 
-  let textAlign =
+  const textAlign =
     type === "text" ? "left" : type === "date" ? "center" : "right";
+
+  useEffect(() => {
+    if (edit) {
+      setWidth({ width: `${ref.current.parentNode.clientWidth - 32}px` });
+      setIsEditableNow(true);
+    }
+  }, [edit]);
+
   return (
     <TableCell
       sx={{
         cursor: "pointer",
         ...width,
-        // textAlign: textAlign,
       }}
       align={align}
       onDragStart={(e) => {
@@ -26,10 +40,11 @@ const EditableTableCell = ({ content, changeCol, align, type = "number" }) => {
           e.preventDefault();
         }
       }}
-      draggable="true"
+      draggable={isEditableNow}
     >
       <Box
         ref={ref}
+        onClick={() => setIsUpdateNow()}
         onDoubleClick={() => {
           setWidth({ width: `${ref.current.parentNode.clientWidth - 32}px` });
           setIsEditableNow(true);

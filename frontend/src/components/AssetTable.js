@@ -31,58 +31,15 @@ const AssetTable = () => {
   };
 
   useEffect(() => {
-    setAsset([
-      createAsset(
-        1,
-        "카카오",
-        130000,
-        10,
-        0,
-        "2022-01-01",
-        "2030-01-01",
-        "2025-01-01"
-      ),
-      createAsset(2, "삼성전자", 61000, 10, 0, "2022-01-01", "2030-01-01", "-"),
-      createAsset(
-        3,
-        "SK하이닉스",
-        81000,
-        20,
-        0,
-        "2022-01-01",
-        "2030-01-01",
-        "-"
-      ),
-      createAsset(
-        4,
-        "LG에너지솔루션",
-        300000,
-        2,
-        0,
-        "2022-01-01",
-        "2030-01-01",
-        "-"
-      ),
-      createAsset(
-        5,
-        "RTX 3060ti",
-        599000,
-        1,
-        300000,
-        "2022-01-01",
-        "2030-01-01",
-        "-"
-      ),
-    ]);
-    setChecked(new Array(5).fill(false));
+    setChecked(new Array(asset.length).fill(false));
   }, []);
 
   const columnName = [
     ["#", "left"],
     ["자산 이름", "left"],
     ["개수", "right"],
-    ["구매 가격", "right"],
-    ["현재 가격", "right"],
+    ["매수가", "right"],
+    ["매도가", "right"],
     ["구매액", "right"],
     ["평가액", "right"],
     ["수익률", "center"],

@@ -2,8 +2,14 @@ import React, { useState, useEffect } from "react";
 import TableCell from "@mui/material/TableCell";
 import { TaskAlt } from "@mui/icons-material";
 import PriceBox from "./PriceBox";
+import { Box } from "@mui/material";
 
-const CurrentPriceTableCell = ({ content, assetCode, changeCol }) => {
+const CurrentPriceTableCell = ({
+  content,
+  assetCode,
+  changeCol,
+  setIsUpdateNow,
+}) => {
   useEffect(() => {
     if (assetCode === undefined) {
       return;
@@ -42,21 +48,13 @@ const CurrentPriceTableCell = ({ content, assetCode, changeCol }) => {
     document.body.append(scriptTag);
   }, []);
 
-  return assetCode === undefined ? (
+  return (
     <TableCell
       sx={{
         fontWeight: "bold",
+        cursor: "pointer",
       }}
-    >
-      <PriceBox price={content}>
-        <TaskAlt color="disabled" />
-      </PriceBox>
-    </TableCell>
-  ) : (
-    <TableCell
-      sx={{
-        fontWeight: "bold",
-      }}
+      onDoubleClick={() => setIsUpdateNow()}
     >
       <PriceBox price={content}>
         <TaskAlt color="success" />

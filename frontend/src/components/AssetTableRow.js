@@ -22,6 +22,7 @@ const AssetTableRow = ({
   setPlaceholder,
 }) => {
   const ref = useRef(null);
+  const [edit, setEdit] = useState(false);
 
   const closure = (colName) => {
     return (newCol) => {
@@ -29,10 +30,6 @@ const AssetTableRow = ({
       changeRow(row);
     };
   };
-
-  useEffect(() => {
-    // placeholder.style.display = "none";
-  }, []);
 
   return (
     <TableRow
@@ -119,20 +116,29 @@ const AssetTableRow = ({
         changeCol={closure("price")}
         type="price"
       />
-      {/* {getAssetCode(row.name) === undefined ? (
+      {row.isUpdateNow && getAssetCode(row.name) !== undefined ? (
+        <CurrentPriceTableCell
+          content={row.currentPrice}
+          assetCode={getAssetCode(row.name)}
+          changeCol={closure("currentPrice")}
+          setIsUpdateNow={() => {
+            setEdit(true);
+            closure("isUpdateNow")(false);
+          }}
+        />
+      ) : (
         <EditableTableCell
           content={row.currentPrice}
           changeCol={closure("currentPrice")}
           questionMark
           type="price"
+          edit={edit}
+          setIsUpdateNow={() => {
+            setEdit(false);
+            closure("isUpdateNow")(true);
+          }}
         />
-      ) : ( */}
-      <CurrentPriceTableCell
-        content={row.currentPrice}
-        assetCode={getAssetCode(row.name)}
-        changeCol={closure("currentPrice")}
-      />
-      {/* )} */}
+      )}
       <TableCell>
         <PriceBox price={row.price * row.count} />
       </TableCell>
