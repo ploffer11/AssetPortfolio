@@ -24,6 +24,7 @@ const AssetTable = () => {
   const [count, setCount] = useState(1);
   const [focus, setFocus] = useState(-1);
   const [insertIdx, setInsertIdx] = useState(null);
+  const [placeholder, setPlaceholder] = useState(null);
 
   const sum = (str) => {
     return asset.reduce((sum, row) => sum + row[str] * row["count"], 0);
@@ -85,9 +86,9 @@ const AssetTable = () => {
     ["구매액", "right"],
     ["평가액", "right"],
     ["수익률", "center"],
-    ["편입일", "left"],
-    ["목표일", "left"],
-    ["편출일", "left"],
+    ["편입일", "center"],
+    ["목표일", "center"],
+    ["편출일", "center"],
   ];
 
   const getValueArray = [
@@ -124,7 +125,7 @@ const AssetTable = () => {
           <Button
             variant="contained"
             onClick={() => {
-              addAsset(`새로운 자산 ` + count, 0, 1, "-", "-", "-");
+              addAsset(`새로운 자산 ` + count, 0, 0, 0, "-", "-", "-");
               setChecked(checked.concat(false));
               setCount(count + 1);
             }}
@@ -201,7 +202,6 @@ const AssetTable = () => {
                   />
                 </TableCell>
                 {columnName.map(([name, align], idx) => {
-                  console.log(name, align, "??");
                   return (
                     <TableCell key={name} align={align}>
                       <SortButton
@@ -248,6 +248,8 @@ const AssetTable = () => {
                     insertAsset={insertAsset}
                     insertIdx={insertIdx}
                     setInsertIdx={setInsertIdx}
+                    placeholder={placeholder}
+                    setPlaceholder={setPlaceholder}
                   />
                 );
               })}
@@ -275,7 +277,7 @@ const AssetTable = () => {
                 <TableCell></TableCell>
               </TableRow>
 
-              <TableRow
+              {/* <TableRow
                 id="placeholder"
                 draggable="true"
                 onDragOver={(e) => {
@@ -289,7 +291,7 @@ const AssetTable = () => {
                 >
                   여기에 삽입됩니다.
                 </TableCell>
-              </TableRow>
+              </TableRow> */}
             </TableBody>
           </Table>
         </TableContainer>

@@ -5,6 +5,7 @@ const PortfolioPage = () => {
     <div
       style={{
         marginTop: "10vh",
+        marginBottom: "10vh",
       }}
     >
       <AssetTable />

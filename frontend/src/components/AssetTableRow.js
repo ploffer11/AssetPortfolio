@@ -18,6 +18,8 @@ const AssetTableRow = ({
   insertAsset,
   insertIdx,
   setInsertIdx,
+  placeholder,
+  setPlaceholder,
 }) => {
   const ref = useRef(null);
 
@@ -27,10 +29,9 @@ const AssetTableRow = ({
       changeRow(row);
     };
   };
-  const placeholder = document.getElementById("placeholder");
 
   useEffect(() => {
-    placeholder.style.display = "none";
+    // placeholder.style.display = "none";
   }, []);
 
   return (
@@ -43,13 +44,19 @@ const AssetTableRow = ({
       ref={ref}
       draggable="true"
       onDragStart={(e) => {
-        console.log("DRAG START");
+        console.log("DRAG START", e.nativeEvent.path);
         setInsertIdx(row.idx - 1);
+
+        let copyRow = ref.current.cloneNode(true);
+        copyRow.style.display = "none";
+        copyRow.style.backgroundColor = "rgba(160,218,169,1)";
+        ref.current.parentNode.appendChild(copyRow);
+        setPlaceholder(copyRow);
 
         e.dataTransfer.effectAllowed = "move";
         e.dataTransfer.dropEffect = "move";
         e.dataTransfer.setData("text/html", ref.current);
-        ref.current.style.opacity = 0.5;
+        ref.current.style.opacity = 0.3;
       }}
       onDragEnd={(e) => {
         console.log("DRAG END", row.idx - 1, insertIdx);
@@ -57,8 +64,7 @@ const AssetTableRow = ({
           ref.current.parentNode.insertBefore(ref.current, placeholder);
           insertAsset(row.idx - 1, insertIdx);
         }
-        ref.current.parentNode.appendChild(placeholder);
-        placeholder.style.display = "none";
+        placeholder.parentNode.removeChild(placeholder);
         ref.current.style.opacity = 1;
       }}
       onDragOver={(e) => {
@@ -103,7 +109,11 @@ const AssetTableRow = ({
         changeCol={closure("name")}
       />
 
-      <EditableTableCell content={row.count} changeCol={closure("count")} />
+      <EditableTableCell
+        content={row.count}
+        changeCol={closure("count")}
+        align="right"
+      />
       <EditableTableCell
         content={row.price}
         changeCol={closure("price")}

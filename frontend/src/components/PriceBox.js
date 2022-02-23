@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 
 const PriceBox = ({ price, children }) => {
-  console.log(children);
   return (
     <Box sx={{ display: "flex", flexDirection: "row" }}>
       {children ? (

@@ -10,14 +10,23 @@ const EditableTableCell = ({ content, changeCol, align, type = "number" }) => {
   const [width, setWidth] = useState({});
   const ref = useRef(null);
 
+  let textAlign =
+    type === "text" ? "left" : type === "date" ? "center" : "right";
   return (
     <TableCell
       sx={{
         cursor: "pointer",
         ...width,
-        textAlign: type === "number" ? "right" : "left",
+        // textAlign: textAlign,
       }}
       align={align}
+      onDragStart={(e) => {
+        if (isEditableNow) {
+          e.stopPropagation();
+          e.preventDefault();
+        }
+      }}
+      draggable="true"
     >
       <Box
         ref={ref}
@@ -44,8 +53,7 @@ const EditableTableCell = ({ content, changeCol, align, type = "number" }) => {
             sx={{
               "& input": {
                 textShadow: "1px 1px 1px black",
-                textAlign:
-                  type === "price" || type === "number" ? "right" : "left",
+                textAlign: textAlign,
               },
             }}
             InputLabelProps={{
