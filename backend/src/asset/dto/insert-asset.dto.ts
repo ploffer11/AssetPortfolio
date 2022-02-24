@@ -1,1 +1,3 @@
-export class InsertAssetDto {}
+export class InsertAssetDto {
+  asset: any;
+}

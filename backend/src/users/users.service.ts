@@ -71,6 +71,12 @@ export class UsersService {
     };
   }
 
+  /**
+   * 로그인이 성공적으로 된 경우 토큰을 전달
+   * @param email
+   * @param plainPassword
+   * @returns
+   */
   async login(email: string, plainPassword: string): Promise<Object> {
     let user = await this.userRepository.findOne({ email });
     if (user === undefined) {
@@ -81,12 +87,14 @@ export class UsersService {
       throw new BadRequestException('Email verify is unfinished');
     }
 
-    let { uid, salt, password } = user;
+    let { uid, salt, password, name } = user;
     if (this.checkPasswordRight(salt, password, plainPassword)) {
       return {
         statusCode: 200,
         message: 'Login Completed',
-        token: this.authService.login({ uid, email }),
+        token: 'Bearer ' + this.authService.login({ uid, email }),
+        uid,
+        name,
       };
     } else {
       throw new BadRequestException('Login Failed. Password is invalid');

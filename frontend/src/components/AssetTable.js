@@ -52,13 +52,13 @@ const AssetTable = () => {
     (row) => row["idx"],
     (row) => row["name"],
     (row) => row["count"],
-    (row) => row["price"],
-    (row) => row["currentPrice"],
-    (row) => row["price"] * row["count"],
-    (row) => row["currentPrice"] * row["count"],
+    (row) => row["buyPrice"],
+    (row) => row["sellPrice"],
+    (row) => row["buyPrice"] * row["count"],
+    (row) => row["sellPrice"] * row["count"],
     (row) =>
-      (row["currentPrice"] * row["count"] - row["price"] * row["count"]) /
-      (row["price"] * row["count"]),
+      (row["sellPrice"] * row["count"] - row["buyPrice"] * row["count"]) /
+      (row["buyPrice"] * row["count"]),
     (row) => row["buyDate"],
     (row) => row["goalDate"],
     (row) => row["sellDate"],
@@ -70,7 +70,12 @@ const AssetTable = () => {
   };
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "center" }}>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
       <Box
         sx={{
           width: "min(1700px, 100vw)",
@@ -80,7 +85,9 @@ const AssetTable = () => {
           <Box sx={{ flexGrow: 1 }}></Box>
 
           <Button
-            variant="contained"
+            variant="outlined"
+            color="success"
+            size="large"
             onClick={() => {
               addAsset(`새로운 자산 ` + count, 0, 0, 0, "-", "-", "-");
               setChecked(checked.concat(false));
@@ -92,10 +99,14 @@ const AssetTable = () => {
 
           <Button
             sx={{ marginLeft: "20px" }}
-            variant="contained"
+            variant="outlined"
             color="error"
+            size="large"
             onClick={() => {
-              let count = checked.reduce((sum, val) => sum + val, 0);
+              let count = checked.reduce(
+                (sum, val) => sum + (val === false),
+                0
+              );
               setAsset(
                 asset
                   .filter((row, idx) => {
@@ -113,145 +124,140 @@ const AssetTable = () => {
             Delete Asset
           </Button>
         </Box>
-        <TableContainer component={Paper}>
-          <Table
-            sx={{
-              marginTop: "1vh",
-              tableLayout: "auto",
-              width: "100%",
-              "& tr:hover": {
-                backgroundColor: "rgba(0, 0, 0, 0.08)",
-                transition: "background-color 0.3s",
-              },
-              "& tr": {
-                backgroundColor: "transparent",
-                transition: "background-color 1s",
-              },
-              "& td": {
-                fontSize: "1.05rem",
-              },
-              "& th": {
-                backgroundColor: "rgba(53,63,81,0.8)",
-                color: "white",
-                fontWeight: "bold",
-                fontSize: "1.2rem",
-              },
-            }}
-            aria-label="simple table"
-          >
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <Checkbox
-                    sx={{
-                      color: "white",
-                      "&.Mui-checked": {
+        <Box
+          sx={{
+            // boxShadow:
+            //   "0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)",
+            marginTop: "1vh",
+          }}
+        >
+          <TableContainer component={Paper}>
+            <Table
+              sx={{
+                tableLayout: "auto",
+                width: "100%",
+                "& tr:hover": {
+                  backgroundColor: "rgba(0, 0, 0, 0.08)",
+                  transition: "background-color 0.3s",
+                },
+                "& tr": {
+                  backgroundColor: "transparent",
+                  transition: "background-color 1s",
+                  fontFamily: "'Noto Sans KR', sans-serif",
+                },
+                "& td": {
+                  fontSize: "1.05rem",
+                  fontFamily: "'Noto Sans KR', sans-serif",
+                },
+                "& th": {
+                  backgroundColor: "rgba(65,105,225,1)",
+                  color: "white",
+                  fontWeight: "bold",
+                  fontSize: "1.2rem",
+                  fontFamily: "'Noto Sans KR', sans-serif",
+                },
+                fontFamily: "'Noto Sans KR', sans-serif",
+              }}
+              aria-label="simple table"
+            >
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    <Checkbox
+                      sx={{
                         color: "white",
-                      },
-                    }}
-                    checked={allChecked}
-                    onChange={(e) => {
-                      setChecked(
-                        new Array(checked.length).fill(e.target.checked)
-                      );
-                      setAllChecked(e.target.checked);
-                    }}
-                  />
-                </TableCell>
-                {columnName.map(([name, align], idx) => {
+                        "&.Mui-checked": {
+                          color: "white",
+                        },
+                      }}
+                      checked={allChecked}
+                      onChange={(e) => {
+                        setChecked(
+                          new Array(checked.length).fill(e.target.checked)
+                        );
+                        setAllChecked(e.target.checked);
+                      }}
+                    />
+                  </TableCell>
+                  {columnName.map(([name, align], idx) => {
+                    return (
+                      <TableCell key={name} align={align}>
+                        <SortButton
+                          text={name}
+                          focus={focus === idx}
+                          setFocus={() => setFocus(idx)}
+                          sortAscend={() => {
+                            setAsset([
+                              ...asset.sort((x, y) => {
+                                return compare(getValueArray[idx], x, y);
+                              }),
+                            ]);
+                          }}
+                          sortDescend={() => {
+                            setAsset([
+                              ...asset.sort((x, y) => {
+                                return -compare(getValueArray[idx], x, y);
+                              }),
+                            ]);
+                          }}
+                        />
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              </TableHead>
+
+              <TableBody>
+                {asset.map((row, idx) => {
                   return (
-                    <TableCell key={name} align={align}>
-                      <SortButton
-                        text={name}
-                        focus={focus === idx}
-                        setFocus={() => setFocus(idx)}
-                        sortAscend={() => {
-                          setAsset([
-                            ...asset.sort((x, y) => {
-                              return compare(getValueArray[idx], x, y);
-                            }),
-                          ]);
-                        }}
-                        sortDescend={() => {
-                          setAsset([
-                            ...asset.sort((x, y) => {
-                              return -compare(getValueArray[idx], x, y);
-                            }),
-                          ]);
-                        }}
-                      />
-                    </TableCell>
+                    <AssetTableRow
+                      key={row.name}
+                      idx={idx}
+                      row={row}
+                      changeRow={(row) => {
+                        asset[idx] = row;
+                        setAsset([...asset]);
+                      }}
+                      setChecked={(chk) => {
+                        checked[idx] = chk;
+                        setChecked([...checked]);
+                      }}
+                      checked={checked[idx]}
+                      insertAsset={insertAsset}
+                      insertIdx={insertIdx}
+                      setInsertIdx={setInsertIdx}
+                      placeholder={placeholder}
+                      setPlaceholder={setPlaceholder}
+                    />
                   );
                 })}
-              </TableRow>
-            </TableHead>
 
-            <TableBody>
-              {asset.map((row, idx) => {
-                return (
-                  <AssetTableRow
-                    key={row.name}
-                    idx={idx}
-                    row={row}
-                    changeRow={(row) => {
-                      asset[idx] = row;
-                      setAsset([...asset]);
-                    }}
-                    setChecked={(chk) => {
-                      checked[idx] = chk;
-                      setChecked([...checked]);
-                    }}
-                    checked={checked[idx]}
-                    insertAsset={insertAsset}
-                    insertIdx={insertIdx}
-                    setInsertIdx={setInsertIdx}
-                    placeholder={placeholder}
-                    setPlaceholder={setPlaceholder}
-                  />
-                );
-              })}
-
-              <TableRow
-                sx={{
-                  borderTop: "2px solid gray",
-                }}
-              >
-                <TableCell colSpan="6" align="center">
-                  합계
-                </TableCell>
-                <TableCell>
-                  <PriceBox price={sum("price")} />
-                </TableCell>
-                <TableCell>
-                  <PriceBox price={sum("currentPrice")} />
-                </TableCell>
-                <EarningRateTableCell
-                  buyPrice={sum("price")}
-                  evalPrice={sum("currentPrice")}
-                />
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-              </TableRow>
-
-              {/* <TableRow
-                id="placeholder"
-                draggable="true"
-                onDragOver={(e) => {
-                  e.preventDefault();
-                }}
-              >
-                <TableCell
-                  colSpan="12"
-                  align="center"
-                  sx={{ backgroundColor: "rgba(160,218,169,1)" }}
+                <TableRow
+                  sx={{
+                    borderTop: "2px solid gray",
+                  }}
                 >
-                  여기에 삽입됩니다.
-                </TableCell>
-              </TableRow> */}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                  <TableCell colSpan="6" align="center">
+                    합계
+                  </TableCell>
+                  <TableCell>
+                    <PriceBox price={sum("buyPrice")} />
+                  </TableCell>
+                  <TableCell>
+                    <PriceBox price={sum("sellPrice")} />
+                  </TableCell>
+                  <EarningRateTableCell
+                    buyPrice={sum("buyPrice")}
+                    evalPrice={sum("sellPrice")}
+                  />
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
       </Box>
     </Box>
   );

@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 
-interface UserInfo {
+export interface UserInfo {
   uid: number;
   email: string;
 }
@@ -44,6 +44,7 @@ export class AuthService {
         email,
       };
     } catch (e) {
+      console.log(e);
       throw new UnauthorizedException('Verify Failed. JWT Token is invalid');
     }
   }

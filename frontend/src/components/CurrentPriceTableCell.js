@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TableCell from "@mui/material/TableCell";
-import { TaskAlt } from "@mui/icons-material";
+import { TaskAlt, TryRounded } from "@mui/icons-material";
 import PriceBox from "./PriceBox";
 import { Box } from "@mui/material";
 
@@ -54,10 +54,10 @@ const CurrentPriceTableCell = ({
         fontWeight: "bold",
         cursor: "pointer",
       }}
-      onDoubleClick={() => setIsUpdateNow()}
+      onDoubleClick={() => setIsUpdateNow(true)}
     >
       <PriceBox price={content}>
-        <TaskAlt color="success" />
+        <TaskAlt color="success" onClick={() => setIsUpdateNow(false)} />
       </PriceBox>
     </TableCell>
   );

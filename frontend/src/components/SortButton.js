@@ -11,6 +11,7 @@ const SortButton = ({ text, sortAscend, sortDescend, focus, setFocus }) => {
       sx={{
         cursor: "pointer",
         display: "inline",
+        position: "relative",
       }}
       onClick={() => {
         setFocus();
@@ -20,9 +21,11 @@ const SortButton = ({ text, sortAscend, sortDescend, focus, setFocus }) => {
       }}
     >
       {text}
-      {focus ? (
-        <Icon>{!ascend ? <ArrowDownward /> : <ArrowUpward />}</Icon>
-      ) : null}
+      <Box sx={{ display: "inline", position: "absolute" }}>
+        {focus ? (
+          <Icon>{!ascend ? <ArrowDownward /> : <ArrowUpward />}</Icon>
+        ) : null}
+      </Box>
     </Box>
   );
 };

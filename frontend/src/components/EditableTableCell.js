@@ -9,6 +9,7 @@ const EditableTableCell = ({
   content,
   changeCol,
   align,
+  assetCode = undefined,
   type = "number",
   edit = false,
   setIsUpdateNow = () => {},
@@ -83,7 +84,7 @@ const EditableTableCell = ({
             autoFocus
           />
         ) : type === "price" ? (
-          edit ? (
+          assetCode !== undefined ? (
             <PriceBox price={text}>
               <TaskAlt color="disable" onClick={() => setIsUpdateNow()} />
             </PriceBox>

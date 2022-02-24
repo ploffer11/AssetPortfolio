@@ -40,6 +40,7 @@ export class UsersController {
   @Post('/login')
   async login(@Body() dto: UserLoginDto): Promise<Object> {
     const { email, password } = dto;
+    console.log('[POST] /users/login ');
     return this.usersService.login(email, password);
   }
 }

@@ -7,7 +7,7 @@ import Checkbox from "@mui/material/Checkbox";
 import EditableTableCell from "./EditableTableCell";
 import EarningRateTableCell from "./EarningRateTableCell";
 import CurrentPriceTableCell from "./CurrentPriceTableCell";
-import getAssetCode from "../CompanyManager";
+import getAssetCode from "../company";
 import PriceBox from "./PriceBox";
 
 const AssetTableRow = ({
@@ -23,9 +23,27 @@ const AssetTableRow = ({
 }) => {
   const ref = useRef(null);
   const [edit, setEdit] = useState(false);
+  let {
+    idx,
+    name,
+    buyPrice,
+    sellPrice,
+    count,
+    buyDate,
+    sellDate,
+    goalDate,
+    isUpdateNow,
+  } = row;
 
   const closure = (colName) => {
     return (newCol) => {
+      if (
+        colName === "name" &&
+        isUpdateNow === false &&
+        getAssetCode(newCol) !== undefined
+      ) {
+        isUpdateNow = true;
+      }
       row[colName] = newCol;
       changeRow(row);
     };
@@ -33,16 +51,16 @@ const AssetTableRow = ({
 
   return (
     <TableRow
-      key={row.name}
+      key={name}
       sx={{
         backgroundColor:
-          row.name === "새로운 자산" ? "rgba(221,220,218,1)" : "transparent",
+          name === "새로운 자산" ? "rgba(221,220,218,1)" : "transparent",
       }}
       ref={ref}
       draggable="true"
       onDragStart={(e) => {
         console.log("DRAG START", e.nativeEvent.path);
-        setInsertIdx(row.idx - 1);
+        setInsertIdx(idx - 1);
 
         let copyRow = ref.current.cloneNode(true);
         copyRow.style.display = "none";
@@ -56,10 +74,10 @@ const AssetTableRow = ({
         ref.current.style.opacity = 0.3;
       }}
       onDragEnd={(e) => {
-        console.log("DRAG END", row.idx - 1, insertIdx);
-        if (!(row.idx - 1 === insertIdx || row.idx === insertIdx)) {
+        console.log("DRAG END", idx - 1, insertIdx);
+        if (!(idx - 1 === insertIdx || idx === insertIdx)) {
           ref.current.parentNode.insertBefore(ref.current, placeholder);
-          insertAsset(row.idx - 1, insertIdx);
+          insertAsset(idx - 1, insertIdx);
         }
         placeholder.parentNode.removeChild(placeholder);
         ref.current.style.opacity = 1;
@@ -98,38 +116,38 @@ const AssetTableRow = ({
           onChange={(e) => setChecked(e.target.checked)}
         />
       </TableCell>
-      <TableCell sx={{ width: "40px" }}>{row.idx}</TableCell>
+      <TableCell sx={{ width: "40px" }}>{idx}</TableCell>
 
       <EditableTableCell
-        content={row.name}
+        content={name}
         type="text"
         changeCol={closure("name")}
       />
 
       <EditableTableCell
-        content={row.count}
+        content={count}
         changeCol={closure("count")}
         align="right"
       />
       <EditableTableCell
-        content={row.price}
-        changeCol={closure("price")}
+        content={buyPrice}
+        changeCol={closure("buyPrice")}
         type="price"
       />
-      {row.isUpdateNow && getAssetCode(row.name) !== undefined ? (
+      {isUpdateNow && getAssetCode(name) !== undefined ? (
         <CurrentPriceTableCell
-          content={row.currentPrice}
-          assetCode={getAssetCode(row.name)}
-          changeCol={closure("currentPrice")}
-          setIsUpdateNow={() => {
-            setEdit(true);
+          content={sellPrice}
+          assetCode={getAssetCode(name)}
+          changeCol={closure("sellPrice")}
+          setIsUpdateNow={(edit) => {
+            setEdit(edit);
             closure("isUpdateNow")(false);
           }}
         />
       ) : (
         <EditableTableCell
-          content={row.currentPrice}
-          changeCol={closure("currentPrice")}
+          content={sellPrice}
+          changeCol={closure("sellPrice")}
           questionMark
           type="price"
           edit={edit}
@@ -137,30 +155,31 @@ const AssetTableRow = ({
             setEdit(false);
             closure("isUpdateNow")(true);
           }}
+          assetCode={getAssetCode(name)}
         />
       )}
       <TableCell>
-        <PriceBox price={row.price * row.count} />
+        <PriceBox price={buyPrice * count} />
       </TableCell>
       <TableCell>
-        <PriceBox price={row.currentPrice * row.count} />
+        <PriceBox price={sellPrice * count} />
       </TableCell>
       <EarningRateTableCell
-        buyPrice={row.price * row.count}
-        evalPrice={row.currentPrice * row.count}
+        buyPrice={buyPrice * count}
+        evalPrice={sellPrice * count}
       />
       <EditableTableCell
-        content={row.buyDate}
+        content={buyDate}
         type="date"
         changeCol={closure("buyDate")}
       />
       <EditableTableCell
-        content={row.goalDate}
+        content={goalDate}
         type="date"
         changeCol={closure("goalDate")}
       />
       <EditableTableCell
-        content={row.sellDate}
+        content={sellDate}
         type="date"
         changeCol={closure("sellDate")}
       />
