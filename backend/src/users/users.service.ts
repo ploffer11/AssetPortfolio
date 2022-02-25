@@ -65,14 +65,15 @@ export class UsersService {
 
     user.signupVerifyToken = null;
     await this.userRepository.save(user);
-    return {
-      statusCode: 200,
-      message: 'OK, Complete email verify',
-    };
+    // return {
+    //   statusCode: 200,
+    //   message: 'OK, Complete email verify. Back to page and sign in!',
+    // };
+    return '<h1>이메일 인증에 성공했어요! 이제 로그인을 해보세요.</h1>';
   }
 
   /**
-   * 로그인이 성공적으로 된 경우 토큰을 전달
+   * 로그인이 성공적으로 된 경우 토큰, uid, 이름을 전달
    * @param email
    * @param plainPassword
    * @returns
@@ -92,7 +93,7 @@ export class UsersService {
       return {
         statusCode: 200,
         message: 'OK, Login Completed',
-        token: 'Bearer ' + this.authService.login({ uid, email }),
+        authorization: 'Bearer ' + this.authService.login({ uid, email }),
         uid,
         name,
       };

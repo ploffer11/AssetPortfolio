@@ -47,8 +47,15 @@ const SignInDialog = ({ open = false, setOpen, setCookie }) => {
         console.log(res);
         setLoading(false);
         setOpen(false);
-        setCookie("uid", res.data.uid);
-        setCookie("token", res.data.token);
+
+        let expireDate = new Date();
+        expireDate.setMinutes(expireDate.getMinutes() + 29);
+
+        // setCookie("uid", res.data.uid, { path: "/", expires: expireDate });
+        setCookie("authorization", res.data.authorization, {
+          path: "/",
+          expires: expireDate,
+        });
         setClear();
       })
       .catch((err) => {

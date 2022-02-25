@@ -25,7 +25,10 @@ const MainPage = () => {
   const [currentView, setCurrentView] = useState("main");
   const [signInOpen, setSignInOpen] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
-  const [cookies, setCookie] = useCookies(["uid", "token"]);
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "uid",
+    "authorization",
+  ]);
 
   return (
     <div>
@@ -46,15 +49,27 @@ const MainPage = () => {
               Asset Portfolio
             </Button>
             <Box sx={{ flexGrow: 1 }}></Box>
-            {cookies.token ? (
+            {cookies.authorization ? (
               <Box sx={{ color: "black" }}>
                 {/* Welcome {name}! */}
                 <Button
                   variant="outlined"
                   size="large"
                   onClick={() => setCurrentView("portfolio")}
+                  sx={{ marginRight: "1vw" }}
                 >
                   포트폴리오
+                </Button>
+                <Button
+                  variant="outlined"
+                  size="large"
+                  onClick={() => {
+                    removeCookie("authorization");
+                    removeCookie("uid");
+                    removeCookie("name");
+                  }}
+                >
+                  로그아웃
                 </Button>
               </Box>
             ) : (

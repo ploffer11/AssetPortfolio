@@ -38,14 +38,14 @@ export class AssetController {
     return this.assetService.insertAsset(asset);
   }
 
-  @Patch()
-  updateAsset(@Body() updateAssetDto: UpdateAssetDto) {
-    return;
-  }
-
-  @Patch()
-  swapAsset(@Body() swapAssetDto) {
-    return;
+  @Post('/delete')
+  deleteAsset(
+    @Body() deleteAssetDto,
+    @Body('authorization', ParseTokenPipe) { uid },
+  ) {
+    let lastIndex: number = deleteAssetDto['index'];
+    console.log('[POST] /asset/delete');
+    return this.assetService.deleteAsset(uid, lastIndex);
   }
 
   @Post('/all')

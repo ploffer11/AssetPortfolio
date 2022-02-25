@@ -1,4 +1,5 @@
 # Be Rich
+
 Manage your assets online using "Asset Portfolio"
 
 <br/>
@@ -7,6 +8,8 @@ Manage your assets online using "Asset Portfolio"
 
 - React.js
 - Material UI
+- Axios
+- React-Cookie
 
 <br/>
 

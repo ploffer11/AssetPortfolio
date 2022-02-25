@@ -103,24 +103,25 @@ const useAsset = () => {
   //   "2030-01-01",
   //   null
   // ),
-  const [cookies, setCookie] = useCookies(["uid", "token"]);
+  const [cookies, setCookie] = useCookies(["uid", "authorization"]);
   useEffect(() => {
     axios
       .post(
         process.env.REACT_APP_SERVER_HOST + "/asset/all",
         {
-          authorization: cookies.token,
+          authorization: cookies.authorization,
         },
         {
           headers: {
             "Content-Type": "application/json",
-            authorization: cookies.token,
+            authorization: cookies.authorization,
           },
+          // withCredentials: true
         }
       )
       .then((res) => {
         console.log(res);
-        setAsset(res.data);
+        setAsset(res.data.sort((x, y) => x.index - y.index));
       })
       .catch((err) => {
         console.log(err.response);

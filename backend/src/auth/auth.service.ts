@@ -19,9 +19,9 @@ export class AuthService {
     const payload = { ...user };
 
     return jwt.sign(payload, process.env.SECRET_KEY, {
-      expiresIn: '1d',
-      audience: 'example.com',
-      issuer: 'example.net',
+      expiresIn: '30m',
+      audience: 'Asset Portfolio Frontend',
+      issuer: 'Asset Portfolio Backend',
     });
   }
 

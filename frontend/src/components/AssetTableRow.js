@@ -59,13 +59,14 @@ const AssetTableRow = ({
       ref={ref}
       draggable="true"
       onDragStart={(e) => {
-        console.log("DRAG START", e.nativeEvent.path);
+        console.log("DRAG START");
         setInsertIdx(index - 1);
 
         let copyRow = ref.current.cloneNode(true);
         copyRow.style.display = "none";
         copyRow.style.backgroundColor = "rgba(160,218,169,1)";
         ref.current.parentNode.appendChild(copyRow);
+        ref.current.onDragOver = null;
         setPlaceholder(copyRow);
 
         e.dataTransfer.effectAllowed = "move";
@@ -76,6 +77,7 @@ const AssetTableRow = ({
       onDragEnd={(e) => {
         console.log("DRAG END", index - 1, insertIdx);
         if (!(index - 1 === insertIdx || index === insertIdx)) {
+          console.log("insert asset called");
           ref.current.parentNode.insertBefore(ref.current, placeholder);
           insertAsset(index - 1, insertIdx);
         }
@@ -86,22 +88,14 @@ const AssetTableRow = ({
         e.preventDefault();
         if (e.target.tagName === "TD") {
           placeholder.style.display = "table-row";
-          let insertElement = e.target.parentNode;
+          let insertElement = ref.current;
           if (e.nativeEvent.offsetY > e.target.parentNode.clientHeight / 2) {
             insertElement = insertElement.nextSibling;
+            setInsertIdx(index);
+          } else {
+            setInsertIdx(index - 1);
           }
-
-          e.target.parentNode.parentNode.insertBefore(
-            placeholder,
-            insertElement
-          );
-
-          if (insertElement.firstChild.nextSibling !== null) {
-            let currentIdx =
-              +insertElement.firstChild.nextSibling.innerText - 1;
-            if (insertIdx !== currentIdx)
-              setInsertIdx(+insertElement.firstChild.nextSibling.innerText - 1);
-          }
+          insertElement.parentNode.insertBefore(placeholder, insertElement);
         }
       }}
     >

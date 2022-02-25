@@ -30,7 +30,7 @@ const AssetTable = () => {
   const [insertIdx, setInsertIdx] = useState(null);
   const [placeholder, setPlaceholder] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [cookies, setCookie] = useCookies(["token"]);
+  const [cookies, setCookie] = useCookies(["authorization"]);
 
   const sum = (str) => {
     return asset.reduce((sum, row) => sum + row[str] * row["count"], 0);
@@ -38,7 +38,7 @@ const AssetTable = () => {
 
   useEffect(() => {
     setChecked(new Array(asset.length).fill(false));
-  }, []);
+  }, [asset]);
 
   const columnName = [
     ["#", "left"],
@@ -95,24 +95,39 @@ const AssetTable = () => {
             variant="outlined"
             color="secondary"
             size="large"
-            onClick={() => {
+            onClick={async () => {
               setLoading(true);
               try {
+                console.log(asset, "save");
                 asset.map(async (row) => {
                   await axios.post(
                     process.env.REACT_APP_SERVER_HOST + "/asset",
                     {
                       asset: row,
-                      authorization: cookies.token,
+                      authorization: cookies.authorization,
                     },
                     {
                       headers: {
                         "Content-Type": "application/json",
-                        authorization: cookies.token,
+                        authorization: cookies.authorization,
                       },
                     }
                   );
                 });
+
+                let res = await axios.post(
+                  process.env.REACT_APP_SERVER_HOST + "/asset/delete",
+                  {
+                    index: asset.length,
+                    authorization: cookies.authorization,
+                  },
+                  {
+                    headers: {
+                      "Content-Type": "application/json",
+                      authorization: cookies.authorization,
+                    },
+                  }
+                );
                 setLoading(false);
               } catch (e) {}
             }}
@@ -151,7 +166,7 @@ const AssetTable = () => {
                     return !checked[idx];
                   })
                   .map((row, idx) => {
-                    row.idx = idx + 1;
+                    row.index = idx + 1;
                     return row;
                   })
               );
@@ -226,6 +241,16 @@ const AssetTable = () => {
                           focus={focus === idx}
                           setFocus={() => setFocus(idx)}
                           sortAscend={() => {
+                            console.log(
+                              [
+                                ...asset.sort((x, y) => {
+                                  return compare(getValueArray[idx], x, y);
+                                }),
+                              ].map((row, idx) => {
+                                row.index = idx + 1;
+                                return row;
+                              })
+                            );
                             setAsset(
                               [
                                 ...asset.sort((x, y) => {
@@ -260,7 +285,7 @@ const AssetTable = () => {
                 {asset.map((row, idx) => {
                   return (
                     <AssetTableRow
-                      key={row.name}
+                      key={row.index}
                       idx={idx}
                       row={row}
                       changeRow={(row) => {

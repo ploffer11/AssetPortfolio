@@ -35,7 +35,7 @@ const SignUpDialog = ({ open = false, setOpen }) => {
   const submit = () => {
     if (password !== checkPassword) {
       setFailMsg("비밀번호가 동일하지 않습니다. 비밀번호를 확인해주세요.");
-    } else if (!(8 <= password && password <= 20)) {
+    } else if (!(8 <= password.length && password.length <= 20)) {
       setFailMsg("비밀번호는 8자리 ~ 20자리로 설정해주세요.");
     } else {
       setLoading(true);
@@ -43,6 +43,7 @@ const SignUpDialog = ({ open = false, setOpen }) => {
         .post(
           process.env.REACT_APP_SERVER_HOST + "/users",
           {
+            name,
             email,
             password,
           },
