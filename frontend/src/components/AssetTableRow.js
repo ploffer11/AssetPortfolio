@@ -24,7 +24,7 @@ const AssetTableRow = ({
   const ref = useRef(null);
   const [edit, setEdit] = useState(false);
   let {
-    idx,
+    index,
     name,
     buyPrice,
     sellPrice,
@@ -60,7 +60,7 @@ const AssetTableRow = ({
       draggable="true"
       onDragStart={(e) => {
         console.log("DRAG START", e.nativeEvent.path);
-        setInsertIdx(idx - 1);
+        setInsertIdx(index - 1);
 
         let copyRow = ref.current.cloneNode(true);
         copyRow.style.display = "none";
@@ -74,10 +74,10 @@ const AssetTableRow = ({
         ref.current.style.opacity = 0.3;
       }}
       onDragEnd={(e) => {
-        console.log("DRAG END", idx - 1, insertIdx);
-        if (!(idx - 1 === insertIdx || idx === insertIdx)) {
+        console.log("DRAG END", index - 1, insertIdx);
+        if (!(index - 1 === insertIdx || index === insertIdx)) {
           ref.current.parentNode.insertBefore(ref.current, placeholder);
-          insertAsset(idx - 1, insertIdx);
+          insertAsset(index - 1, insertIdx);
         }
         placeholder.parentNode.removeChild(placeholder);
         ref.current.style.opacity = 1;
@@ -116,7 +116,7 @@ const AssetTableRow = ({
           onChange={(e) => setChecked(e.target.checked)}
         />
       </TableCell>
-      <TableCell sx={{ width: "40px" }}>{idx}</TableCell>
+      <TableCell sx={{ width: "40px" }}>{index}</TableCell>
 
       <EditableTableCell
         content={name}
@@ -172,16 +172,19 @@ const AssetTableRow = ({
         content={buyDate}
         type="date"
         changeCol={closure("buyDate")}
+        align="center"
       />
       <EditableTableCell
         content={goalDate}
         type="date"
         changeCol={closure("goalDate")}
+        align="center"
       />
       <EditableTableCell
         content={sellDate}
         type="date"
         changeCol={closure("sellDate")}
+        align="center"
       />
     </TableRow>
   );

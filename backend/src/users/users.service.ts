@@ -67,7 +67,7 @@ export class UsersService {
     await this.userRepository.save(user);
     return {
       statusCode: 200,
-      message: 'Complete email verify',
+      message: 'OK, Complete email verify',
     };
   }
 
@@ -91,7 +91,7 @@ export class UsersService {
     if (this.checkPasswordRight(salt, password, plainPassword)) {
       return {
         statusCode: 200,
-        message: 'Login Completed',
+        message: 'OK, Login Completed',
         token: 'Bearer ' + this.authService.login({ uid, email }),
         uid,
         name,

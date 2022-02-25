@@ -10,12 +10,16 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { Add, Remove, SaveAlt } from "@mui/icons-material";
 
 import AssetTableRow from "./AssetTableRow";
 import EarningRateTableCell from "./EarningRateTableCell";
 import SortButton from "./SortButton";
 import useAsset from "../hook/useAsset";
 import PriceBox from "./PriceBox";
+import axios from "axios";
+import { useCookies } from "react-cookie";
 
 const AssetTable = () => {
   const [asset, setAsset, createAsset, addAsset, insertAsset] = useAsset();
@@ -25,6 +29,8 @@ const AssetTable = () => {
   const [focus, setFocus] = useState(-1);
   const [insertIdx, setInsertIdx] = useState(null);
   const [placeholder, setPlaceholder] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [cookies, setCookie] = useCookies(["token"]);
 
   const sum = (str) => {
     return asset.reduce((sum, row) => sum + row[str] * row["count"], 0);
@@ -49,7 +55,7 @@ const AssetTable = () => {
   ];
 
   const getValueArray = [
-    (row) => row["idx"],
+    (row) => row["index"],
     (row) => row["name"],
     (row) => row["count"],
     (row) => row["buyPrice"],
@@ -84,21 +90,53 @@ const AssetTable = () => {
         <Box sx={{ display: "flex" }}>
           <Box sx={{ flexGrow: 1 }}></Box>
 
+          <LoadingButton
+            loading={loading}
+            variant="outlined"
+            color="secondary"
+            size="large"
+            onClick={() => {
+              setLoading(true);
+              try {
+                asset.map(async (row) => {
+                  await axios.post(
+                    process.env.REACT_APP_SERVER_HOST + "/asset",
+                    {
+                      asset: row,
+                      authorization: cookies.token,
+                    },
+                    {
+                      headers: {
+                        "Content-Type": "application/json",
+                        authorization: cookies.token,
+                      },
+                    }
+                  );
+                });
+                setLoading(false);
+              } catch (e) {}
+            }}
+          >
+            <SaveAlt sx={{ marginRight: "10px" }} />
+            Save
+          </LoadingButton>
           <Button
+            sx={{ width: "12rem", marginRight: "20px", marginLeft: "20px" }}
             variant="outlined"
             color="success"
             size="large"
             onClick={() => {
-              addAsset(`새로운 자산 ` + count, 0, 0, 0, "-", "-", "-");
+              addAsset(`새로운 자산 ` + count, 0, 0, 0, null, null, null);
               setChecked(checked.concat(false));
               setCount(count + 1);
             }}
           >
+            <Add sx={{ marginRight: "10px" }} />
             Add Asset
           </Button>
 
           <Button
-            sx={{ marginLeft: "20px" }}
+            sx={{ width: "12rem" }}
             variant="outlined"
             color="error"
             size="large"
@@ -121,6 +159,7 @@ const AssetTable = () => {
               setChecked(new Array(count).fill(false));
             }}
           >
+            <Remove sx={{ marginRight: "10px" }} />
             Delete Asset
           </Button>
         </Box>
@@ -187,17 +226,27 @@ const AssetTable = () => {
                           focus={focus === idx}
                           setFocus={() => setFocus(idx)}
                           sortAscend={() => {
-                            setAsset([
-                              ...asset.sort((x, y) => {
-                                return compare(getValueArray[idx], x, y);
-                              }),
-                            ]);
+                            setAsset(
+                              [
+                                ...asset.sort((x, y) => {
+                                  return compare(getValueArray[idx], x, y);
+                                }),
+                              ].map((row, idx) => {
+                                row.index = idx + 1;
+                                return row;
+                              })
+                            );
                           }}
                           sortDescend={() => {
                             setAsset([
-                              ...asset.sort((x, y) => {
-                                return -compare(getValueArray[idx], x, y);
-                              }),
+                              ...asset
+                                .sort((x, y) => {
+                                  return -compare(getValueArray[idx], x, y);
+                                })
+                                .map((row, idx) => {
+                                  row.index = idx + 1;
+                                  return row;
+                                }),
                             ]);
                           }}
                         />

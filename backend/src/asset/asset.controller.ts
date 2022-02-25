@@ -28,8 +28,13 @@ export class AssetController {
   ) {}
 
   @Post()
-  insertAsset(@Body() insertAssetDto) {
+  insertAsset(
+    @Body() insertAssetDto,
+    @Body('authorization', ParseTokenPipe) { uid },
+  ) {
     let asset: AssetEntity = insertAssetDto['asset'];
+    asset['uid'] = uid;
+    console.log('[POST] /asset', asset);
     return this.assetService.insertAsset(asset);
   }
 

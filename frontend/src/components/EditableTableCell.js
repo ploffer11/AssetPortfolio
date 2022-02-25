@@ -92,7 +92,7 @@ const EditableTableCell = ({
             <PriceBox price={text} />
           )
         ) : (
-          <Box>{text.toLocaleString()}</Box>
+          <Box>{text !== null ? text.toLocaleString() : "-"}</Box>
         )}
       </Box>
     </TableCell>

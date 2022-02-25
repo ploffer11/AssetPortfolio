@@ -4,18 +4,18 @@ import { useCookies } from "react-cookie";
 
 const useAsset = () => {
   const createAsset = (
-    idx,
+    index,
     name,
     buyPrice,
     count,
     sellPrice = 0,
-    buyDate = "-",
-    goalDate = "-",
-    sellDate = "-",
+    buyDate = null,
+    goalDate = null,
+    sellDate = null,
     isUpdateNow = true
   ) => {
     return {
-      idx,
+      index,
       name,
       buyPrice,
       count,
@@ -32,9 +32,9 @@ const useAsset = () => {
     buyPrice,
     count,
     sellPrice = 0,
-    buyDate = "-",
-    goalDate = "-",
-    sellDate = "-"
+    buyDate = null,
+    goalDate = null,
+    sellDate = null
   ) => {
     setAsset(
       asset.concat(
@@ -64,7 +64,7 @@ const useAsset = () => {
 
     setAsset(
       asset.map((row, idx) => {
-        row.idx = idx + 1;
+        row.index = idx + 1;
         return row;
       })
     );
@@ -81,8 +81,8 @@ const useAsset = () => {
   //   "2030-01-01",
   //   "2025-01-01"
   // ),
-  // createAsset(2, "삼성전자", 61000, 10, 0, "2022-01-01", "2030-01-01", "-"),
-  // createAsset(3, "SK하이닉스", 81000, 20, 0, "2022-01-01", "2030-01-01", "-"),
+  // createAsset(2, "삼성전자", 61000, 10, 0, "2022-01-01", "2030-01-01", null),
+  // createAsset(3, "SK하이닉스", 81000, 20, 0, "2022-01-01", "2030-01-01", null),
   // createAsset(
   //   4,
   //   "LG에너지솔루션",
@@ -91,7 +91,7 @@ const useAsset = () => {
   //   0,
   //   "2022-01-01",
   //   "2030-01-01",
-  //   "-"
+  //   null
   // ),
   // createAsset(
   //   5,
@@ -101,7 +101,7 @@ const useAsset = () => {
   //   300000,
   //   "2022-01-01",
   //   "2030-01-01",
-  //   "-"
+  //   null
   // ),
   const [cookies, setCookie] = useCookies(["uid", "token"]);
   useEffect(() => {
@@ -125,6 +125,7 @@ const useAsset = () => {
       .catch((err) => {
         console.log(err.response);
       });
+    console.log("use Asset");
   }, []);
 
   return [asset, setAsset, createAsset, addAsset, insertAsset];

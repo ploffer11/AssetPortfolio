@@ -17,7 +17,7 @@ export class AssetService {
   }
 
   async insertAsset(asset: AssetEntity) {
-    console.log(asset);
+    console.log(asset.name, 'insert to DB');
     await this.assetRepository.save(asset).then((asset) => {
       console.log('[AssetService] Save Asset', asset);
     });
