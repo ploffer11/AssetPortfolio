@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   Res,
+  Redirect,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { AuthService } from 'src/auth/auth.service';
@@ -30,10 +31,11 @@ export class UsersController {
     return this.usersService.createUser(name, email, password);
   }
 
-  @Post('/email-verify')
+  @Redirect(`${process.env.FRONTEND_URL}/login`, 301)
+  @Get('/email-verify')
   async verifyEmail(@Query() dto: VerifyEmailDto): Promise<Object> {
     const { signupVerifyToken } = dto;
-    console.log('[POST] /email-verify', signupVerifyToken);
+    console.log('[GET] /email-verify', signupVerifyToken);
     return this.usersService.verifyUser(signupVerifyToken.toString());
   }
 

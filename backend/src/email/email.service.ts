@@ -27,18 +27,14 @@ export class EmailService {
     emailAddress: string,
     signupVerifyToken: string,
   ) {
-    const baseUrl = process.env.BACKEND_URL;
-
-    const url = `${baseUrl}/users/email-verify?signupVerifyToken=${signupVerifyToken}`;
+    const url = `${process.env.BACKEND_URL}/users/email-verify?signupVerifyToken=${signupVerifyToken}`;
 
     const mailOptions: EmailOptions = {
       to: emailAddress,
-      subject: '가입 인증 메일',
+      subject: 'Asset Portfolio 가입 인증 메일',
       html: `
-        가입확인 버튼를 누르시면 가입 인증이 완료됩니다.<br/>
-        <form action="${url}" method="POST">
-          <button>가입확인</button>
-        </form>
+        가입확인 버튼를 누르시면 가입 인증이 완료됩니다. <br/>
+        <a href="${url}" target="_self">${url}</a>
       `,
     };
 

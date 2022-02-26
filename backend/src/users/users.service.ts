@@ -65,11 +65,10 @@ export class UsersService {
 
     user.signupVerifyToken = null;
     await this.userRepository.save(user);
-    // return {
-    //   statusCode: 200,
-    //   message: 'OK, Complete email verify. Back to page and sign in!',
-    // };
-    return '<h1>이메일 인증에 성공했어요! 이제 로그인을 해보세요.</h1>';
+    return {
+      message: 'OK, Complete email verify. Back to page and sign in!',
+    };
+    // return {message: ""};
   }
 
   /**
