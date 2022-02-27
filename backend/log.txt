@@ -1,0 +1,1645 @@
+env production 192.168.0.20
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEmailModule dependencies initialized[39m[38;5;3m +376ms[39m
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypeOrmModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypeOrmCoreModule dependencies initialized[39m[38;5;3m +202ms[39m
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypeOrmModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypeOrmModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mUsersModule dependencies initialized[39m[38;5;3m +5ms[39m
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAssetModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +67ms[39m
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +11ms[39m
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mUsersController {/users}:[39m[38;5;3m +2ms[39m
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users, POST} route[39m[38;5;3m +4ms[39m
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/email-verify, GET} route[39m[38;5;3m +3ms[39m
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/login, POST} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAssetController {/asset}:[39m[38;5;3m +2ms[39m
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/asset, POST} route[39m[38;5;3m +3ms[39m
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/asset/delete, POST} route[39m[38;5;3m +3ms[39m
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/asset/all, POST} route[39m[38;5;3m +4ms[39m
+[32m[Nest] 5565  - [39m02/27/2022, 5:04:01 PM [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +12ms[39m
+[AuthGuard] Auth Success
+{ uid: 10, email: 'coano2000@gmail.com' }
+[POST] /asset/all
+[AssetService] all asset []
+[AuthGuard] Auth Success
+{ uid: 10, email: 'coano2000@gmail.com' }
+[POST] /asset {
+  index: 1,
+  name: '새로운 자산 1',
+  buyPrice: 0,
+  count: 0,
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true,
+  sellPrice: 0,
+  uid: 10
+}
+새로운 자산 1 insert to DB
+[AuthGuard] Auth Success
+{ uid: 10, email: 'coano2000@gmail.com' }
+[POST] /asset {
+  index: 2,
+  name: '새로운 자산 2',
+  buyPrice: 0,
+  count: 0,
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true,
+  sellPrice: 0,
+  uid: 10
+}
+새로운 자산 2 insert to DB
+[AuthGuard] Auth Success
+{ uid: 10, email: 'coano2000@gmail.com' }
+[POST] /asset {
+  index: 3,
+  name: '새로운 자산 3',
+  buyPrice: 0,
+  count: 0,
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true,
+  sellPrice: 0,
+  uid: 10
+}
+새로운 자산 3 insert to DB
+[AuthGuard] Auth Success
+{ uid: 10, email: 'coano2000@gmail.com' }
+[POST] /asset/delete
+[AssetService] Save Asset {
+  index: 1,
+  name: '새로운 자산 1',
+  buyPrice: 0,
+  count: 0,
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true,
+  sellPrice: 0,
+  uid: 10
+}
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 3
+[AssetService] Save Asset {
+  index: 2,
+  name: '새로운 자산 2',
+  buyPrice: 0,
+  count: 0,
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true,
+  sellPrice: 0,
+  uid: 10
+}
+[AssetService] Save Asset {
+  index: 3,
+  name: '새로운 자산 3',
+  buyPrice: 0,
+  count: 0,
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true,
+  sellPrice: 0,
+  uid: 10
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/all
+[AssetService] all asset []
+[AuthGuard] Auth Success
+{ uid: 10, email: 'coano2000@gmail.com' }
+[POST] /asset/all
+[AssetService] all asset [
+  AssetEntity {
+    index: 1,
+    uid: 10,
+    count: 0,
+    buyPrice: 0,
+    sellPrice: 0,
+    name: '새로운 자산 1',
+    buyDate: null,
+    goalDate: null,
+    sellDate: null,
+    isUpdateNow: true
+  },
+  AssetEntity {
+    index: 2,
+    uid: 10,
+    count: 0,
+    buyPrice: 0,
+    sellPrice: 0,
+    name: '새로운 자산 2',
+    buyDate: null,
+    goalDate: null,
+    sellDate: null,
+    isUpdateNow: true
+  },
+  AssetEntity {
+    index: 3,
+    uid: 10,
+    count: 0,
+    buyPrice: 0,
+    sellPrice: 0,
+    name: '새로운 자산 3',
+    buyDate: null,
+    goalDate: null,
+    sellDate: null,
+    isUpdateNow: true
+  }
+]
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  name: '김또지',
+  buyPrice: 1,
+  count: 6,
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true,
+  sellPrice: 0,
+  uid: 12
+}
+김또지 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 2 } 1
+[AssetService] Save Asset {
+  index: 1,
+  name: '김또지',
+  buyPrice: 1,
+  count: 6,
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true,
+  sellPrice: 0,
+  uid: 12
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/all
+[AssetService] all asset [
+  AssetEntity {
+    index: 1,
+    uid: 12,
+    count: 6,
+    buyPrice: 1,
+    sellPrice: 0,
+    name: '김또지',
+    buyDate: null,
+    goalDate: null,
+    sellDate: null,
+    isUpdateNow: true
+  }
+]
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AuthGuard] Auth Success
+{ uid: 10, email: 'coano2000@gmail.com' }
+[POST] /asset {
+  index: 1,
+  uid: 10,
+  count: 123123,
+  buyPrice: 10000,
+  sellPrice: 15000,
+  name: '이재명바보임?',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+이재명바보임? insert to DB
+[AuthGuard] Auth Success
+{ uid: 10, email: 'coano2000@gmail.com' }
+[POST] /asset {
+  index: 2,
+  uid: 10,
+  count: 0,
+  buyPrice: 0,
+  sellPrice: 0,
+  name: '새로운 자산 2',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+새로운 자산 2 insert to DB
+[AuthGuard] Auth Success
+{ uid: 10, email: 'coano2000@gmail.com' }
+[POST] /asset {
+  index: 3,
+  uid: 10,
+  count: 0,
+  buyPrice: 0,
+  sellPrice: 0,
+  name: '새로운 자산 3',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+새로운 자산 3 insert to DB
+[AuthGuard] Auth Success
+{ uid: 10, email: 'coano2000@gmail.com' }
+[POST] /asset/delete
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 3
+[AssetService] Save Asset {
+  index: 3,
+  uid: 10,
+  count: 0,
+  buyPrice: 0,
+  sellPrice: 0,
+  name: '새로운 자산 3',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AssetService] Save Asset {
+  index: 2,
+  uid: 10,
+  count: 0,
+  buyPrice: 0,
+  sellPrice: 0,
+  name: '새로운 자산 2',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AssetService] Save Asset {
+  index: 1,
+  uid: 10,
+  count: 123123,
+  buyPrice: 10000,
+  sellPrice: 15000,
+  name: '이재명바보임?',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 2 } 1
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/all
+[AssetService] all asset [
+  AssetEntity {
+    index: 1,
+    uid: 12,
+    count: 6,
+    buyPrice: 1,
+    sellPrice: 0,
+    name: '김또지',
+    buyDate: null,
+    goalDate: null,
+    sellDate: null,
+    isUpdateNow: true
+  }
+]
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/all
+[AssetService] all asset [
+  AssetEntity {
+    index: 1,
+    uid: 12,
+    count: 6,
+    buyPrice: 1,
+    sellPrice: 0,
+    name: '김또지',
+    buyDate: null,
+    goalDate: null,
+    sellDate: null,
+    isUpdateNow: true
+  }
+]
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/all
+[AssetService] all asset [
+  AssetEntity {
+    index: 1,
+    uid: 12,
+    count: 6,
+    buyPrice: 1,
+    sellPrice: 0,
+    name: '김또지',
+    buyDate: null,
+    goalDate: null,
+    sellDate: null,
+    isUpdateNow: true
+  }
+]
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 1
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/all
+[AssetService] all asset [
+  AssetEntity {
+    index: 1,
+    uid: 12,
+    count: 6,
+    buyPrice: 1,
+    sellPrice: 0,
+    name: '김또지',
+    buyDate: null,
+    goalDate: null,
+    sellDate: null,
+    isUpdateNow: true
+  }
+]
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/all
+[AssetService] all asset [
+  AssetEntity {
+    index: 1,
+    uid: 12,
+    count: 6,
+    buyPrice: 1,
+    sellPrice: 0,
+    name: '김또지',
+    buyDate: null,
+    goalDate: null,
+    sellDate: null,
+    isUpdateNow: true
+  }
+]
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/all
+[AssetService] all asset [
+  AssetEntity {
+    index: 1,
+    uid: 12,
+    count: 6,
+    buyPrice: 1,
+    sellPrice: 0,
+    name: '김또지',
+    buyDate: null,
+    goalDate: null,
+    sellDate: null,
+    isUpdateNow: true
+  }
+]
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 2,
+  name: '김또지',
+  buyPrice: 0,
+  count: 0,
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true,
+  sellPrice: 0,
+  uid: 12
+}
+김또지 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 2
+[AssetService] Save Asset {
+  index: 2,
+  name: '김또지',
+  buyPrice: 0,
+  count: 0,
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true,
+  sellPrice: 0,
+  uid: 12
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 4,
+  name: '새로운 자산 3',
+  buyPrice: 0,
+  count: 0,
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true,
+  sellPrice: 0,
+  uid: 12
+}
+새로운 자산 3 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 2,
+  name: '김또지',
+  buyPrice: 0,
+  count: 0,
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true,
+  sellPrice: 0,
+  uid: 12
+}
+김또지 insert to DB
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 3,
+  name: '새로운 자산 2',
+  buyPrice: 0,
+  count: 0,
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true,
+  sellPrice: 0,
+  uid: 12
+}
+새로운 자산 2 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 5,
+  name: '새로운 자산 4',
+  buyPrice: 0,
+  count: 0,
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true,
+  sellPrice: 0,
+  uid: 12
+}
+새로운 자산 4 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AssetService] Save Asset {
+  index: 2,
+  name: '김또지',
+  buyPrice: 0,
+  count: 0,
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true,
+  sellPrice: 0,
+  uid: 12
+}
+[AssetService] Save Asset {
+  index: 5,
+  name: '새로운 자산 4',
+  buyPrice: 0,
+  count: 0,
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true,
+  sellPrice: 0,
+  uid: 12
+}
+[AssetService] Save Asset {
+  index: 4,
+  name: '새로운 자산 3',
+  buyPrice: 0,
+  count: 0,
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true,
+  sellPrice: 0,
+  uid: 12
+}
+[AssetService] Save Asset {
+  index: 3,
+  name: '새로운 자산 2',
+  buyPrice: 0,
+  count: 0,
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true,
+  sellPrice: 0,
+  uid: 12
+}
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 0 } 5
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/all
+[AssetService] all asset [
+  AssetEntity {
+    index: 1,
+    uid: 12,
+    count: 6,
+    buyPrice: 1,
+    sellPrice: 0,
+    name: '김또지',
+    buyDate: null,
+    goalDate: null,
+    sellDate: null,
+    isUpdateNow: true
+  },
+  AssetEntity {
+    index: 2,
+    uid: 12,
+    count: 0,
+    buyPrice: 0,
+    sellPrice: 0,
+    name: '김또지',
+    buyDate: null,
+    goalDate: null,
+    sellDate: null,
+    isUpdateNow: true
+  },
+  AssetEntity {
+    index: 3,
+    uid: 12,
+    count: 0,
+    buyPrice: 0,
+    sellPrice: 0,
+    name: '새로운 자산 2',
+    buyDate: null,
+    goalDate: null,
+    sellDate: null,
+    isUpdateNow: true
+  },
+  AssetEntity {
+    index: 4,
+    uid: 12,
+    count: 0,
+    buyPrice: 0,
+    sellPrice: 0,
+    name: '새로운 자산 3',
+    buyDate: null,
+    goalDate: null,
+    sellDate: null,
+    isUpdateNow: true
+  },
+  AssetEntity {
+    index: 5,
+    uid: 12,
+    count: 0,
+    buyPrice: 0,
+    sellPrice: 0,
+    name: '새로운 자산 4',
+    buyDate: null,
+    goalDate: null,
+    sellDate: null,
+    isUpdateNow: true
+  }
+]
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+김또지 insert to DB
+[AuthGuard] Auth Success
+{ uid: 12, email: 'fener75123@naluzotan.com' }
+[POST] /asset/delete
+[AssetService] Save Asset {
+  index: 1,
+  uid: 12,
+  count: 6,
+  buyPrice: 1,
+  sellPrice: 0,
+  name: '김또지',
+  buyDate: null,
+  goalDate: null,
+  sellDate: null,
+  isUpdateNow: true
+}
+[AssetService] Delete Asset DeleteResult { raw: [], affected: 4 } 1

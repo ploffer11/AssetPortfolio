@@ -3,10 +3,13 @@ import { Column, Entity, PrimaryColumn } from 'typeorm';
 @Entity('Asset')
 export class AssetEntity {
   @PrimaryColumn()
-  index: number;
+  pk: number;
 
   @Column()
   uid: number;
+
+  @Column()
+  index: number;
 
   @Column()
   count: number;

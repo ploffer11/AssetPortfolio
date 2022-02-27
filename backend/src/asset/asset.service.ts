@@ -17,9 +17,10 @@ export class AssetService {
    */
   async insertAsset(asset: AssetEntity) {
     console.log(asset.name, 'insert to DB');
-    await this.assetRepository.save(asset).then((asset) => {
-      console.log('[AssetService] Save Asset', asset);
+    this.assetRepository.save(asset).then((asset) => {
+      console.log('[AssetService] First Save Asset', asset);
     });
+
     return {
       statusCode: 200,
       message: 'Success Asset Save',
@@ -31,10 +32,14 @@ export class AssetService {
    * @param lastIndex
    */
   async deleteAsset(uid: number, lastIndex: number) {
+    console.log('[AssetService] ???? delete asset', uid, lastIndex);
     const asset = await this.assetRepository
       .createQueryBuilder()
       .delete()
-      .where('index > :lastIndex', { lastIndex: lastIndex })
+      .where('uid = :uid AND index > :lastIndex', {
+        uid: uid,
+        lastIndex: lastIndex,
+      })
       .execute();
     console.log('[AssetService] Delete Asset', asset, lastIndex);
     return {
