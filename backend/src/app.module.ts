@@ -1,11 +1,11 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AssetModule } from './asset/asset.module';
 
-console.log('env', process.env.NODE_ENV, process.env.DATABASE_HOST);
+console.log('env', process.env.NODE_ENV, process.env.FRONTEND_URL);
 
 @Module({
   imports: [

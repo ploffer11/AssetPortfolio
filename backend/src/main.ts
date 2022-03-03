@@ -10,6 +10,7 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
+
   app.useGlobalPipes(
     new ValidationPipe({
       skipMissingProperties: true, // 검증 프로퍼티가 대상 오브젝트에 존재하지 않을 경우
@@ -18,6 +19,7 @@ async function bootstrap() {
       forbidNonWhitelisted: true, // 검증 규칙이 없는 프로퍼티가 있으면 에러
     }),
   );
+
   await app.listen(3001);
 }
 bootstrap();

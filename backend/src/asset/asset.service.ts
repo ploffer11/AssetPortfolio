@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AssetEntity } from './entities/asset.entity';
 import { Repository } from 'typeorm';
+import { validate, validateOrReject } from 'class-validator';
 
 @Injectable()
 export class AssetService {
@@ -11,16 +12,29 @@ export class AssetService {
   ) {}
 
   /**
-   * Asset 테이블에 asset을 추가하는 함수
+   * Asset 테이블에 asset을 insert하는 함수. 이미 {uid, index} 를 가진 자산이 있다면 update만 한다.
    * @param asset
    * @returns
    */
-  async insertAsset(asset: AssetEntity) {
-    console.log(asset.name, 'insert to DB');
-    this.assetRepository.save(asset).then((asset) => {
-      console.log('[AssetService] First Save Asset', asset);
-    });
+  async insertAsset(uid: number, assets: AssetEntity[]) {
+    for (let asset of assets) {
+      let alreadyExistAsset = await this.assetRepository.findOne({
+        uid,
+        index: asset.index,
+      });
 
+      if (alreadyExistAsset) {
+        asset['pk'] = alreadyExistAsset['pk'];
+      }
+
+      asset['uid'] = uid;
+      delete asset.pk;
+
+      this.assetRepository.save(asset).then((asset) => {
+        console.log('[AssetService] First Save Asset', asset);
+      });
+    }
+    this.deleteAsset(uid, assets.length);
     return {
       statusCode: 200,
       message: 'Success Asset Save',
@@ -32,7 +46,7 @@ export class AssetService {
    * @param lastIndex
    */
   async deleteAsset(uid: number, lastIndex: number) {
-    console.log('[AssetService] ???? delete asset', uid, lastIndex);
+    console.log('[AssetService] delete asset', uid, lastIndex);
     const asset = await this.assetRepository
       .createQueryBuilder()
       .delete()
@@ -54,8 +68,8 @@ export class AssetService {
    * @returns
    */
   async getAllAsset(uid: number) {
-    let asset = await this.assetRepository.find({ uid });
-    console.log('[AssetService] all asset', asset);
-    return asset;
+    let assets = await this.assetRepository.find({ uid });
+    console.log('[AssetService] all assets', assets);
+    return assets;
   }
 }

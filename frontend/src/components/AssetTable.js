@@ -107,26 +107,10 @@ const AssetTable = () => {
                 setLoading(true);
                 try {
                   console.log(asset, "save");
-                  asset.map(async (row) => {
-                    await axios.post(
-                      process.env.REACT_APP_SERVER_HOST + "/asset",
-                      {
-                        asset: row,
-                        authorization: cookies.authorization,
-                      },
-                      {
-                        headers: {
-                          "Content-Type": "application/json",
-                          authorization: cookies.authorization,
-                        },
-                      }
-                    );
-                  });
-
-                  let res = await axios.post(
-                    process.env.REACT_APP_SERVER_HOST + "/asset/delete",
+                  await axios.post(
+                    process.env.REACT_APP_SERVER_HOST + "/asset",
                     {
-                      index: asset.length,
+                      assets: asset,
                       authorization: cookies.authorization,
                     },
                     {

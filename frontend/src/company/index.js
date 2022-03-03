@@ -3,11 +3,12 @@ import data from "./data";
 let rows = data.toUpperCase().split("\n");
 
 let assetCodes = {};
+let autoCompleteList = [];
 
 rows.map((row) => {
   let [name, assetCode] = row.split(",");
   assetCodes[name] = assetCode.padStart(6, "0");
-  // console.log(`#${name}#${assetCode}#`);
+  autoCompleteList.push({ label: name, assetCode });
 });
 
 const getAssetCode = (name) => {
@@ -15,4 +16,4 @@ const getAssetCode = (name) => {
   return assetCodes[name];
 };
 
-export default getAssetCode;
+export { autoCompleteList, getAssetCode };

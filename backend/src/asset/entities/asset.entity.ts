@@ -1,8 +1,16 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Max, validate } from 'class-validator';
+import {
+  BaseEntity,
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('Asset')
-export class AssetEntity {
-  @PrimaryColumn()
+export class AssetEntity extends BaseEntity {
+  @PrimaryGeneratedColumn()
   pk: number;
 
   @Column()
@@ -34,4 +42,12 @@ export class AssetEntity {
 
   @Column()
   isUpdateNow: boolean;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  async f() {
+    console.log('???!!?');
+    let err = await validate(this);
+    console.log(err);
+  }
 }

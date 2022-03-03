@@ -7,7 +7,7 @@ import Checkbox from "@mui/material/Checkbox";
 import EditableTableCell from "./EditableTableCell";
 import EarningRateTableCell from "./EarningRateTableCell";
 import CurrentPriceTableCell from "./CurrentPriceTableCell";
-import getAssetCode from "../company";
+import { getAssetCode } from "../company";
 import PriceBox from "./PriceBox";
 
 const AssetTableRow = ({

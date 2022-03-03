@@ -32,10 +32,9 @@ export class AssetController {
     @Body() insertAssetDto,
     @Body('authorization', ParseTokenPipe) { uid },
   ) {
-    let asset: AssetEntity = insertAssetDto['asset'];
-    asset['uid'] = uid;
-    console.log('[POST] /asset', asset);
-    return this.assetService.insertAsset(asset);
+    let assets: AssetEntity[] = insertAssetDto['assets'];
+    console.log('[POST] /asset');
+    return this.assetService.insertAsset(uid, assets);
   }
 
   @Post('/delete')

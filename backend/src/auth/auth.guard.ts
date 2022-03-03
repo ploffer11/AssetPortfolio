@@ -19,9 +19,6 @@ export class AuthGuard implements CanActivate {
 
   private validateRequest(request: any): boolean {
     try {
-      // let jwtString = request.headers.cookie.split(
-      //   'authorization=Bearer%20',
-      // )[1];
       let jwtString = request.headers.authorization.split('Bearer ')[1];
       this.authService.verify(jwtString);
       console.log('[AuthGuard] Auth Success');

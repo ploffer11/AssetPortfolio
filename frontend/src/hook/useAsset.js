@@ -71,39 +71,9 @@ const useAsset = () => {
   };
 
   const [asset, setAsset] = useState([]);
-  // createAsset(
-  //   1,
-  //   "카카오",
-  //   130000,
-  //   10,
-  //   0,
-  //   "2022-01-01",
-  //   "2030-01-01",
-  //   "2025-01-01"
-  // ),
-  // createAsset(2, "삼성전자", 61000, 10, 0, "2022-01-01", "2030-01-01", null),
-  // createAsset(3, "SK하이닉스", 81000, 20, 0, "2022-01-01", "2030-01-01", null),
-  // createAsset(
-  //   4,
-  //   "LG에너지솔루션",
-  //   300000,
-  //   2,
-  //   0,
-  //   "2022-01-01",
-  //   "2030-01-01",
-  //   null
-  // ),
-  // createAsset(
-  //   5,
-  //   "RTX 3060ti",
-  //   599000,
-  //   1,
-  //   300000,
-  //   "2022-01-01",
-  //   "2030-01-01",
-  //   null
-  // ),
-  const [cookies, setCookie] = useCookies(["uid", "authorization"]);
+
+  const [cookies, setCookie] = useCookies(["authorization"]);
+
   useEffect(() => {
     axios
       .post(
