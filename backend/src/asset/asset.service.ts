@@ -18,6 +18,8 @@ export class AssetService {
    */
   async insertAsset(uid: number, assets: AssetEntity[]) {
     for (let asset of assets) {
+      delete asset.pk;
+
       let alreadyExistAsset = await this.assetRepository.findOne({
         uid,
         index: asset.index,
@@ -28,7 +30,6 @@ export class AssetService {
       }
 
       asset['uid'] = uid;
-      delete asset.pk;
 
       this.assetRepository.save(asset).then((asset) => {
         console.log('[AssetService] First Save Asset', asset);

@@ -14,21 +14,23 @@ const EditableTableCell = ({
   assetCode = undefined,
   type = "number",
   edit = false,
+  width = null,
   setIsUpdateNow = () => {},
 }) => {
   const [isEditableNow, setIsEditableNow] = useState(false);
-  const [text, setText, changeText] = useState(content);
+  const [text, setText] = useState(content);
   const [component, setComponent] = useState(null);
-  const [width, setWidth] = useState({});
+  // const [width, setWidth] = useState({});
 
   const ref = useRef(null);
+  const autoCompleteRef = useRef(null);
 
   const textAlign =
     type === "text" ? "left" : type === "date" ? "center" : "right";
 
   useEffect(() => {
     if (edit) {
-      setWidth({ width: `${ref.current.parentNode.clientWidth - 32}px` });
+      // setWidth({ width: `${ref.current.parentNode.clientWidth - 32}px` });
       setIsEditableNow(true);
     }
   }, [edit]);
@@ -38,6 +40,8 @@ const EditableTableCell = ({
       if (type === "text") {
         setComponent(
           <Autocomplete
+            value={text || ""}
+            ref={autoCompleteRef}
             options={autoCompleteList}
             renderInput={(params) => (
               <TextField
@@ -47,26 +51,8 @@ const EditableTableCell = ({
                 autoFocus
               />
             )}
-            onInputChange={(e) => {
-              console.log(e);
-              if (e.target.innerText) {
-                setText(e.target.innerText);
-              } else {
-                setText(e.target.value);
-              }
-            }}
-            onHighlightChange={(e) => {
-              if (e) {
-                if (e.relatedTarget)
-                  console.log("highlight", e.relatedTarget.innerText);
-                // setText(e.relatedTarget.innerText);
-              }
-            }}
-            onChange={(e) => {
-              console.log("change", e);
-              console.log("change", e.target);
-              console.log("change", e.target.value);
-              console.log("change", e.nativeEvent.target.defaultValue);
+            onInputChange={(e, value) => {
+              setText(value);
             }}
             disablePortal
           />
@@ -75,7 +61,7 @@ const EditableTableCell = ({
         setComponent(
           <TextField
             size="small"
-            value={text}
+            value={text || ""}
             variant="standard"
             sx={{
               "& input": {
@@ -89,6 +75,7 @@ const EditableTableCell = ({
             onChange={(event) => {
               if (type === "number" || type === "price") {
                 let num = parseInt(event.target.value);
+                console.log("onchange", isNaN(num) ? 0 : num);
                 setText(isNaN(num) ? 0 : num);
               } else setText(event.target.value);
             }}
@@ -114,13 +101,13 @@ const EditableTableCell = ({
         );
       }
     }
-  }, [isEditableNow]);
+  }, [isEditableNow, text]);
 
   return (
     <TableCell
       sx={{
         cursor: "pointer",
-        ...width,
+        width,
       }}
       align={align}
       onDragStart={(e) => {
@@ -134,7 +121,7 @@ const EditableTableCell = ({
       <Box
         ref={ref}
         onDoubleClick={() => {
-          setWidth({ width: `${ref.current.parentNode.clientWidth - 32}px` });
+          // setWidth({ width: `${ref.current.parentNode.clientWidth - 32}px` });
           setIsEditableNow(true);
         }}
         onBlur={() => {

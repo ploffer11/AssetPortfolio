@@ -116,17 +116,20 @@ const AssetTableRow = ({
         content={name}
         type="text"
         changeCol={closure("name")}
+        width="13rem"
       />
 
       <EditableTableCell
         content={count}
         changeCol={closure("count")}
         align="right"
+        width="5rem"
       />
       <EditableTableCell
         content={buyPrice}
         changeCol={closure("buyPrice")}
         type="price"
+        width="7rem"
       />
       {isUpdateNow && getAssetCode(name) !== undefined ? (
         <CurrentPriceTableCell
@@ -150,6 +153,7 @@ const AssetTableRow = ({
             closure("isUpdateNow")(true);
           }}
           assetCode={getAssetCode(name)}
+          width="7rem"
         />
       )}
       <TableCell>
@@ -167,18 +171,21 @@ const AssetTableRow = ({
         type="date"
         changeCol={closure("buyDate")}
         align="center"
+        width="6rem"
       />
       <EditableTableCell
         content={goalDate}
         type="date"
         changeCol={closure("goalDate")}
         align="center"
+        width="6rem"
       />
       <EditableTableCell
         content={sellDate}
         type="date"
         changeCol={closure("sellDate")}
         align="center"
+        width="6rem"
       />
     </TableRow>
   );

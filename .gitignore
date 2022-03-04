@@ -32,3 +32,6 @@ log.txt
 # env
 .env*
 *.env
+
+# todo
+todolist.txt

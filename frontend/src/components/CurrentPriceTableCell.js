@@ -23,7 +23,6 @@ const CurrentPriceTableCell = ({
           console.log(res);
           changeCol(parseInt(res["result"]["areas"][0]["datas"][0]["nv"]));
 
-          // console.log("delete", document.getElementById(`${assetCode}`));
           document
             .getElementById(`${assetCode}`)
             .parentNode.removeChild(document.getElementById(`${assetCode}`));
@@ -35,7 +34,6 @@ const CurrentPriceTableCell = ({
         console.log(res);
         changeCol(parseInt(res["result"]["areas"][0]["datas"][0]["nv"]));
 
-        // console.log("delete", document.getElementById(`${assetCode}`));
         document
           .getElementById(`${assetCode}`)
           .parentNode.removeChild(document.getElementById(`${assetCode}`));
@@ -53,6 +51,7 @@ const CurrentPriceTableCell = ({
       sx={{
         fontWeight: "bold",
         cursor: "pointer",
+        width: "7rem",
       }}
       onDoubleClick={() => setIsUpdateNow(true)}
     >
