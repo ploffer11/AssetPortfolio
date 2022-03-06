@@ -116,8 +116,8 @@ const AssetTable = () => {
                     {
                       headers: {
                         "Content-Type": "application/json",
-                        authorization: cookies.authorization,
                       },
+                      withCredentials: true,
                     }
                   );
                   setLoading(false);

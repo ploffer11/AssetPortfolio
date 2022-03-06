@@ -53,6 +53,7 @@ const SignUpDialog = ({ open = false, setOpen }) => {
             headers: {
               "Content-Type": "application/json",
             },
+            withCredentials: true,
           }
         )
         .then((res) => {

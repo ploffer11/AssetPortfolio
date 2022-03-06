@@ -1,5 +1,6 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import PageView from "./components/PageView";
+import StockChart from "./components/StockChart";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
           path="/login"
           element={<PageView currentView="main" signInOpen={true} />}
         />
+        <Route path="/chart" element={<StockChart />} />
       </Routes>
     </BrowserRouter>
   );

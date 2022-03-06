@@ -76,17 +76,14 @@ const useAsset = () => {
 
   useEffect(() => {
     axios
-      .post(
-        process.env.REACT_APP_SERVER_HOST + "/asset/all",
-        {
-          authorization: cookies.authorization,
-        },
+      .get(
+        process.env.REACT_APP_SERVER_HOST +
+          `/asset/all?authorization=${cookies.authorization}`,
         {
           headers: {
             "Content-Type": "application/json",
-            authorization: cookies.authorization,
           },
-          // withCredentials: true
+          withCredentials: true,
         }
       )
       .then((res) => {

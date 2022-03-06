@@ -43,6 +43,7 @@ const SignInDialog = ({ open = false, setOpen, setCookie }) => {
           headers: {
             "Content-Type": "application/json",
           },
+          withCredentials: true,
         }
       )
 
