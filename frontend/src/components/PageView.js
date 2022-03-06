@@ -29,7 +29,6 @@ const PageView = (props = { signInOpen: false }) => {
               fontWeight: 700,
               fontSize: "2rem",
               textTransform: "none",
-              marginRight: "1vw",
               fontStyle: "italic",
               "& a": { textDecoration: "none", color: "#1976d2" },
             }}
@@ -41,7 +40,7 @@ const PageView = (props = { signInOpen: false }) => {
             <Box sx={{ color: "black" }}>
               <Button
                 sx={{
-                  marginRight: "1vw",
+                  marginRight: "1rem",
                   "& a": { textDecoration: "none", color: "#1976d2" },
                 }}
                 variant="outlined"
@@ -66,7 +65,7 @@ const PageView = (props = { signInOpen: false }) => {
               <Button
                 variant="outlined"
                 size="large"
-                sx={{ marginRight: "1vw" }}
+                sx={{ marginRight: "1rem" }}
                 onClick={() => setSignInOpen(true)}
               >
                 로그인

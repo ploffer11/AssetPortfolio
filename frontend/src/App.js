@@ -1,6 +1,6 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import PageView from "./components/PageView";
-  
+
 const App = () => {
   return (
     <BrowserRouter>

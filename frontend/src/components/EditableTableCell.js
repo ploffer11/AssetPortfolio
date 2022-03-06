@@ -1,11 +1,12 @@
+import React, { useState, useEffect } from "react";
+
 import { TaskAlt } from "@mui/icons-material";
 import { Autocomplete, Box } from "@mui/material";
 import TableCell from "@mui/material/TableCell";
 import TextField from "@mui/material/TextField";
-import React, { useState, useRef, useEffect } from "react";
-import PriceBox from "./PriceBox";
+
 import { autoCompleteList } from "../company";
-import { useInput } from "@mui/base";
+import PriceBox from "./PriceBox";
 
 const EditableTableCell = ({
   content,
@@ -20,17 +21,12 @@ const EditableTableCell = ({
   const [isEditableNow, setIsEditableNow] = useState(false);
   const [text, setText] = useState(content);
   const [component, setComponent] = useState(null);
-  // const [width, setWidth] = useState({});
-
-  const ref = useRef(null);
-  const autoCompleteRef = useRef(null);
 
   const textAlign =
     type === "text" ? "left" : type === "date" ? "center" : "right";
 
   useEffect(() => {
     if (edit) {
-      // setWidth({ width: `${ref.current.parentNode.clientWidth - 32}px` });
       setIsEditableNow(true);
     }
   }, [edit]);
@@ -41,8 +37,8 @@ const EditableTableCell = ({
         setComponent(
           <Autocomplete
             value={text || ""}
-            ref={autoCompleteRef}
             options={autoCompleteList}
+            noOptionsText="주식이름:종목코드"
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -119,9 +115,7 @@ const EditableTableCell = ({
       draggable={isEditableNow}
     >
       <Box
-        ref={ref}
         onDoubleClick={() => {
-          // setWidth({ width: `${ref.current.parentNode.clientWidth - 32}px` });
           setIsEditableNow(true);
         }}
         onBlur={() => {

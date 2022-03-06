@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+
 import TableCell from "@mui/material/TableCell";
-import { TaskAlt, TryRounded } from "@mui/icons-material";
+import { TaskAlt } from "@mui/icons-material";
+
 import PriceBox from "./PriceBox";
-import { Box } from "@mui/material";
 
 const CurrentPriceTableCell = ({
   content,

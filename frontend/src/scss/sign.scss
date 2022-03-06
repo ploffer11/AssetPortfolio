@@ -1,0 +1,73 @@
+.input-logo-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 29rem;
+  height: 6rem;
+  input {
+    width: 20rem;
+    font-size: 1rem;
+  }
+  svg {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: 1rem;
+  }
+}
+
+.dialog-main {
+  & .MuiDialog-paperScrollPaper {
+    overflow: hidden;
+  }
+}
+
+.dialog-title {
+  position: relative;
+  text-align: center;
+}
+
+.dialog-content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  margin-top: 2rem;
+}
+
+.asset-portfolio {
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  text-transform: none;
+  margin-right: 1vw;
+  font-style: italic;
+  display: inline;
+  color: rgb(25, 118, 210);
+}
+
+.close-button {
+  display: inline;
+  position: absolute;
+  margin-left: 3rem;
+
+  svg {
+    width: 2rem;
+    height: 2rem;
+    color: black;
+  }
+}
+
+.submit-button {
+  justify-content: center;
+  margin-bottom: 3rem;
+  margin-top: 15px;
+  flex-direction: column;
+
+  button {
+    width: 25rem;
+    height: 4rem;
+    font-size: 1.3rem;
+  }
+}

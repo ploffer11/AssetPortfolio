@@ -1,17 +1,20 @@
 import * as React from "react";
+import { useState } from "react";
+import axios from "axios";
+
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Box } from "@mui/system";
-import { useEffect, useState } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { AccountCircle, Close, Lock, Email } from "@mui/icons-material";
-import axios from "axios";
+import { Close, Lock, Email } from "@mui/icons-material";
+
 import useInputField from "../hook/useInput";
+
+import "../scss/sign.scss";
 
 const SignInDialog = ({ open = false, setOpen, setCookie }) => {
   const [loading, setLoading] = useState(false);
@@ -65,7 +68,7 @@ const SignInDialog = ({ open = false, setOpen, setCookie }) => {
   };
 
   return (
-    <div>
+    <>
       <Dialog
         open={open}
         onClose={() => {
@@ -78,65 +81,28 @@ const SignInDialog = ({ open = false, setOpen, setCookie }) => {
             submit();
           }
         }}
+        className="dialog-main"
       >
-        <DialogTitle sx={{ textAlign: "center", position: "relative" }}>
-          <Box
-            sx={{
-              fontFamily: "'Lato', sans-serif",
-              fontWeight: 700,
-              fontSize: "2rem",
-              textTransform: "none",
-              marginRight: "1vw",
-              fontStyle: "italic",
-              display: "inline",
-              color: "rgb(25, 118, 210)",
-            }}
-          >
-            Asset Portfolio
-          </Box>
-          <Box
-            sx={{
-              display: "inline",
-              position: "absolute",
-              marginLeft: "80px",
-            }}
-          >
+        <DialogTitle className="dialog-title">
+          <Box className="asset-portfolio">Asset Portfolio</Box>
+          <Box className="close-button">
             <Button
               onClick={() => {
                 setOpen(false);
                 setClear();
               }}
             >
-              <Close sx={{ width: "35px", height: "35px", color: "black" }} />
+              <Close />
             </Button>
           </Box>
         </DialogTitle>
-        <DialogContent
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-          }}
-        >
-          {/* <DialogContentText>안뇽</DialogContentText> */}
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "500px",
-              marginTop: "50px",
-              "& input": { width: "300px" },
-            }}
-          >
+        <DialogContent className="dialog-content">
+          <Box className="input-logo-box">
             <Email
-              sx={{ width: "40px", height: "40px", marginRight: "15px" }}
               color={focus === "email" || email ? "primary" : "disabled"}
             />
             <TextField
               autoFocus
-              id="outline-basic"
               label="Email Address"
               type="email"
               variant="outlined"
@@ -146,22 +112,11 @@ const SignInDialog = ({ open = false, setOpen, setCookie }) => {
               onFocus={() => setFocus("email")}
             />
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "500px",
-              "& input": { width: "300px" },
-            }}
-          >
+          <Box className="input-logo-box">
             <Lock
-              sx={{ width: "40px", height: "40px", marginRight: "15px" }}
               color={focus === "password" || password ? "primary" : "disabled"}
             />
             <TextField
-              id="outline-basic"
               label="Password"
               type="password"
               variant="outlined"
@@ -172,27 +127,14 @@ const SignInDialog = ({ open = false, setOpen, setCookie }) => {
             />
           </Box>
         </DialogContent>
-        <DialogActions
-          sx={{
-            justifyContent: "center",
-            marginBottom: "100px",
-            marginTop: "15px",
-            flexDirection: "column",
-          }}
-        >
-          <LoadingButton
-            onClick={submit}
-            loading={loading}
-            sx={{ width: "383px", height: "60px", fontSize: "1.3rem" }}
-            variant="contained"
-          >
+        <DialogActions className="submit-button">
+          <LoadingButton onClick={submit} loading={loading} variant="contained">
             로그인
           </LoadingButton>
-
           <Box sx={{ color: "red", marginTop: "10px" }}>{failMsg}</Box>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 };
 

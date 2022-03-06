@@ -92,7 +92,7 @@ const AssetTable = () => {
       >
         <Box
           sx={{
-            width: "min(1700px, 100vw)",
+            width: "min(2000px, 100vw)",
           }}
         >
           <Box sx={{ display: "flex" }}>

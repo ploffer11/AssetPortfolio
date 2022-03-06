@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useRef } from "react";
 
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
@@ -171,21 +171,21 @@ const AssetTableRow = ({
         type="date"
         changeCol={closure("buyDate")}
         align="center"
-        width="6rem"
+        width="8rem"
       />
       <EditableTableCell
         content={goalDate}
         type="date"
         changeCol={closure("goalDate")}
         align="center"
-        width="6rem"
+        width="8rem"
       />
       <EditableTableCell
         content={sellDate}
         type="date"
         changeCol={closure("sellDate")}
         align="center"
-        width="6rem"
+        width="8rem"
       />
     </TableRow>
   );

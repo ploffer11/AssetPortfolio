@@ -1,7 +1,8 @@
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
+import React from "react";
 import { keyframes } from "@emotion/react";
-import React, { useState, useEffect } from "react";
+
+import Box from "@mui/material/Box";
+
 import AssetTable from "./AssetTable";
 
 const fadeIn = keyframes`
@@ -36,7 +37,7 @@ const PageContent = ({ currentView }) => {
             <Box
               sx={{
                 fontWeight: 900,
-                fontSize: "10rem",
+                fontSize: "8rem",
               }}
             >
               Be Rich.

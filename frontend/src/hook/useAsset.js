@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 
 const useAsset = () => {
