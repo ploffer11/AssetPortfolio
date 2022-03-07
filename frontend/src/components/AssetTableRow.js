@@ -7,6 +7,7 @@ import Checkbox from "@mui/material/Checkbox";
 import EditableTableCell from "./EditableTableCell";
 import EarningRateTableCell from "./EarningRateTableCell";
 import CurrentPriceTableCell from "./CurrentPriceTableCell";
+import AutoCompleteTableCell from "./AutoCompleteTableCell";
 import { getAssetCode } from "../company";
 import PriceBox from "./PriceBox";
 
@@ -112,7 +113,7 @@ const AssetTableRow = ({
       </TableCell>
       <TableCell sx={{ width: "40px" }}>{index}</TableCell>
 
-      <EditableTableCell
+      <AutoCompleteTableCell
         content={name}
         type="text"
         changeCol={closure("name")}

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 
-import CanvasJSReact from "./canvasjs.stock.react";
+import CanvasJSReact from "../canvas/canvasjs.stock.react";
 let CanvasJS = CanvasJSReact.CanvasJS;
 let CanvasJSStockChart = CanvasJSReact.CanvasJSStockChart;
 

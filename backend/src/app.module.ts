@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AssetModule } from './asset/asset.module';
+import { YahooController } from './yahoo/yahoo.controller';
+import { YahooModule } from './yahoo/yahoo.module';
 
 console.log('env', process.env.NODE_ENV, process.env.FRONTEND_URL);
 
@@ -21,6 +23,7 @@ console.log('env', process.env.NODE_ENV, process.env.FRONTEND_URL);
       synchronize: false,
     }),
     AssetModule,
+    YahooModule,
   ],
   controllers: [AppController],
   providers: [AppService],

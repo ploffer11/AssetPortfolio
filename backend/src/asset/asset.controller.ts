@@ -9,6 +9,7 @@ import {
   UseGuards,
   Headers,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { AssetService } from './asset.service';
 import { InsertAssetDto } from './dto/insert-asset.dto';
@@ -47,12 +48,12 @@ export class AssetController {
     return this.assetService.deleteAsset(uid, lastIndex);
   }
 
-  @Post('/all')
+  @Get('/all')
   getAllAsset(
     @Body() getAllAssetDto: GetAllAssetDto,
-    @Body('authorization', ParseTokenPipe) { uid },
+    @Query('authorization', ParseTokenPipe) { uid },
   ) {
-    console.log('[POST] /asset/all');
+    console.log('[GET] /asset/all');
     return this.assetService.getAllAsset(uid);
   }
 }

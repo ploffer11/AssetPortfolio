@@ -80,9 +80,6 @@ const useAsset = () => {
         process.env.REACT_APP_SERVER_HOST +
           `/asset/all?authorization=${cookies.authorization}`,
         {
-          headers: {
-            "Content-Type": "application/json",
-          },
           withCredentials: true,
         }
       )

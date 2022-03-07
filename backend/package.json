@@ -36,7 +36,8 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "typeorm": "^0.2.43",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "yahoo-finance2": "^2.2.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",

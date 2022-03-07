@@ -5,8 +5,9 @@ import { Autocomplete, Box } from "@mui/material";
 import TableCell from "@mui/material/TableCell";
 import TextField from "@mui/material/TextField";
 
-import { autoCompleteList } from "../company";
+// import { autoCompleteList } from "../company";
 import PriceBox from "./PriceBox";
+import axios from "axios";
 
 const EditableTableCell = ({
   content,
@@ -21,9 +22,9 @@ const EditableTableCell = ({
   const [isEditableNow, setIsEditableNow] = useState(false);
   const [text, setText] = useState(content);
   const [component, setComponent] = useState(null);
+  const [autoCompleteList, setAutoCompleteList] = useState([]);
 
-  const textAlign =
-    type === "text" ? "left" : type === "date" ? "center" : "right";
+  const textAlign = type === "date" ? "center" : "right";
 
   useEffect(() => {
     if (edit) {
@@ -33,51 +34,30 @@ const EditableTableCell = ({
 
   useEffect(() => {
     if (isEditableNow) {
-      if (type === "text") {
-        setComponent(
-          <Autocomplete
-            value={text || ""}
-            options={autoCompleteList}
-            noOptionsText="주식이름:종목코드"
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Asset Name"
-                sx={{ width: "100%" }}
-                autoFocus
-              />
-            )}
-            onInputChange={(e, value) => {
-              setText(value);
-            }}
-            disablePortal
-          />
-        );
-      } else
-        setComponent(
-          <TextField
-            size="small"
-            value={text || ""}
-            variant="standard"
-            sx={{
-              "& input": {
-                textShadow: "1px 1px 1px black",
-                textAlign: textAlign,
-              },
-            }}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            onChange={(event) => {
-              if (type === "number" || type === "price") {
-                let num = parseInt(event.target.value);
-                console.log("onchange", isNaN(num) ? 0 : num);
-                setText(isNaN(num) ? 0 : num);
-              } else setText(event.target.value);
-            }}
-            autoFocus
-          />
-        );
+      setComponent(
+        <TextField
+          size="small"
+          value={text || ""}
+          variant="standard"
+          sx={{
+            "& input": {
+              textShadow: "1px 1px 1px black",
+              textAlign: textAlign,
+            },
+          }}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={(event) => {
+            if (type === "number" || type === "price") {
+              let num = parseInt(event.target.value);
+              console.log("onchange", isNaN(num) ? 0 : num);
+              setText(isNaN(num) ? 0 : num);
+            } else setText(event.target.value);
+          }}
+          autoFocus
+        />
+      );
     } else {
       if (type === "price") {
         if (assetCode === undefined) {
