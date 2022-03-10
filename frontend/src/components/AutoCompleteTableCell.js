@@ -8,146 +8,44 @@ import TextField from "@mui/material/TextField";
 import PriceBox from "./PriceBox";
 import axios from "axios";
 
-const EditableTableCell = ({
+const AutoCompleteTableCell = ({
   content,
   changeCol,
   align,
-  assetCode = undefined,
-  type = "number",
-  edit = false,
+  changeName,
+  changeAssetCode,
+  changeDescription,
   width = null,
-  setIsUpdateNow = () => {},
 }) => {
   const [isEditableNow, setIsEditableNow] = useState(false);
   const [text, setText] = useState(content);
-  const [component, setComponent] = useState(null);
   const [autoCompleteList, setAutoCompleteList] = useState([]);
-
-  const textAlign = "left";
+  const [updateBefore, setUpdateBefore] = useState(false);
 
   useEffect(() => {
     if (isEditableNow) {
-      if (type === "text") {
-        axios
-          .get(process.env.REACT_APP_SERVER_HOST + `/yahoo/auto?query=${text}`)
-          .then((res) => {
-            console.log(res.data.quotes);
-            setAutoCompleteList(
-              res.data.quotes
-                .filter((option) => option.shortname && option.symbol)
-                .map((option) => {
-                  console.log(
-                    option.symbol,
-                    option.longname || option.shortname
-                  );
-                  option.label =
-                    option.symbol +
-                    " | " +
-                    option.longname +
-                    " | " +
-                    option.shortname;
-                  return option;
-                })
-            );
-          });
-
-        setComponent(
-          <Autocomplete
-            value={text || ""}
-            options={autoCompleteList}
-            noOptionsText="No Option Found."
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Asset Name"
-                sx={{ width: "100%" }}
-                autoFocus
-              />
-            )}
-            onInputChange={(e, value) => {
-              console.log(value);
-              setText(value);
-            }}
-            disablePortal
-            renderOption={(props, option) => {
-              return (
-                <Box {...props} sx={{ display: "flex", fontSize: "1.3rem" }}>
-                  <Box
-                    sx={{
-                      position: "inline",
-                      width: "16rem",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {option.symbol}
-                  </Box>
-                  <Box sx={{ position: "inline" }}>
-                    {option.longname || option.shortname}
-                  </Box>
-                </Box>
-              );
-            }}
-          />
-        );
-      }
-    } else {
-      setComponent(<Box>{text !== null && text !== "" ? text : "-"}</Box>);
+      axios
+        .get(process.env.REACT_APP_SERVER_HOST + `/yahoo/auto?query=${text}`)
+        .then((res) => {
+          setAutoCompleteList(
+            res.data.autoCompleteList
+              .filter((option) => option.shortname && option.symbol)
+              .map((option) => {
+                option.label =
+                  option.symbol +
+                  " | " +
+                  option.longname +
+                  " | " +
+                  option.shortname;
+                return option;
+              })
+          );
+        })
+        .catch((res) => {
+          console.log(res);
+        });
     }
-  }, [isEditableNow, text]);
-
-  useEffect(() => {
-    if (autoCompleteList.length !== 0) {
-      console.log("autocomplete changed", autoCompleteList);
-      setComponent(
-        <Autocomplete
-          value={text || ""}
-          options={autoCompleteList}
-          noOptionsText="No Option Found."
-          disablePortal
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Asset Name"
-              sx={{ width: "100%" }}
-              autoFocus
-            />
-          )}
-          onInputChange={(e, value) => {
-            setText(value);
-          }}
-          renderOption={(props, option) => {
-            return (
-              <Box {...props} sx={{ display: "flex", fontSize: "1.3rem" }}>
-                <Box
-                  sx={{
-                    position: "inline",
-                    width: "16rem",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {option.symbol}
-                </Box>
-                <Box sx={{ position: "inline", width: "40rem" }}>
-                  {option.longname || option.shortname}
-                </Box>
-                <Box
-                  sx={{
-                    position: "inline",
-                    width: "30rem",
-                    fontSize: "0.8rem",
-                    color: "gray",
-                  }}
-                >
-                  {option.longname && option.shortname}
-                </Box>
-              </Box>
-            );
-          }}
-          isOptionEqualToValue={() => false}
-        />
-      );
-    }
-  }, [autoCompleteList]);
+  }, [text]);
 
   return (
     <TableCell
@@ -170,12 +68,12 @@ const EditableTableCell = ({
         }}
         onBlur={() => {
           setIsEditableNow(false);
-          changeCol(text);
+          changeName(text);
         }}
         onKeyPress={(event) => {
           if (event.key === "Enter") {
             setIsEditableNow(false);
-            changeCol(text);
+            changeName(text);
           }
         }}
         sx={{
@@ -183,10 +81,68 @@ const EditableTableCell = ({
           "& li": { width: "100rem" },
         }}
       >
-        {component}
+        {!isEditableNow ? (
+          <Box>{text !== null && text !== "" ? text : "-"}</Box>
+        ) : (
+          <Autocomplete
+            disablePortal
+            value={text || ""}
+            options={autoCompleteList}
+            noOptionsText="No Option Found."
+            onInputChange={(e, value) => {
+              if (value.includes(" | ")) {
+                let [assetCode, longname, shortname] = value.split(" | ");
+                let name = longname === "undefined" ? shortname : longname;
+                changeAssetCode(assetCode);
+                changeDescription(name);
+                setText(name);
+                setUpdateBefore(true);
+              } else {
+                setText(value);
+              }
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Asset Name"
+                sx={{ width: "100%" }}
+                autoFocus
+              />
+            )}
+            renderOption={(props, option) => {
+              return (
+                <Box {...props} sx={{ display: "flex", fontSize: "1.3rem" }}>
+                  <Box
+                    sx={{
+                      position: "inline",
+                      width: "16rem",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {option.symbol}
+                  </Box>
+                  <Box sx={{ position: "inline", width: "40rem" }}>
+                    {option.longname || option.shortname}
+                  </Box>
+                  <Box
+                    sx={{
+                      position: "inline",
+                      width: "30rem",
+                      fontSize: "0.8rem",
+                      color: "gray",
+                    }}
+                  >
+                    {option.longname && option.shortname}
+                  </Box>
+                </Box>
+              );
+            }}
+            isOptionEqualToValue={() => false}
+          />
+        )}
       </Box>
     </TableCell>
   );
 };
 
-export default EditableTableCell;
+export default AutoCompleteTableCell;

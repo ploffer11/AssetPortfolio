@@ -49,9 +49,8 @@ const AssetTable = () => {
     ["구매액", "right"],
     ["평가액", "right"],
     ["수익률", "center"],
-    ["편입일", "center"],
-    ["목표일", "center"],
-    ["편출일", "center"],
+    // ["코드", "left"],
+    ["설명", "left"],
   ];
 
   const getValueArray = [
@@ -65,9 +64,8 @@ const AssetTable = () => {
     (row) =>
       (row["sellPrice"] * row["count"] - row["buyPrice"] * row["count"]) /
       (row["buyPrice"] * row["count"]),
-    (row) => row["buyDate"],
-    (row) => row["goalDate"],
-    (row) => row["sellDate"],
+    // (row) => row["assetCode"],
+    (row) => row["description"],
   ];
 
   const compare = (getValue, x, y) => {
@@ -316,8 +314,6 @@ const AssetTable = () => {
                       buyPrice={sum("buyPrice")}
                       evalPrice={sum("sellPrice")}
                     />
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
                     <TableCell></TableCell>
                   </TableRow>
                 </TableBody>

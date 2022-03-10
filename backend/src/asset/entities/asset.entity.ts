@@ -31,23 +31,12 @@ export class AssetEntity extends BaseEntity {
   @Column()
   name: string;
 
-  @Column({ type: 'date' })
-  buyDate: string;
+  @Column()
+  assetCode: string;
 
-  @Column({ type: 'date' })
-  goalDate: string;
-
-  @Column({ type: 'date' })
-  sellDate: string;
+  @Column()
+  description: string;
 
   @Column()
   isUpdateNow: boolean;
-
-  @BeforeInsert()
-  @BeforeUpdate()
-  async f() {
-    console.log('???!!?');
-    let err = await validate(this);
-    console.log(err);
-  }
 }

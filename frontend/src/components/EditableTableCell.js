@@ -7,30 +7,36 @@ import TextField from "@mui/material/TextField";
 
 // import { autoCompleteList } from "../company";
 import PriceBox from "./PriceBox";
-import axios from "axios";
 
 const EditableTableCell = ({
   content,
   changeCol,
   align,
-  assetCode = undefined,
+  assetCode = null,
   type = "number",
-  edit = false,
+  open = false,
+  setOpen = () => {},
   width = null,
+  color = "black",
+  fontSize = "1rem",
+  currencySymbol = "₩",
   setIsUpdateNow = () => {},
 }) => {
   const [isEditableNow, setIsEditableNow] = useState(false);
   const [text, setText] = useState(content);
   const [component, setComponent] = useState(null);
-  const [autoCompleteList, setAutoCompleteList] = useState([]);
 
-  const textAlign = type === "date" ? "center" : "right";
+  const textAlign = type === "date" ? "left" : "right";
+  useEffect(() => {
+    if (open) {
+      setIsEditableNow(true);
+      setOpen(false);
+    }
+  }, [open]);
 
   useEffect(() => {
-    if (edit) {
-      setIsEditableNow(true);
-    }
-  }, [edit]);
+    setText(content);
+  }, [content]);
 
   useEffect(() => {
     if (isEditableNow) {
@@ -41,8 +47,9 @@ const EditableTableCell = ({
           variant="standard"
           sx={{
             "& input": {
-              textShadow: "1px 1px 1px black",
-              textAlign: textAlign,
+              fontWeight: "bold",
+              textAlign,
+              width,
             },
           }}
           InputLabelProps={{
@@ -60,18 +67,25 @@ const EditableTableCell = ({
       );
     } else {
       if (type === "price") {
-        if (assetCode === undefined) {
-          setComponent(<PriceBox price={text} />);
+        if (!assetCode) {
+          setComponent(
+            <PriceBox price={text} currencySymbol={currencySymbol} />
+          );
         } else {
           setComponent(
-            <PriceBox price={text}>
+            <PriceBox price={text} currencySymbol={currencySymbol}>
               <TaskAlt color="disable" onClick={() => setIsUpdateNow()} />
             </PriceBox>
           );
         }
       } else {
         setComponent(
-          <Box>
+          <Box
+            sx={{
+              color,
+              fontSize,
+            }}
+          >
             {text !== null && text !== "" ? text.toLocaleString() : "-"}
           </Box>
         );
@@ -84,6 +98,8 @@ const EditableTableCell = ({
       sx={{
         cursor: "pointer",
         width,
+        maxWidth: width,
+        overflow: "hidden",
       }}
       align={align}
       onDragStart={(e) => {

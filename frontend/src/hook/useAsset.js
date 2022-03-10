@@ -9,21 +9,23 @@ const useAsset = () => {
     buyPrice,
     count,
     sellPrice = 0,
-    buyDate = null,
-    goalDate = null,
-    sellDate = null,
-    isUpdateNow = true
+    assetCode = null,
+    description = null,
+    isUpdateNow = true,
+    currency = "KRW",
+    currencySymbol = "₩"
   ) => {
     return {
       index,
       name,
       buyPrice,
       count,
-      buyDate,
-      goalDate,
-      sellDate,
+      assetCode,
+      description,
       isUpdateNow,
       sellPrice,
+      currency,
+      currencySymbol,
     };
   };
 
@@ -32,9 +34,8 @@ const useAsset = () => {
     buyPrice,
     count,
     sellPrice = 0,
-    buyDate = null,
-    goalDate = null,
-    sellDate = null
+    assetCode = null,
+    description = null
   ) => {
     setAsset(
       asset.concat(
@@ -44,9 +45,8 @@ const useAsset = () => {
           buyPrice,
           count,
           sellPrice,
-          buyDate,
-          goalDate,
-          sellDate
+          assetCode,
+          description
         )
       )
     );

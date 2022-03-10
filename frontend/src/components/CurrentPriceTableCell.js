@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import axios from "axios";
 
 import TableCell from "@mui/material/TableCell";
 import { TaskAlt } from "@mui/icons-material";
@@ -8,51 +9,30 @@ import PriceBox from "./PriceBox";
 const CurrentPriceTableCell = ({
   content,
   assetCode,
-  changeCol,
+  changeSellPrice,
+  changeCurrency,
+  changeCurrencySymbol,
   setIsUpdateNow,
+  width,
 }) => {
   useEffect(() => {
-    if (assetCode === undefined) {
-      return;
-    }
-
-    if (!window.__jindo2_callback) window.__jindo2_callback = {};
-
-    if (!window.__jindo2_callback[`_${assetCode}`]) {
-      Object.defineProperty(window.__jindo2_callback, `_${assetCode}`, {
-        value: (res) => {
-          console.log(res);
-          changeCol(parseInt(res["result"]["areas"][0]["datas"][0]["nv"]));
-
-          document
-            .getElementById(`${assetCode}`)
-            .parentNode.removeChild(document.getElementById(`${assetCode}`));
-        },
-        writable: true,
-      });
-    } else {
-      window.__jindo2_callback[`_${assetCode}`] = (res) => {
-        console.log(res);
-        changeCol(parseInt(res["result"]["areas"][0]["datas"][0]["nv"]));
-
-        document
-          .getElementById(`${assetCode}`)
-          .parentNode.removeChild(document.getElementById(`${assetCode}`));
-      };
-    }
-
-    let scriptTag = document.createElement("script");
-    scriptTag.src = `https://polling.finance.naver.com/api/realtime?query=SERVICE_ITEM:${assetCode}|SERVICE_RECENT_ITEM:${assetCode}&_callback=window.__jindo2_callback._${assetCode}`;
-    scriptTag.id = `${assetCode}`;
-    document.body.append(scriptTag);
-  }, []);
+    (async () => {
+      let res = await axios.get(
+        process.env.REACT_APP_SERVER_HOST +
+          `/yahoo/asset?assetCode=${assetCode}`
+      );
+      changeSellPrice(res.data.price);
+      changeCurrency(res.data.currency);
+      changeCurrencySymbol(res.data.currencySymbol);
+    })();
+  }, [assetCode]);
 
   return (
     <TableCell
       sx={{
         fontWeight: "bold",
         cursor: "pointer",
-        width: "7rem",
+        width,
       }}
       onDoubleClick={() => setIsUpdateNow(true)}
     >

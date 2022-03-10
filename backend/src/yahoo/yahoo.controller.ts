@@ -29,6 +29,12 @@ export class YahooController {
     return await this.yahooService.getAutoCompleteList(query);
   }
 
+  @Get('/asset')
+  async getAssetInfo(@Query('assetCode') assetCode) {
+    console.log('[GET] /yahoo/asset');
+    return await this.yahooService.getAssetInfo(assetCode);
+  }
+
   @UseGuards(AuthGuard)
   @Get()
   async getPortfolioHistory(@Query('authorization', ParseTokenPipe) { uid }) {
