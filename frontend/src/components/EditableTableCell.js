@@ -70,11 +70,6 @@ const EditableTableCell = ({
           }}
           onChange={(event) => {
             setText(event.target.value);
-            // if (type === "number" || type === "price") {
-            //   let num = parseInt(event.target.value);
-            //   console.log("onchange", isNaN(num) ? 0 : num);
-            //   setText(isNaN(num) ? 0 : num);
-            // } else setText(event.target.value);
           }}
           autoFocus
         />
@@ -105,7 +100,7 @@ const EditableTableCell = ({
         );
       }
     }
-  }, [isEditableNow, text]);
+  }, [isEditableNow, text, currencySymbol, printText]);
 
   return (
     <TableCell

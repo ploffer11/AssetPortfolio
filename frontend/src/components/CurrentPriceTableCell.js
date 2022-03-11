@@ -6,29 +6,40 @@ import { TaskAlt } from "@mui/icons-material";
 
 import PriceBox from "./PriceBox";
 
+let oldAssetCode = null;
 const CurrentPriceTableCell = ({
   content,
   assetCode,
-  changeSellPrice,
-  changeCurrency,
-  changeCurrencySymbol,
+  changeCols,
   setIsUpdateNow,
   width,
 }) => {
+  console.log(
+    "old",
+    oldAssetCode,
+    "new",
+    assetCode,
+    "===",
+    oldAssetCode === assetCode
+  );
+  oldAssetCode = assetCode;
   useEffect(() => {
+    console.log("useEffect assetCode");
     axios
       .get(
         process.env.REACT_APP_SERVER_HOST +
           `/yahoo/asset?assetCode=${assetCode}`
       )
       .then((res) => {
-        console.log("data", res.data);
-        changeSellPrice(res.data.price);
-        changeCurrency(res.data.currency);
-        changeCurrencySymbol(res.data.currencySymbol);
+        // changeCols({
+        //   sellPrice: res.data.price,
+        //   currency: res.data.currency,
+        //   currencySymbol: res.data.currencySymbol,
+        // });
+      })
+      .catch((res) => {
+        console.log(res);
       });
-
-    console.log("assetCode changed");
   }, [assetCode]);
 
   return (

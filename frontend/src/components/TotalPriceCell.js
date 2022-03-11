@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import PriceBox from "./PriceBox";
 
-const TotalPriceCell = ({ asset, priceType }) => {
+const TotalPriceCell = ({ asset, priceType, setTotalPrice }) => {
   let [price, setPrice] = useState(0);
 
   useEffect(() => {
@@ -33,6 +33,7 @@ const TotalPriceCell = ({ asset, priceType }) => {
         process.env.REACT_APP_SERVER_HOST + "/yahoo/krw"
       );
       setPrice(totalWon + totalDollar * res.data.price);
+      setTotalPrice(totalWon + totalDollar * res.data.price);
     })();
   }, [asset]);
 

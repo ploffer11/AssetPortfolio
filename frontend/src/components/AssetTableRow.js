@@ -8,9 +8,7 @@ import EditableTableCell from "./EditableTableCell";
 import EarningRateTableCell from "./EarningRateTableCell";
 import CurrentPriceTableCell from "./CurrentPriceTableCell";
 import AutoCompleteTableCell from "./AutoCompleteTableCell";
-import { getAssetCode } from "../company";
 import PriceBox from "./PriceBox";
-import TotalPriceCell from "./TotalPriceCell";
 
 const AssetTableRow = ({
   row,
@@ -37,18 +35,10 @@ const AssetTableRow = ({
     currencySymbol,
   } = row;
 
-  const closure = (colName) => {
-    return (newCol) => {
-      if (
-        colName === "name" &&
-        isUpdateNow === false &&
-        getAssetCode(newCol) !== undefined
-      ) {
-        isUpdateNow = true;
-      }
-      row[colName] = newCol;
-      changeRow(row);
-    };
+  const changeCols = (cols) => {
+    console.log(cols);
+    Object.assign(row, cols);
+    changeRow(row);
   };
 
   return (
@@ -115,23 +105,21 @@ const AssetTableRow = ({
       <TableCell sx={{ width: "40px" }}>{index}</TableCell>
 
       <AutoCompleteTableCell
+        changeCols={changeCols}
         content={name}
         type="text"
-        changeName={closure("name")}
-        changeAssetCode={closure("assetCode")}
-        changeDescription={closure("description")}
         width="17rem"
       />
 
       <EditableTableCell
         content={count}
-        changeCol={closure("count")}
+        changeCol={(col) => changeCols({ count: col })}
         align="right"
         width="4rem"
       />
       <EditableTableCell
         content={buyPrice}
-        changeCol={closure("buyPrice")}
+        changeCol={(col) => changeCols({ buyPrice: col })}
         type="price"
         width="9rem"
         currencySymbol={currencySymbol}
@@ -141,27 +129,24 @@ const AssetTableRow = ({
           name={name}
           content={sellPrice}
           assetCode={assetCode}
-          changeSellPrice={closure("sellPrice")}
-          changeCurrency={closure("currency")}
-          changeCurrencySymbol={closure("currencySymbol")}
+          changeCols={changeCols}
           setIsUpdateNow={(open) => {
-            console.log("open true!");
             setOpen(open);
-            closure("isUpdateNow")(false);
+            changeCols({ isUpdateNow: false });
           }}
           width="9rem"
         />
       ) : (
         <EditableTableCell
           content={sellPrice}
-          changeCol={closure("sellPrice")}
+          changeCol={(col) => changeCols({ sellPrice: col })}
           questionMark
           type="price"
           open={open}
           setOpen={setOpen}
           setIsUpdateNow={() => {
             setOpen(false);
-            closure("isUpdateNow")(true);
+            changeCols({ isUpdateNow: true });
           }}
           assetCode={assetCode}
           width="9rem"
@@ -170,7 +155,6 @@ const AssetTableRow = ({
       <TableCell>
         <PriceBox price={buyPrice * count} currencySymbol={currencySymbol} />
       </TableCell>
-      {/* <TotalPriceCell asset={asset} /> */}
       <TableCell>
         <PriceBox price={sellPrice * count} currencySymbol={currencySymbol} />
       </TableCell>
@@ -178,31 +162,14 @@ const AssetTableRow = ({
         buyPrice={buyPrice * count}
         evalPrice={sellPrice * count}
       />
-      {/* <TableCell
-        sx={{
-          textAlign: "left",
-          width: "6rem",
-          maxWidth: "6rem",
-          overflow: "scroll",
-        }}
-      >
-        {assetCode}
-      </TableCell> */}
-      {/* <EditableTableCell
-        content={assetCode}
-        type="date"
-        changeCol={closure("assetCode")}
-        align="left"
-        width="6rem"
-      /> */}
       <EditableTableCell
         content={description}
         type="text"
-        changeCol={closure("description")}
+        changeCol={(col) => changeCols({ description: col })}
         align="left"
-        width="20rem"
         color="gray"
         fontSize="0.8rem"
+        width="20rem"
       />
     </TableRow>
   );

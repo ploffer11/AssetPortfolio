@@ -10,17 +10,13 @@ import axios from "axios";
 
 const AutoCompleteTableCell = ({
   content,
-  changeCol,
   align,
-  changeName,
-  changeAssetCode,
-  changeDescription,
+  changeCols,
   width = null,
 }) => {
   const [isEditableNow, setIsEditableNow] = useState(false);
   const [text, setText] = useState(content);
   const [autoCompleteList, setAutoCompleteList] = useState([]);
-  const [updateBefore, setUpdateBefore] = useState(false);
 
   useEffect(() => {
     if (isEditableNow) {
@@ -68,12 +64,12 @@ const AutoCompleteTableCell = ({
         }}
         onBlur={() => {
           setIsEditableNow(false);
-          changeName(text);
+          changeCols({ name: text });
         }}
         onKeyPress={(event) => {
           if (event.key === "Enter") {
             setIsEditableNow(false);
-            changeName(text);
+            changeCols({ name: text });
           }
         }}
         sx={{
@@ -93,10 +89,9 @@ const AutoCompleteTableCell = ({
               if (value.includes(" | ")) {
                 let [assetCode, longname, shortname] = value.split(" | ");
                 let name = longname === "undefined" ? shortname : longname;
-                changeAssetCode(assetCode);
-                changeDescription(name);
+
+                changeCols({ assetCode, description: name });
                 setText(name);
-                setUpdateBefore(true);
               } else {
                 setText(value);
               }

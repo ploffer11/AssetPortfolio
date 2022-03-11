@@ -32,13 +32,12 @@ const AssetTable = () => {
   const [placeholder, setPlaceholder] = useState(null);
   const [loading, setLoading] = useState(false);
   const [cookies, setCookie] = useCookies(["authorization"]);
-
-  const sum = (str) => {
-    return asset.reduce((sum, row) => sum + row[str] * row["count"], 0);
-  };
+  const [buyPriceSum, setBuyPriceSum] = useState(0);
+  const [sellPriceSum, setSellPriceSum] = useState(0);
 
   useEffect(() => {
     setChecked(new Array(asset.length).fill(false));
+    console.log("asset type", typeof asset);
   }, [asset]);
 
   const columnName = [
@@ -50,7 +49,6 @@ const AssetTable = () => {
     ["구매액", "right"],
     ["평가액", "right"],
     ["수익률", "center"],
-    // ["코드", "left"],
     ["설명", "left"],
   ];
 
@@ -60,12 +58,11 @@ const AssetTable = () => {
     (row) => row["count"],
     (row) => row["buyPrice"],
     (row) => row["sellPrice"],
-    (row) => row["buyPrice"] * row["count"],
-    (row) => row["sellPrice"] * row["count"],
+    (row) => row["buyTotalPrice"],
+    (row) => row["sellTotalPrice"],
     (row) =>
       (row["sellPrice"] * row["count"] - row["buyPrice"] * row["count"]) /
       (row["buyPrice"] * row["count"]),
-    // (row) => row["assetCode"],
     (row) => row["description"],
   ];
 
@@ -74,7 +71,6 @@ const AssetTable = () => {
     else return getValue(x) < getValue(y) ? -1 : 1;
   };
 
-  console.log("asset table");
   return (
     <Box
       sx={{
@@ -106,7 +102,6 @@ const AssetTable = () => {
               onClick={async () => {
                 setLoading(true);
                 try {
-                  console.log(asset, "save");
                   await axios.post(
                     process.env.REACT_APP_SERVER_HOST + "/asset",
                     {
@@ -298,17 +293,21 @@ const AssetTable = () => {
                     <TableCell colSpan="6" align="center">
                       합계
                     </TableCell>
-                    {/* <TableCell>
-                      <PriceBox price={sum("buyPrice")} />
-                    </TableCell> */}
-                    <TotalPriceCell asset={asset} priceType="buyPrice" />
-                    <TotalPriceCell asset={asset} priceType="sellPrice" />
-                    {/* <TableCell>
-                      <PriceBox price={sum("sellPrice")} />
-                    </TableCell> */}
+
+                    <TotalPriceCell
+                      asset={asset}
+                      priceType="buyPrice"
+                      setTotalPrice={setBuyPriceSum}
+                    />
+                    <TotalPriceCell
+                      asset={asset}
+                      priceType="sellPrice"
+                      setTotalPrice={setSellPriceSum}
+                    />
+
                     <EarningRateTableCell
-                      buyPrice={sum("buyPrice")}
-                      evalPrice={sum("sellPrice")}
+                      buyPrice={buyPriceSum}
+                      evalPrice={sellPriceSum}
                     />
                     <TableCell></TableCell>
                   </TableRow>
