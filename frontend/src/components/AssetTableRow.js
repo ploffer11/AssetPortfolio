@@ -10,6 +10,7 @@ import CurrentPriceTableCell from "./CurrentPriceTableCell";
 import AutoCompleteTableCell from "./AutoCompleteTableCell";
 import { getAssetCode } from "../company";
 import PriceBox from "./PriceBox";
+import TotalPriceCell from "./TotalPriceCell";
 
 const AssetTableRow = ({
   row,
@@ -169,6 +170,7 @@ const AssetTableRow = ({
       <TableCell>
         <PriceBox price={buyPrice * count} currencySymbol={currencySymbol} />
       </TableCell>
+      {/* <TotalPriceCell asset={asset} /> */}
       <TableCell>
         <PriceBox price={sellPrice * count} currencySymbol={currencySymbol} />
       </TableCell>
@@ -195,7 +197,7 @@ const AssetTableRow = ({
       /> */}
       <EditableTableCell
         content={description}
-        type="date"
+        type="text"
         changeCol={closure("description")}
         align="left"
         width="20rem"

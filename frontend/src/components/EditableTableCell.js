@@ -24,6 +24,7 @@ const EditableTableCell = ({
 }) => {
   const [isEditableNow, setIsEditableNow] = useState(false);
   const [text, setText] = useState(content);
+  const [printText, setPrintText] = useState(content);
   const [component, setComponent] = useState(null);
 
   const textAlign = type === "date" ? "left" : "right";
@@ -37,6 +38,18 @@ const EditableTableCell = ({
   useEffect(() => {
     setText(content);
   }, [content]);
+
+  useEffect(() => {
+    if (text === null || text === "") {
+      setPrintText("-");
+    } else if (type === "number") {
+      setPrintText(parseInt(text).toLocaleString());
+    } else if (type === "price") {
+      setPrintText(parseFloat(text).toLocaleString());
+    } else {
+      setPrintText(text.toLocaleString());
+    }
+  }, [text]);
 
   useEffect(() => {
     if (isEditableNow) {
@@ -56,11 +69,12 @@ const EditableTableCell = ({
             shrink: true,
           }}
           onChange={(event) => {
-            if (type === "number" || type === "price") {
-              let num = parseInt(event.target.value);
-              console.log("onchange", isNaN(num) ? 0 : num);
-              setText(isNaN(num) ? 0 : num);
-            } else setText(event.target.value);
+            setText(event.target.value);
+            // if (type === "number" || type === "price") {
+            //   let num = parseInt(event.target.value);
+            //   console.log("onchange", isNaN(num) ? 0 : num);
+            //   setText(isNaN(num) ? 0 : num);
+            // } else setText(event.target.value);
           }}
           autoFocus
         />
@@ -69,11 +83,11 @@ const EditableTableCell = ({
       if (type === "price") {
         if (!assetCode) {
           setComponent(
-            <PriceBox price={text} currencySymbol={currencySymbol} />
+            <PriceBox price={printText} currencySymbol={currencySymbol} />
           );
         } else {
           setComponent(
-            <PriceBox price={text} currencySymbol={currencySymbol}>
+            <PriceBox price={printText} currencySymbol={currencySymbol}>
               <TaskAlt color="disable" onClick={() => setIsUpdateNow()} />
             </PriceBox>
           );
@@ -86,7 +100,7 @@ const EditableTableCell = ({
               fontSize,
             }}
           >
-            {text !== null && text !== "" ? text.toLocaleString() : "-"}
+            {printText}
           </Box>
         );
       }

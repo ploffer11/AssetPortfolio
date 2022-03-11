@@ -16,15 +16,19 @@ const CurrentPriceTableCell = ({
   width,
 }) => {
   useEffect(() => {
-    (async () => {
-      let res = await axios.get(
+    axios
+      .get(
         process.env.REACT_APP_SERVER_HOST +
           `/yahoo/asset?assetCode=${assetCode}`
-      );
-      changeSellPrice(res.data.price);
-      changeCurrency(res.data.currency);
-      changeCurrencySymbol(res.data.currencySymbol);
-    })();
+      )
+      .then((res) => {
+        console.log("data", res.data);
+        changeSellPrice(res.data.price);
+        changeCurrency(res.data.currency);
+        changeCurrencySymbol(res.data.currencySymbol);
+      });
+
+    console.log("assetCode changed");
   }, [assetCode]);
 
   return (

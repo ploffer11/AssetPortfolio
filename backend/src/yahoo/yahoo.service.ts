@@ -25,6 +25,7 @@ export class YahooService {
       let res = await yahooFinance.quoteSummary(symbol, { modules: ['price'] });
       console.log(res);
       return {
+        statusCode: 200,
         price: res.price.regularMarketPrice,
         currency: res.price.currency,
         currencySymbol: res.price.currencySymbol,
@@ -43,5 +44,33 @@ export class YahooService {
     return await yahooFinance.historical('005930.KS', {
       period1: todayString,
     });
+  }
+
+  async getCurrencyToUSD(currency) {
+    try {
+      // 1 currency가 몇 달러인가
+      let symbol = `${currency.toUpperCase()}USD=X`;
+      let res = await yahooFinance.quoteSummary(symbol, { modules: ['price'] });
+      return {
+        statusCode: 200,
+        price: res.price.regularMarketPrice,
+      };
+    } catch (e) {
+      throw new BadRequestException('Wrong currency');
+    }
+  }
+
+  async getUSDToKRW() {
+    try {
+      // 1 달러가 몇 krw인가
+      let symbol = 'KRW=X';
+      let res = await yahooFinance.quoteSummary(symbol, { modules: ['price'] });
+      return {
+        statusCode: 200,
+        price: res.price.regularMarketPrice,
+      };
+    } catch (e) {
+      throw new BadRequestException('Something wrong.');
+    }
   }
 }

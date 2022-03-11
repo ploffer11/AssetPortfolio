@@ -41,4 +41,16 @@ export class YahooController {
     console.log('[GET] /yahoo/auto');
     return await this.yahooService.getPortfolioHistory();
   }
+
+  @Get('usd')
+  async getCurrencyToUSD(@Query('currency') currency) {
+    console.log('[GET] /yahoo/usd');
+    return await this.yahooService.getCurrencyToUSD(currency);
+  }
+
+  @Get('krw')
+  async getUSDToKRW() {
+    console.log('[GET] /yahoo/krw');
+    return await this.yahooService.getUSDToKRW();
+  }
 }

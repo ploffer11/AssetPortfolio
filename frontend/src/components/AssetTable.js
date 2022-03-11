@@ -20,6 +20,7 @@ import EarningRateTableCell from "./EarningRateTableCell";
 import SortButton from "./SortButton";
 import useAsset from "../hook/useAsset";
 import PriceBox from "./PriceBox";
+import TotalPriceCell from "./TotalPriceCell";
 
 const AssetTable = () => {
   const [asset, setAsset, createAsset, addAsset, insertAsset] = useAsset();
@@ -73,6 +74,7 @@ const AssetTable = () => {
     else return getValue(x) < getValue(y) ? -1 : 1;
   };
 
+  console.log("asset table");
   return (
     <Box
       sx={{
@@ -231,16 +233,7 @@ const AssetTable = () => {
                             focus={focus === idx}
                             setFocus={() => setFocus(idx)}
                             sortAscend={() => {
-                              console.log(
-                                [
-                                  ...asset.sort((x, y) => {
-                                    return compare(getValueArray[idx], x, y);
-                                  }),
-                                ].map((row, idx) => {
-                                  row.index = idx + 1;
-                                  return row;
-                                })
-                              );
+                              console.log("sort Ascend");
                               setAsset(
                                 [
                                   ...asset.sort((x, y) => {
@@ -253,6 +246,7 @@ const AssetTable = () => {
                               );
                             }}
                             sortDescend={() => {
+                              console.log("sort Descend");
                               setAsset([
                                 ...asset
                                   .sort((x, y) => {
@@ -275,7 +269,7 @@ const AssetTable = () => {
                   {asset.map((row, idx) => {
                     return (
                       <AssetTableRow
-                        key={row.index}
+                        key={idx}
                         idx={idx}
                         row={row}
                         changeRow={(row) => {
@@ -304,12 +298,14 @@ const AssetTable = () => {
                     <TableCell colSpan="6" align="center">
                       합계
                     </TableCell>
-                    <TableCell>
+                    {/* <TableCell>
                       <PriceBox price={sum("buyPrice")} />
-                    </TableCell>
-                    <TableCell>
+                    </TableCell> */}
+                    <TotalPriceCell asset={asset} priceType="buyPrice" />
+                    <TotalPriceCell asset={asset} priceType="sellPrice" />
+                    {/* <TableCell>
                       <PriceBox price={sum("sellPrice")} />
-                    </TableCell>
+                    </TableCell> */}
                     <EarningRateTableCell
                       buyPrice={sum("buyPrice")}
                       evalPrice={sum("sellPrice")}
