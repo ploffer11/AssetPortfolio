@@ -20,6 +20,7 @@ const AssetTableRow = ({
   setInsertIdx,
   placeholder,
   setPlaceholder,
+  idx,
 }) => {
   const ref = useRef(null);
   const [open, setOpen] = useState(false);
@@ -36,7 +37,6 @@ const AssetTableRow = ({
   } = row;
 
   const changeCols = (cols) => {
-    console.log(cols);
     Object.assign(row, cols);
     changeRow(row);
   };
@@ -102,7 +102,7 @@ const AssetTableRow = ({
           onChange={(e) => setChecked(e.target.checked)}
         />
       </TableCell>
-      <TableCell sx={{ width: "40px" }}>{index}</TableCell>
+      <TableCell sx={{ width: "40px" }}>{idx}</TableCell>
 
       <AutoCompleteTableCell
         changeCols={changeCols}

@@ -19,7 +19,6 @@ import AssetTableRow from "./AssetTableRow";
 import EarningRateTableCell from "./EarningRateTableCell";
 import SortButton from "./SortButton";
 import useAsset from "../hook/useAsset";
-import PriceBox from "./PriceBox";
 import TotalPriceCell from "./TotalPriceCell";
 
 const AssetTable = () => {
@@ -34,10 +33,10 @@ const AssetTable = () => {
   const [cookies, setCookie] = useCookies(["authorization"]);
   const [buyPriceSum, setBuyPriceSum] = useState(0);
   const [sellPriceSum, setSellPriceSum] = useState(0);
+  const [sort, setSort] = useState("");
 
   useEffect(() => {
     setChecked(new Array(asset.length).fill(false));
-    console.log("asset type", typeof asset);
   }, [asset]);
 
   const columnName = [
@@ -58,8 +57,8 @@ const AssetTable = () => {
     (row) => row["count"],
     (row) => row["buyPrice"],
     (row) => row["sellPrice"],
-    (row) => row["buyTotalPrice"],
-    (row) => row["sellTotalPrice"],
+    (row) => row["buyPrice"] * row["count"],
+    (row) => row["sellPrice"] * row["count"],
     (row) =>
       (row["sellPrice"] * row["count"] - row["buyPrice"] * row["count"]) /
       (row["buyPrice"] * row["count"]),
@@ -143,22 +142,40 @@ const AssetTable = () => {
               color="error"
               size="large"
               onClick={() => {
-                let count = checked.reduce(
-                  (sum, val) => sum + (val === false),
-                  0
-                );
+                let deletedIndex = [];
+                if (focus !== -1) {
+                  let sortedAsset = [...asset].sort((x, y) => {
+                    return (
+                      (sort === "ascend" ? 1 : -1) *
+                      compare(getValueArray[focus], x, y)
+                    );
+                  });
+
+                  for (let i = 0; i < checked.length; i++) {
+                    if (checked[i]) {
+                      deletedIndex.push(sortedAsset[i].index);
+                    }
+                  }
+                }
+
                 setAsset(
                   asset
                     .filter((row, idx) => {
-                      return !checked[idx];
+                      // sort 상태가 아닐 경우, 그냥 false이면 전부 통과시키면 된다.
+                      if (!sort) {
+                        return !checked[idx];
+                      }
+                      // delete index 를 확인
+                      else {
+                        return !deletedIndex.includes(row.index);
+                      }
                     })
                     .map((row, idx) => {
-                      row.index = idx + 1;
+                      row.index = idx;
                       return row;
                     })
                 );
                 setAllChecked(false);
-                setChecked(new Array(count).fill(false));
               }}
             >
               <Remove sx={{ marginRight: "10px" }} />
@@ -167,8 +184,6 @@ const AssetTable = () => {
           </Box>
           <Box
             sx={{
-              // boxShadow:
-              //   "0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)",
               marginTop: "1vh",
             }}
           >
@@ -228,30 +243,10 @@ const AssetTable = () => {
                             focus={focus === idx}
                             setFocus={() => setFocus(idx)}
                             sortAscend={() => {
-                              console.log("sort Ascend");
-                              setAsset(
-                                [
-                                  ...asset.sort((x, y) => {
-                                    return compare(getValueArray[idx], x, y);
-                                  }),
-                                ].map((row, idx) => {
-                                  row.index = idx + 1;
-                                  return row;
-                                })
-                              );
+                              setSort("ascend");
                             }}
                             sortDescend={() => {
-                              console.log("sort Descend");
-                              setAsset([
-                                ...asset
-                                  .sort((x, y) => {
-                                    return -compare(getValueArray[idx], x, y);
-                                  })
-                                  .map((row, idx) => {
-                                    row.index = idx + 1;
-                                    return row;
-                                  }),
-                              ]);
+                              setSort("descend");
                             }}
                           />
                         </TableCell>
@@ -261,14 +256,22 @@ const AssetTable = () => {
                 </TableHead>
 
                 <TableBody>
-                  {asset.map((row, idx) => {
+                  {(sort
+                    ? [...asset].sort((x, y) => {
+                        return (
+                          (sort === "ascend" ? 1 : -1) *
+                          compare(getValueArray[focus], x, y)
+                        );
+                      })
+                    : asset
+                  ).map((row, idx) => {
                     return (
                       <AssetTableRow
-                        key={idx}
+                        key={row.index}
                         idx={idx}
                         row={row}
                         changeRow={(row) => {
-                          asset[idx] = row;
+                          asset[row.index] = row;
                           setAsset([...asset]);
                         }}
                         setChecked={(chk) => {

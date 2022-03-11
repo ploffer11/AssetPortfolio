@@ -40,7 +40,7 @@ const useAsset = () => {
     setAsset(
       asset.concat(
         createAsset(
-          asset.length + 1,
+          asset.length,
           name,
           buyPrice,
           count,
@@ -64,7 +64,7 @@ const useAsset = () => {
 
     setAsset(
       asset.map((row, idx) => {
-        row.index = idx + 1;
+        row.index = idx;
         return row;
       })
     );
