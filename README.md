@@ -7,6 +7,7 @@ Manage your assets online using "Asset Portfolio"
 # Frontend (Javascript)
 
 - React.js
+- Canvas.js
 - Material UI
 - Axios
 - React-Cookie
@@ -17,6 +18,7 @@ Manage your assets online using "Asset Portfolio"
 
 - Nest.ts
 - TypeORM + MySQL
+- Yahoo Finance
 - Json Web Token
 - Encrypted Password (Salt)
 - Email Verify
