@@ -38,5 +38,11 @@ export class AssetEntity extends BaseEntity {
   description: string;
 
   @Column()
+  currency: string;
+
+  @Column()
+  currencySymbol: string;
+
+  @Column()
   isUpdateNow: boolean;
 }

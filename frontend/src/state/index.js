@@ -1,3 +1,4 @@
+import axios from "axios";
 import create from "zustand";
 
 const useStore = create((set, get) => ({
@@ -54,6 +55,31 @@ const useStore = create((set, get) => ({
   setAsset: (asset) => {
     set((state) => ({ asset }));
   },
+  loadAsset: (cookies) => {
+    axios
+      .get(
+        process.env.REACT_APP_SERVER_HOST +
+          `/asset/all?authorization=${cookies.authorization}`,
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        get().setAsset(
+          res.data
+            .sort((x, y) => x.index - y.index)
+            .map((row) => {
+              row.key = Math.random().toString(36);
+              row.orderIndex = row.index;
+              return row;
+            })
+        );
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  },
   createAsset: (newAsset) => {
     return Object.assign(
       {
@@ -87,7 +113,6 @@ const useStore = create((set, get) => ({
       return { asset: assetCopy };
     }),
   getSortAsset: () => {
-    console.log("get sort asset");
     return [...get().asset].sort((x, y) => x.orderIndex - y.orderIndex);
   },
   compare: (getValue, x, y) => {

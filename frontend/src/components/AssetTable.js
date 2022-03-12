@@ -37,6 +37,7 @@ const AssetTable = () => {
     setAsset,
     addAsset,
     getSortAsset,
+    loadAsset,
   } = useStore();
   const [cookies, setCookie] = useCookies(["authorization"]);
 
@@ -59,11 +60,12 @@ const AssetTable = () => {
   ];
 
   useEffect(() => {
-    initChecked(asset.length + 1);
-    console.log(asset);
-  }, [asset]);
+    loadAsset(cookies);
+  }, []);
 
-  console.log(sortColumnIndex, "<-");
+  useEffect(() => {
+    initChecked(asset.length + 1);
+  }, [asset]);
 
   return (
     <Box
@@ -197,7 +199,7 @@ const AssetTable = () => {
                             color: "white",
                           },
                         }}
-                        checked={checked[0]}
+                        checked={checked[0] || false}
                         onChange={(e) => {
                           setCheckedAll(e.target.checked);
                         }}

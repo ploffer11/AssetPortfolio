@@ -132,7 +132,11 @@ const AutoCompleteTableCell = ({
                 </Box>
               );
             }}
-            isOptionEqualToValue={() => false}
+            // isOptionEqualToValue={(option, value) => {
+            //   // console.log(option, value);
+            //   return option.label.toUpperCase().includes(value.toUpperCase());
+            //   // return true;
+            // }}
           />
         )}
       </Box>
