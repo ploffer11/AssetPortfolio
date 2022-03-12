@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import Icon from "@mui/material/Icon";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
+import useStore from "../state";
 
-const SortButton = ({ text, sortAscend, sortDescend, focus, setFocus }) => {
+const SortButton = ({ text, columnIndex }) => {
   const [ascend, setAscend] = useState(true);
+  const { sortColumnIndex, setSortColumnIndex, sortAssetColumn } = useStore();
 
   return (
     <Box
@@ -15,15 +17,14 @@ const SortButton = ({ text, sortAscend, sortDescend, focus, setFocus }) => {
         position: "relative",
       }}
       onClick={() => {
-        setFocus();
-        if (ascend) sortAscend();
-        else sortDescend();
+        sortAssetColumn(columnIndex, ascend);
+        setSortColumnIndex(columnIndex);
         setAscend(!ascend);
       }}
     >
       {text}
       <Box sx={{ display: "inline", position: "absolute" }}>
-        {focus ? (
+        {sortColumnIndex === columnIndex ? (
           <Icon>{!ascend ? <ArrowDownward /> : <ArrowUpward />}</Icon>
         ) : null}
       </Box>

@@ -89,7 +89,7 @@ const AutoCompleteTableCell = ({
               if (value.includes(" | ")) {
                 let [assetCode, longname, shortname] = value.split(" | ");
                 let name = longname === "undefined" ? shortname : longname;
-
+                console.log(assetCode, name);
                 changeCols({ assetCode, description: name });
                 setText(name);
               } else {

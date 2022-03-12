@@ -1,33 +1,27 @@
 import React, { useState, useEffect } from "react";
 
 import { TaskAlt } from "@mui/icons-material";
-import { Autocomplete, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import TableCell from "@mui/material/TableCell";
 import TextField from "@mui/material/TextField";
-
-// import { autoCompleteList } from "../company";
 import PriceBox from "./PriceBox";
 
 const EditableTableCell = ({
   content,
+  assetCode,
   changeCol,
-  align,
-  assetCode = null,
-  type = "number",
+  type,
+  currencySymbol = "₩",
   open = false,
   setOpen = () => {},
-  width = null,
-  color = "black",
-  fontSize = "1rem",
-  currencySymbol = "₩",
   setIsUpdateNow = () => {},
 }) => {
   const [isEditableNow, setIsEditableNow] = useState(false);
   const [text, setText] = useState(content);
   const [printText, setPrintText] = useState(content);
   const [component, setComponent] = useState(null);
+  const textAlign = type === "date" || type === "text" ? "left" : "right";
 
-  const textAlign = type === "date" ? "left" : "right";
   useEffect(() => {
     if (open) {
       setIsEditableNow(true);
@@ -41,7 +35,7 @@ const EditableTableCell = ({
 
   useEffect(() => {
     if (text === null || text === "") {
-      setPrintText("-");
+      setPrintText(type === "text" ? "-" : "0");
     } else if (type === "number") {
       setPrintText(parseInt(text).toLocaleString());
     } else if (type === "price") {
@@ -62,7 +56,7 @@ const EditableTableCell = ({
             "& input": {
               fontWeight: "bold",
               textAlign,
-              width,
+              width: "100%",
             },
           }}
           InputLabelProps={{
@@ -88,16 +82,7 @@ const EditableTableCell = ({
           );
         }
       } else {
-        setComponent(
-          <Box
-            sx={{
-              color,
-              fontSize,
-            }}
-          >
-            {printText}
-          </Box>
-        );
+        setComponent(<Box>{printText}</Box>);
       }
     }
   }, [isEditableNow, text, currencySymbol, printText]);
@@ -106,11 +91,8 @@ const EditableTableCell = ({
     <TableCell
       sx={{
         cursor: "pointer",
-        width,
-        maxWidth: width,
         overflow: "hidden",
       }}
-      align={align}
       onDragStart={(e) => {
         if (isEditableNow) {
           e.stopPropagation();

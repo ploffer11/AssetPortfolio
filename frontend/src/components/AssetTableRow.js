@@ -9,23 +9,41 @@ import EarningRateTableCell from "./EarningRateTableCell";
 import CurrentPriceTableCell from "./CurrentPriceTableCell";
 import AutoCompleteTableCell from "./AutoCompleteTableCell";
 import PriceBox from "./PriceBox";
+import useStore from "../state";
+import "../scss/tableRow.scss";
 
 const AssetTableRow = ({
+  // idx,
   row,
-  changeRow,
-  checked,
-  setChecked,
-  insertAsset,
+  // insertAsset,
   insertIdx,
   setInsertIdx,
-  placeholder,
-  setPlaceholder,
-  idx,
+  // placeholder,
+  // setPlaceholder,
 }) => {
+  const {
+    changeAsset,
+    insertToIndex,
+    insertFromIndex,
+    setInsertToIndex,
+    setInsertFromIndex,
+    placeholder,
+    setPlaceholder,
+    insertAsset,
+    sortAsset,
+  } = useStore();
+
+  const changeCols = (cols) => {
+    changeAsset(row.index, cols);
+  };
+
   const ref = useRef(null);
   const [open, setOpen] = useState(false);
+  const { checked, setCheckedIndex } = useStore();
+
   let {
     index,
+    orderIndex,
     name,
     buyPrice,
     sellPrice,
@@ -36,23 +54,20 @@ const AssetTableRow = ({
     currencySymbol,
   } = row;
 
-  const changeCols = (cols) => {
-    Object.assign(row, cols);
-    changeRow(row);
-  };
-
   return (
     <TableRow
-      key={name}
+      id="asset-table-row"
+      ref={ref}
+      draggable="true"
       sx={{
         backgroundColor:
           name === "새로운 자산" ? "rgba(221,220,218,1)" : "transparent",
       }}
-      ref={ref}
-      draggable="true"
       onDragStart={(e) => {
-        console.log("DRAG START");
-        setInsertIdx(index - 1);
+        console.log("DRAG START", row);
+        sortAsset();
+        setInsertToIndex(orderIndex);
+        setInsertFromIndex(orderIndex);
 
         let copyRow = ref.current.cloneNode(true);
         copyRow.style.display = "none";
@@ -66,67 +81,68 @@ const AssetTableRow = ({
         e.dataTransfer.setData("text/html", ref.current);
         ref.current.style.opacity = 0.3;
       }}
-      onDragEnd={(e) => {
-        console.log("DRAG END", index - 1, insertIdx);
-        if (!(index - 1 === insertIdx || index === insertIdx)) {
-          console.log("insert asset called");
-          ref.current.parentNode.insertBefore(ref.current, placeholder);
-          insertAsset(index - 1, insertIdx);
-        }
-        placeholder.parentNode.removeChild(placeholder);
-        ref.current.style.opacity = 1;
-      }}
       onDragOver={(e) => {
+        // console.log("DRAG OVER", e.target.tagName);
         e.preventDefault();
         if (e.target.tagName === "TD") {
           placeholder.style.display = "table-row";
           let insertElement = ref.current;
           if (e.nativeEvent.offsetY > e.target.parentNode.clientHeight / 2) {
             insertElement = insertElement.nextSibling;
-            setInsertIdx(index);
+            if (insertToIndex != index + 1) setInsertToIndex(index + 1);
           } else {
-            setInsertIdx(index - 1);
+            if (insertToIndex != index) setInsertToIndex(index);
           }
           insertElement.parentNode.insertBefore(placeholder, insertElement);
         }
       }}
+      onDragEnd={(e) => {
+        console.log("DRAG END", insertFromIndex, insertToIndex);
+        if (
+          !(
+            insertFromIndex === insertToIndex ||
+            insertFromIndex + 1 === insertToIndex
+          )
+        ) {
+          ref.current.parentNode.insertBefore(ref.current, placeholder);
+          insertAsset(insertFromIndex, insertToIndex);
+        }
+        placeholder.parentNode.removeChild(placeholder);
+        ref.current.style.opacity = 1;
+      }}
     >
-      <TableCell sx={{ width: "40px" }}>
+      <TableCell>
         <Checkbox
           sx={{
             "&.Mui-checked": {
               color: "rgba(0,153,102,1)",
             },
           }}
-          checked={checked || false}
-          onChange={(e) => setChecked(e.target.checked)}
+          checked={checked[index + 1] || false}
+          onChange={(e) => setCheckedIndex(index + 1, e.target.checked)}
         />
       </TableCell>
-      <TableCell sx={{ width: "40px" }}>{idx}</TableCell>
+      <TableCell>{orderIndex + 1}</TableCell>
 
       <AutoCompleteTableCell
         changeCols={changeCols}
         content={name}
         type="text"
-        width="17rem"
       />
 
       <EditableTableCell
         content={count}
         changeCol={(col) => changeCols({ count: col })}
-        align="right"
-        width="4rem"
+        type="number"
       />
       <EditableTableCell
         content={buyPrice}
         changeCol={(col) => changeCols({ buyPrice: col })}
-        type="price"
-        width="9rem"
         currencySymbol={currencySymbol}
+        type="price"
       />
       {isUpdateNow && assetCode ? (
         <CurrentPriceTableCell
-          name={name}
           content={sellPrice}
           assetCode={assetCode}
           changeCols={changeCols}
@@ -134,22 +150,20 @@ const AssetTableRow = ({
             setOpen(open);
             changeCols({ isUpdateNow: false });
           }}
-          width="9rem"
         />
       ) : (
         <EditableTableCell
           content={sellPrice}
+          assetCode={assetCode}
           changeCol={(col) => changeCols({ sellPrice: col })}
           questionMark
-          type="price"
           open={open}
           setOpen={setOpen}
           setIsUpdateNow={() => {
             setOpen(false);
             changeCols({ isUpdateNow: true });
           }}
-          assetCode={assetCode}
-          width="9rem"
+          type="price"
         />
       )}
       <TableCell>
@@ -166,10 +180,6 @@ const AssetTableRow = ({
         content={description}
         type="text"
         changeCol={(col) => changeCols({ description: col })}
-        align="left"
-        color="gray"
-        fontSize="0.8rem"
-        width="20rem"
       />
     </TableRow>
   );

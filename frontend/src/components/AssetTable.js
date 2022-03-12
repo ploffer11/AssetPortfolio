@@ -18,57 +18,52 @@ import { Add, Remove, SaveAlt } from "@mui/icons-material";
 import AssetTableRow from "./AssetTableRow";
 import EarningRateTableCell from "./EarningRateTableCell";
 import SortButton from "./SortButton";
-import useAsset from "../hook/useAsset";
 import TotalPriceCell from "./TotalPriceCell";
+import "../scss/tableRow.scss";
 
+import useStore from "../state";
 const AssetTable = () => {
-  const [asset, setAsset, createAsset, addAsset, insertAsset] = useAsset();
-  const [checked, setChecked] = useState([]);
-  const [allChecked, setAllChecked] = useState(false);
-  const [count, setCount] = useState(1);
-  const [focus, setFocus] = useState(-1);
-  const [insertIdx, setInsertIdx] = useState(null);
-  const [placeholder, setPlaceholder] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const {
+    buyPriceSum,
+    setBuyPriceSum,
+    sellPriceSum,
+    setSellPriceSum,
+    checked,
+    setCheckedAll,
+    initChecked,
+    addChecked,
+    sortColumnIndex,
+    asset,
+    setAsset,
+    addAsset,
+    getSortAsset,
+  } = useStore();
   const [cookies, setCookie] = useCookies(["authorization"]);
-  const [buyPriceSum, setBuyPriceSum] = useState(0);
-  const [sellPriceSum, setSellPriceSum] = useState(0);
-  const [sort, setSort] = useState("");
 
-  useEffect(() => {
-    setChecked(new Array(asset.length).fill(false));
-  }, [asset]);
+  const [count, setCount] = useState(1);
+  const [loading, setLoading] = useState(false);
+
+  // const [insertIdx, setInsertIdx] = useState(null);
+  // const [placeholder, setPlaceholder] = useState(null);
 
   const columnName = [
-    ["#", "left"],
-    ["자산 이름", "left"],
-    ["개수", "right"],
-    ["매수가", "right"],
-    ["매도가", "right"],
-    ["구매액", "right"],
-    ["평가액", "right"],
-    ["수익률", "center"],
-    ["설명", "left"],
+    "#",
+    "자산 이름",
+    "개수",
+    "매수가",
+    "매도가",
+    "구매액",
+    "평가액",
+    "수익률",
+    "설명",
   ];
 
-  const getValueArray = [
-    (row) => row["index"],
-    (row) => row["name"],
-    (row) => row["count"],
-    (row) => row["buyPrice"],
-    (row) => row["sellPrice"],
-    (row) => row["buyPrice"] * row["count"],
-    (row) => row["sellPrice"] * row["count"],
-    (row) =>
-      (row["sellPrice"] * row["count"] - row["buyPrice"] * row["count"]) /
-      (row["buyPrice"] * row["count"]),
-    (row) => row["description"],
-  ];
+  useEffect(() => {
+    initChecked(asset.length + 1);
+    console.log(asset);
+  }, [asset]);
 
-  const compare = (getValue, x, y) => {
-    if (getValue(x) == getValue(y)) return 0;
-    else return getValue(x) < getValue(y) ? -1 : 1;
-  };
+  console.log(sortColumnIndex, "<-");
 
   return (
     <Box
@@ -127,8 +122,8 @@ const AssetTable = () => {
               color="success"
               size="large"
               onClick={() => {
-                addAsset(`새로운 자산 ` + count, 0, 0, 0, null, null, null);
-                setChecked(checked.concat(false));
+                addAsset({ name: `새로운 자산 ${count}` });
+                addChecked(false);
                 setCount(count + 1);
               }}
             >
@@ -142,40 +137,16 @@ const AssetTable = () => {
               color="error"
               size="large"
               onClick={() => {
-                let deletedIndex = [];
-                if (focus !== -1) {
-                  let sortedAsset = [...asset].sort((x, y) => {
-                    return (
-                      (sort === "ascend" ? 1 : -1) *
-                      compare(getValueArray[focus], x, y)
-                    );
-                  });
-
-                  for (let i = 0; i < checked.length; i++) {
-                    if (checked[i]) {
-                      deletedIndex.push(sortedAsset[i].index);
-                    }
-                  }
-                }
-
                 setAsset(
                   asset
                     .filter((row, idx) => {
-                      // sort 상태가 아닐 경우, 그냥 false이면 전부 통과시키면 된다.
-                      if (!sort) {
-                        return !checked[idx];
-                      }
-                      // delete index 를 확인
-                      else {
-                        return !deletedIndex.includes(row.index);
-                      }
+                      return !checked[idx + 1];
                     })
                     .map((row, idx) => {
                       row.index = idx;
                       return row;
                     })
                 );
-                setAllChecked(false);
               }}
             >
               <Remove sx={{ marginRight: "10px" }} />
@@ -217,7 +188,7 @@ const AssetTable = () => {
                 aria-label="simple table"
               >
                 <TableHead>
-                  <TableRow>
+                  <TableRow id="asset-table-head">
                     <TableCell>
                       <Checkbox
                         sx={{
@@ -226,29 +197,16 @@ const AssetTable = () => {
                             color: "white",
                           },
                         }}
-                        checked={allChecked}
+                        checked={checked[0]}
                         onChange={(e) => {
-                          setChecked(
-                            new Array(checked.length).fill(e.target.checked)
-                          );
-                          setAllChecked(e.target.checked);
+                          setCheckedAll(e.target.checked);
                         }}
                       />
                     </TableCell>
-                    {columnName.map(([name, align], idx) => {
+                    {columnName.map((name, idx) => {
                       return (
-                        <TableCell key={name} align={align}>
-                          <SortButton
-                            text={name}
-                            focus={focus === idx}
-                            setFocus={() => setFocus(idx)}
-                            sortAscend={() => {
-                              setSort("ascend");
-                            }}
-                            sortDescend={() => {
-                              setSort("descend");
-                            }}
-                          />
+                        <TableCell key={name}>
+                          <SortButton text={name} columnIndex={idx} />
                         </TableCell>
                       );
                     })}
@@ -256,37 +214,11 @@ const AssetTable = () => {
                 </TableHead>
 
                 <TableBody>
-                  {(sort
-                    ? [...asset].sort((x, y) => {
-                        return (
-                          (sort === "ascend" ? 1 : -1) *
-                          compare(getValueArray[focus], x, y)
-                        );
-                      })
-                    : asset
-                  ).map((row, idx) => {
-                    return (
-                      <AssetTableRow
-                        key={row.index}
-                        idx={idx}
-                        row={row}
-                        changeRow={(row) => {
-                          asset[row.index] = row;
-                          setAsset([...asset]);
-                        }}
-                        setChecked={(chk) => {
-                          checked[idx] = chk;
-                          setChecked([...checked]);
-                        }}
-                        checked={checked[idx]}
-                        insertAsset={insertAsset}
-                        insertIdx={insertIdx}
-                        setInsertIdx={setInsertIdx}
-                        placeholder={placeholder}
-                        setPlaceholder={setPlaceholder}
-                      />
-                    );
-                  })}
+                  {(sortColumnIndex !== -1 ? getSortAsset() : asset).map(
+                    (row, idx) => {
+                      return <AssetTableRow key={row.key} row={row} />;
+                    }
+                  )}
 
                   <TableRow
                     sx={{

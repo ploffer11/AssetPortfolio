@@ -32,10 +32,8 @@ const EarningRateTableCell = ({ buyPrice, evalPrice }) => {
   return (
     <TableCell
       sx={{
-        // backgroundColor: `rgba(${r}, ${g}, ${b}, ${a})`,
         color: `rgba(${r}, ${g}, ${b}, ${a})`,
         fontWeight: "bold",
-        width: "8rem",
         textAlign: "center",
       }}
     >
