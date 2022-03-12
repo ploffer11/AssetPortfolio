@@ -6,19 +6,20 @@ Manage your assets online using "Asset Portfolio"
 
 # Frontend (Javascript)
 
-- React.js
-- Canvas.js
-- Material UI
-- Axios
-- React-Cookie
+- [React.js](https://ko.reactjs.org/)
+- [Canvas.js](https://canvasjs.com/)
+- [Zustand](https://github.com/pmndrs/zustand)
+- [Material UI](https://mui.com/)
+- [Axios](https://axios-http.com/kr/)
+- [React-Cookie](https://github.com/reactivestack/cookies)
 
 <br/>
 
 # Backend (Typescript)
 
-- Nest.ts
-- TypeORM + MySQL
-- Yahoo Finance
+- [Nest.ts](https://docs.nestjs.com/)
+- [TypeORM](https://typeorm.io/) + MySQL
+- [Yahoo Finance](https://github.com/gadicc/node-yahoo-finance2)
 - Json Web Token
 - Encrypted Password (Salt)
 - Email Verify
