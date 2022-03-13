@@ -27,7 +27,7 @@ const StockChart = ({ assetCode, currencySymbol, currency, name }) => {
         })
       );
     })();
-  }, []);
+  }, [assetCode]);
 
   const options = {
     title: {
