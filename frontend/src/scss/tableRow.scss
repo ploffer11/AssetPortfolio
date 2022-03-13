@@ -1,4 +1,4 @@
-#asset-table-head {
+.asset-table-head {
   th:nth-child(1) {
     width: 2.8rem;
   }
@@ -37,7 +37,7 @@
   }
 }
 
-#asset-table-row {
+.asset-table-row {
   td:nth-child(1) {
     width: 2.8rem;
   }

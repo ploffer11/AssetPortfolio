@@ -190,7 +190,7 @@ const AssetTable = () => {
                 aria-label="simple table"
               >
                 <TableHead>
-                  <TableRow id="asset-table-head">
+                  <TableRow className="asset-table-head">
                     <TableCell>
                       <Checkbox
                         sx={{

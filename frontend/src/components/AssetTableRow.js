@@ -56,7 +56,7 @@ const AssetTableRow = ({ row }) => {
   return (
     <>
       <TableRow
-        id="asset-table-row"
+        className="asset-table-row"
         ref={ref}
         draggable="true"
         onDragStart={(e) => {
