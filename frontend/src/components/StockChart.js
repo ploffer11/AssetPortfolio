@@ -6,37 +6,23 @@ import CanvasJSReact from "../canvas/canvasjs.stock.react";
 let CanvasJS = CanvasJSReact.CanvasJS;
 let CanvasJSStockChart = CanvasJSReact.CanvasJSStockChart;
 
-const StockChart = () => {
+const StockChart = ({ assetCode, currencySymbol, currency, name }) => {
   const [dataPoints, setDataPoints] = useState([]);
-  const [cookies, setCookie] = useCookies(["authorization"]);
 
   useEffect(() => {
     (async () => {
       let res = await axios.get(
         process.env.REACT_APP_SERVER_HOST +
-          `/yahoo?authorization=${cookies.authorization}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
+          `/yahoo/assetHistory?assetCode=${assetCode}`
       );
 
-      console.log(
-        res.data.map((data) => {
-          return {
-            x: new Date(data.date),
-            y: data.close,
-          };
-        })
-      );
+      console.log(res.data);
 
       setDataPoints(
         res.data.map((data) => {
           return {
             x: new Date(data.date),
-            y: data.close,
+            y: [data.open, data.high, data.low, data.close],
           };
         })
       );
@@ -45,14 +31,15 @@ const StockChart = () => {
 
   const options = {
     title: {
-      text: "React StockChart with Spline Area Chart",
+      // text: "React StockChart with Spline Area Chart",
     },
     theme: "light2",
     subtitles: [
       {
-        text: "BTC/USD",
+        text: `${name}/${currency}`,
       },
     ],
+    // animationEnabled: true,
     charts: [
       {
         axisX: {
@@ -63,12 +50,12 @@ const StockChart = () => {
           },
         },
         axisY: {
-          title: "Portfolio",
-          prefix: "￦",
+          // title: "Portfolio",
+          prefix: currencySymbol,
           crosshair: {
             enabled: true,
             snapToDataPoint: true,
-            valueFormatString: "$#,###.##",
+            valueFormatString: `${currencySymbol}#,###.##`,
           },
         },
         toolTip: {
@@ -77,9 +64,9 @@ const StockChart = () => {
         data: [
           {
             name: "Price (in USD)",
-            type: "splineArea",
+            type: "candlestick",
             color: "#3576a8",
-            yValueFormatString: "$#,###.##",
+            yValueFormatString: `${currencySymbol}#,###.##`,
             xValueFormatString: "MMM DD YYYY",
             dataPoints: dataPoints,
           },
@@ -88,15 +75,16 @@ const StockChart = () => {
     ],
     navigator: {
       slider: {
-        minimum: new Date("2021-03-06"),
-        maximum: new Date("2022-03-06"),
+        // minimum: new Date("2021-03-06"),
+        // maximum: new Date("2022-03-06"),
       },
     },
   };
   const containerProps = {
-    width: "90vw",
+    width: "100%",
     height: "50vh",
     margin: "auto",
+    fontSize: "1rem",
   };
   return (
     <>

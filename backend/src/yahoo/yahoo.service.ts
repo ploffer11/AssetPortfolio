@@ -5,6 +5,11 @@ import yahooFinance from 'yahoo-finance2';
 
 @Injectable()
 export class YahooService {
+  /**
+   * 사용자가 검색창에 입력한 query에 맞는 Auto Complete List를 반환
+   * @param query
+   * @returns
+   */
   async getAutoCompleteList(query) {
     try {
       let res = await yahooFinance.search(query, {
@@ -20,9 +25,16 @@ export class YahooService {
     }
   }
 
-  async getAssetInfo(symbol) {
+  /**
+   * assetCode에 해당하는 자산의 {price, currency, currencySymbol} 을 반환
+   * @param assetCode
+   * @returns
+   */
+  async getAssetInfo(assetCode) {
     try {
-      let res = await yahooFinance.quoteSummary(symbol, { modules: ['price'] });
+      let res = await yahooFinance.quoteSummary(assetCode, {
+        modules: ['price'],
+      });
       console.log(res);
       return {
         statusCode: 200,
@@ -33,6 +45,22 @@ export class YahooService {
     } catch (e) {
       throw new BadRequestException('Wrong symbol.');
     }
+  }
+
+  /**
+   * assetCode에 해당하는 자산의 1년치 history를 반화
+   * @param assetCode
+   * @returns
+   */
+  async getAssetHistory(assetCode: string) {
+    let today = new Date();
+    let todayString = `${
+      today.getFullYear() - 1
+    }-${today.getMonth()}-${today.getDate()}`;
+
+    return await yahooFinance.historical(assetCode, {
+      period1: todayString,
+    });
   }
 
   async getPortfolioHistory() {
@@ -46,7 +74,7 @@ export class YahooService {
     });
   }
 
-  async getCurrencyToUSD(currency) {
+  async getCurrencyToUSD(currency: string) {
     try {
       // 1 currency가 몇 달러인가
       let symbol = `${currency.toUpperCase()}USD=X`;

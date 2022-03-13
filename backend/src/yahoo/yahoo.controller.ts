@@ -35,6 +35,12 @@ export class YahooController {
     return await this.yahooService.getAssetInfo(assetCode);
   }
 
+  @Get('/assetHistory')
+  async getAssetHistory(@Query('assetCode') assetCode) {
+    console.log('[GET] /yahoo/assetHistory', assetCode);
+    return await this.yahooService.getAssetHistory(assetCode);
+  }
+
   @UseGuards(AuthGuard)
   @Get()
   async getPortfolioHistory(@Query('authorization', ParseTokenPipe) { uid }) {
