@@ -20,6 +20,7 @@ Manage your assets online using "Asset Portfolio"
 - [Nest.ts](https://docs.nestjs.com/)
 - [TypeORM](https://typeorm.io/) + MySQL
 - [Yahoo Finance](https://github.com/gadicc/node-yahoo-finance2)
+- [Class Validator](https://github.com/typestack/class-validator) + [Class Transformer](https://github.com/typestack/class-transformer)
 - Json Web Token
 - Encrypted Password (Salt)
 - Email Verify
