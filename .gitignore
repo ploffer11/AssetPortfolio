@@ -35,3 +35,6 @@ log.txt
 
 # todo
 todolist.txt
+
+# conf
+*.conf 

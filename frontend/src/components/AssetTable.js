@@ -101,7 +101,7 @@ const AssetTable = () => {
                   await axios.post(
                     process.env.REACT_APP_SERVER_HOST + "/asset",
                     {
-                      assets: asset,
+                      asset: asset,
                       authorization: cookies.authorization,
                     },
                     {
@@ -145,7 +145,7 @@ const AssetTable = () => {
                       return !checked[idx + 1];
                     })
                     .map((row, idx) => {
-                      row.index = idx;
+                      row.orderIndex = row.index = idx;
                       return row;
                     })
                 );

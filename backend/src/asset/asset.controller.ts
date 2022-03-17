@@ -12,9 +12,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { AssetService } from './asset.service';
-import { InsertAssetDto } from './dto/insert-asset.dto';
-import { UpdateAssetDto } from './dto/update-asset.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { InsertAssetDto } from './dto/insert-asset.dto';
 import { GetAllAssetDto } from './dto/get-all-asset.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { ParseTokenPipe } from 'src/pipe/parse-token.pipe';
@@ -30,22 +29,13 @@ export class AssetController {
 
   @Post()
   insertAsset(
-    @Body() insertAssetDto,
+    @Body() insertAssetDto: InsertAssetDto,
     @Body('authorization', ParseTokenPipe) { uid },
   ) {
-    let assets: AssetEntity[] = insertAssetDto['assets'];
+    let assets: AssetEntity[] = insertAssetDto['asset'];
     console.log('[POST] /asset');
+    console.log(assets);
     return this.assetService.insertAsset(uid, assets);
-  }
-
-  @Post('/delete')
-  deleteAsset(
-    @Body() deleteAssetDto,
-    @Body('authorization', ParseTokenPipe) { uid },
-  ) {
-    let lastIndex: number = deleteAssetDto['index'];
-    console.log('[POST] /asset/delete');
-    return this.assetService.deleteAsset(uid, lastIndex);
   }
 
   @Get('/all')

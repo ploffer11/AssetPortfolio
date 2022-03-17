@@ -13,26 +13,24 @@ export class AssetService {
 
   /**
    * Asset 테이블에 asset을 insert하는 함수. 이미 {uid, index} 를 가진 자산이 있다면 update만 한다.
+   * insert된 asset의 마지막 index보다 큰 것들은 delete한다.
    * @param asset
    * @returns
    */
   async insertAsset(uid: number, assets: AssetEntity[]) {
     for (let asset of assets) {
-      delete asset.pk;
-
       let alreadyExistAsset = await this.assetRepository.findOne({
         uid,
         index: asset.index,
       });
 
+      asset['uid'] = uid;
       if (alreadyExistAsset) {
         asset['pk'] = alreadyExistAsset['pk'];
       }
 
-      asset['uid'] = uid;
-
       this.assetRepository.save(asset).then((asset) => {
-        console.log('[AssetService] First Save Asset', asset);
+        console.log('[AssetService] Save Asset', asset);
       });
     }
     this.deleteAsset(uid, assets.length);
@@ -48,7 +46,7 @@ export class AssetService {
    */
   async deleteAsset(uid: number, lastIndex: number) {
     console.log('[AssetService] delete asset', uid, lastIndex);
-    const asset = await this.assetRepository
+    const deleted = await this.assetRepository
       .createQueryBuilder()
       .delete()
       .where('uid = :uid AND index > :lastIndex', {
@@ -56,7 +54,7 @@ export class AssetService {
         lastIndex: lastIndex,
       })
       .execute();
-    console.log('[AssetService] Delete Asset', asset, lastIndex);
+    console.log('[AssetService] Delete Asset', deleted, lastIndex);
     return {
       statusCode: 200,
       message: 'Success Asset Delete',

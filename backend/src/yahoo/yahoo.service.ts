@@ -1,6 +1,4 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreateYahooDto } from './dto/create-yahoo.dto';
-import { UpdateYahooDto } from './dto/update-yahoo.dto';
 import yahooFinance from 'yahoo-finance2';
 
 @Injectable()
@@ -10,7 +8,7 @@ export class YahooService {
    * @param query
    * @returns
    */
-  async getAutoCompleteList(query) {
+  async getAutoCompleteList(query: string) {
     try {
       let res = await yahooFinance.search(query, {
         quotesCount: 10,
@@ -29,8 +27,11 @@ export class YahooService {
    * assetCode에 해당하는 자산의 {price, currency, currencySymbol} 을 반환
    * @param assetCode
    * @returns
+   * ! 200
+   * @throws
+   * ! BadRequest
    */
-  async getAssetInfo(assetCode) {
+  async getAssetInfo(assetCode: string) {
     try {
       let res = await yahooFinance.quoteSummary(assetCode, {
         modules: ['price'],
@@ -48,7 +49,7 @@ export class YahooService {
   }
 
   /**
-   * assetCode에 해당하는 자산의 1년치 history를 반화
+   * assetCode에 해당하는 자산의 1년치 history를 반환
    * @param assetCode
    * @returns
    */
@@ -63,20 +64,16 @@ export class YahooService {
     });
   }
 
-  async getPortfolioHistory() {
-    let today = new Date();
-    let todayString = `${
-      today.getFullYear() - 1
-    }-${today.getMonth()}-${today.getDate()}`;
-
-    return await yahooFinance.historical('005930.KS', {
-      period1: todayString,
-    });
-  }
-
+  /**
+   * currency에 해당하는 화페의 1단위가 몇 달러인지 반환 (1KRW = $0.001)
+   * @param currency
+   * @returns
+   * ! 200
+   * @throws
+   * ! BadRequest
+   */
   async getCurrencyToUSD(currency: string) {
     try {
-      // 1 currency가 몇 달러인가
       let symbol = `${currency.toUpperCase()}USD=X`;
       let res = await yahooFinance.quoteSummary(symbol, { modules: ['price'] });
       return {
@@ -88,6 +85,10 @@ export class YahooService {
     }
   }
 
+  /**
+   * 1달러가 현재 몇 KRW 인지 반환 ($1 = 1000KRW)
+   * @returns
+   */
   async getUSDToKRW() {
     try {
       // 1 달러가 몇 krw인가
@@ -100,5 +101,20 @@ export class YahooService {
     } catch (e) {
       throw new BadRequestException('Something wrong.');
     }
+  }
+
+  /**
+   * 포트폴리오 전체 합을 반환하는 함수
+   * @returns
+   */
+  async getPortfolioHistory() {
+    let today = new Date();
+    let todayString = `${
+      today.getFullYear() - 1
+    }-${today.getMonth()}-${today.getDate()}`;
+
+    return await yahooFinance.historical('005930.KS', {
+      period1: todayString,
+    });
   }
 }

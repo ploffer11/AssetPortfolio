@@ -59,7 +59,7 @@ export class UsersService {
    */
   async verifyUser(signupVerifyToken: string): Promise<Object> {
     let user = await this.userRepository.findOne({ signupVerifyToken });
-    if (user === undefined) {
+    if (!user) {
       throw new BadRequestException('Email verify token is invalid');
     }
 
@@ -79,7 +79,7 @@ export class UsersService {
    */
   async login(email: string, plainPassword: string): Promise<Object> {
     let user = await this.userRepository.findOne({ email });
-    if (user === undefined) {
+    if (!user) {
       throw new BadRequestException('Login Failed. Email is invalid');
     }
 
@@ -153,6 +153,11 @@ export class UsersService {
     );
   }
 
+  /**
+   * plainPassword를 salt로 암호화해서 저장
+   * @param plainPassword
+   * @returns
+   */
   private makeHashedPassword(plainPassword: string): {
     salt: string;
     hashedPassword: string;
@@ -164,7 +169,18 @@ export class UsersService {
     return { salt, hashedPassword };
   }
 
-  private checkPasswordRight(salt, password, plainPassword) {
+  /**
+   * 유저가 입력한 password가 올바른 password인지 확인한다.
+   * @param salt
+   * @param password
+   * @param plainPassword
+   * @returns
+   */
+  private checkPasswordRight(
+    salt: string,
+    password: string,
+    plainPassword: string,
+  ): boolean {
     const hashedPassword = crypto
       .pbkdf2Sync(plainPassword, salt, 9610, 64, 'sha512')
       .toString();
