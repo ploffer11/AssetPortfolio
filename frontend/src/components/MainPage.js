@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { keyframes } from "@emotion/react";
 import Box from "@mui/material/Box";
-import { GitHub, LinkedIn } from "@mui/icons-material";
+import { GitHub, KeyboardDoubleArrowDown, LinkedIn } from "@mui/icons-material";
 
 import "../scss/index.scss";
 import "../scss/main.scss";
@@ -21,30 +21,42 @@ const MainPage = () => {
   const totalPage = 2;
   const [currentPage, setCurrentPage] = useState(0);
   const ref = useRef(null);
+  const wheelCallback = useCallback((e) => {
+    e.preventDefault();
+    console.log(currentPage);
+    if (e.deltaY > 0) {
+      let scroll =
+        (currentPage === totalPage - 1 ? 0.25 : 1.0) * window.innerHeight;
+      window.scrollBy({
+        top: scroll,
+        left: 0,
+        behavior: "smooth",
+      });
+      if (currentPage !== totalPage) {
+        ref.current.removeEventListener("wheel", wheelCallback, {
+          passive: false,
+        });
+        setCurrentPage(currentPage + 1);
+      }
+    } else {
+      let scroll = -(currentPage === 2 ? 0.25 : 1.0) * window.innerHeight;
+      window.scrollBy({
+        top: scroll,
+        left: 0,
+        behavior: "smooth",
+      });
+      if (currentPage !== 0) {
+        ref.current.removeEventListener("wheel", wheelCallback, {
+          passive: false,
+        });
+        setCurrentPage(currentPage - 1);
+      }
+    }
+  });
 
   useEffect(() => {
-    ref.current.addEventListener(
-      "wheel",
-      (e) => {
-        e.preventDefault();
-        console.log(e.deltaY, window.scrollY);
-        if (e.deltaY > 0) {
-          window.scrollBy({
-            top: window.innerHeight,
-            left: 0,
-            behavior: "smooth",
-          });
-        } else {
-          window.scrollBy({
-            top: -window.innerHeight,
-            left: 0,
-            behavior: "smooth",
-          });
-        }
-      },
-      { passive: false }
-    );
-  }, [ref]);
+    ref.current.addEventListener("wheel", wheelCallback, { passive: false });
+  }, [ref, currentPage]);
 
   return (
     <Box

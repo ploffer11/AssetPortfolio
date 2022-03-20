@@ -110,3 +110,17 @@
     font-size: 1rem;
   }
 }
+
+.main-arrow-down {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  top: 95vh;
+
+  svg {
+    color: white;
+    height: 5vh;
+    width: 10vw;
+  }
+}
