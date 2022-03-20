@@ -1,0 +1,112 @@
+.main-section {
+  height: 200vh;
+
+  @media (min-width: 1200px) {
+    padding-top: 7vh;
+    height: 93vh;
+  }
+
+  &-grid-left {
+    display: grid;
+
+    padding-top: 6vh;
+    grid-template-rows: 30vh 30vh;
+    grid-template-columns: 90vw;
+    @media (min-width: 1200px) {
+      padding-top: 0vh;
+      grid-template-rows: 31vh;
+      grid-template-columns: 400px 800px;
+    }
+  }
+
+  &-grid-right {
+    display: grid;
+
+    padding-top: 6vh;
+    grid-template-rows: 30vh 30vh;
+    grid-template-columns: 90vw;
+    @media (min-width: 1200px) {
+      padding-top: 0vh;
+      grid-template-rows: 30vh;
+      grid-template-columns: 800px 400px;
+    }
+
+    text-align: left;
+    @media (min-width: 1200px) {
+      text-align: right;
+    }
+  }
+
+  &-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      border-radius: 50%;
+      border: 1.5px dashed white;
+      padding: 2px;
+
+      width: 25vh;
+      height: 25vh;
+      @media (min-width: 1200px) {
+        width: 25vh;
+        height: 25vh;
+      }
+    }
+
+    order: -1;
+    @media (min-width: 1200px) {
+      order: 0;
+    }
+  }
+
+  &-text {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    h2 {
+      font-family: "Loto", sans-serif;
+      font-size: 1.8rem;
+      margin: 0.5rem 0 0.5rem 0;
+    }
+
+    p {
+      font-family: "Noto Sans KR", sans-serif;
+      font-size: 1.3rem;
+    }
+  }
+}
+
+.main-footer {
+  height: 25vh;
+  background-color: rgb(147, 194, 255);
+  // display: flex;
+  // align-items: center;
+  // justify-content: space-around;
+  flex-direction: column;
+
+  p {
+    margin-top: 0rem;
+    margin-bottom: 1rem;
+    font-family: "Loto", sans-serif;
+    font-weight: 300;
+    font-size: 2rem;
+    // color: ;
+  }
+  svg {
+    color: black;
+    width: 3rem;
+    height: 3rem;
+  }
+
+  &-contact {
+    margin-top: 2vh;
+    font-family: "Loto", sans-serif;
+    font-weight: 100;
+    font-size: 1rem;
+  }
+}

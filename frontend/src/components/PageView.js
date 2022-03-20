@@ -19,7 +19,7 @@ const PageView = (props = { signInOpen: false }) => {
   return (
     <>
       <AppBar
-        position="static"
+        position="fixed"
         sx={{ backgroundColor: "white", marginBottom: "1.5vh" }}
       >
         <Toolbar>

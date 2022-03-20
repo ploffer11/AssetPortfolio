@@ -1,27 +1,57 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+// 0 ~ 576 모바일
 html {
   font-size: 10px;
 }
 
-@media (min-width: 800px) {
+// 576 ~ 768
+@media (min-width: 576px) {
+  html {
+    font-size: 10px;
+  }
+}
+
+// 768 ~ 992
+@media (min-width: 768px) {
   html {
     font-size: 12px;
   }
 }
 
-@media (min-width: 1200px) {
+// 992 ~ 1200
+@media (min-width: 992px) {
   html {
     font-size: 14px;
   }
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 1200px) {
   html {
     font-size: 16px;
   }
 }
 
-@media (min-width: 2000px) {
+@media (min-width: 1400px) {
   html {
     font-size: 18px;
+  }
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clear-button {
+  background-color: transparent;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
   }
 }

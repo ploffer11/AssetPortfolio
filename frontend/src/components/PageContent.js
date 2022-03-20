@@ -1,64 +1,10 @@
 import React from "react";
-import { keyframes } from "@emotion/react";
-
-import Box from "@mui/material/Box";
-
 import AssetTable from "./AssetTable";
-
-const fadeIn = keyframes`
-  from {
-    margin-top: 15vh;
-    opacity: 0;
-  }
-  to {
-    margin-top: 0vh;
-    opacity: 1;
-  }
-`;
+import MainPage from "./MainPage";
 
 const PageContent = ({ currentView }) => {
   if (currentView === "main") {
-    return (
-      <>
-        <Box
-          sx={{
-            flexGrow: 1,
-            height: "50vh",
-            backgroundColor: "rgba(65,105,225,1)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "column",
-            fontFamily: "'Loto', sans-serif",
-            color: "white",
-          }}
-        >
-          <Box sx={{ animation: `${fadeIn} 2s ease-out` }}>
-            <Box
-              sx={{
-                fontWeight: 900,
-                fontSize: "8rem",
-              }}
-            >
-              Be Rich.
-            </Box>
-            <Box
-              sx={{ fontWeight: 100, fontSize: "3rem", textAlign: "center" }}
-            >
-              Using Asset Portfolio
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: "5vh",
-              }}
-            ></Box>
-          </Box>
-        </Box>
-      </>
-    );
+    return <MainPage />;
   } else if (currentView === "portfolio") {
     return <AssetTable />;
   }
