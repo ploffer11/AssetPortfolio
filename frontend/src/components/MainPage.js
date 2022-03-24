@@ -55,7 +55,7 @@ const MainPage = () => {
   });
 
   useEffect(() => {
-    ref.current.addEventListener("wheel", wheelCallback, { passive: false });
+    // ref.current.addEventListener("wheel", wheelCallback, { passive: false });
   }, [ref, currentPage]);
 
   return (
@@ -63,6 +63,13 @@ const MainPage = () => {
       sx={{
         backgroundColor: "rgba(65,105,225,1)",
         fontFamily: "'Loto', sans-serif",
+        "& > div, & > footer": {
+          width: "100vw",
+          scrollSnapAlign: "end",
+        },
+        height: "100vh",
+        overflow: "scroll",
+        scrollSnapType: "y mandatory",
       }}
       ref={ref}
     >
@@ -96,6 +103,7 @@ const MainPage = () => {
           flexDirection: "column",
           fontFamily: "'Loto', sans-serif",
           color: "white",
+          backgroundColor: "mediumseagreen",
         }}
         className="flex-center"
       >
