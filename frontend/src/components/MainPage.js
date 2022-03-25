@@ -59,30 +59,8 @@ const MainPage = () => {
   }, [ref, currentPage]);
 
   return (
-    <Box
-      sx={{
-        backgroundColor: "rgba(65,105,225,1)",
-        fontFamily: "'Loto', sans-serif",
-        "& > div, & > footer": {
-          width: "100vw",
-          scrollSnapAlign: "end",
-        },
-        height: "100vh",
-        overflow: "scroll",
-        scrollSnapType: "y mandatory",
-      }}
-      ref={ref}
-    >
-      <Box
-        sx={{
-          marginTop: "6vh",
-          height: "60vh",
-          marginBottom: "34vh",
-          flexDirection: "column",
-          color: "white",
-        }}
-        className="flex-center"
-      >
+    <Box className="main-container" ref={ref}>
+      <Box className="main-fade-in-section flex-center">
         <Box sx={{ animation: `${fadeIn} 2s ease-out` }}>
           <Box
             sx={{
@@ -98,15 +76,7 @@ const MainPage = () => {
         </Box>
       </Box>
 
-      <Box
-        sx={{
-          flexDirection: "column",
-          fontFamily: "'Loto', sans-serif",
-          color: "white",
-          backgroundColor: "mediumseagreen",
-        }}
-        className="flex-center"
-      >
+      <Box className="main-description-section flex-center">
         <Box className="main-section">
           <Box
             className="main-section-grid-left"

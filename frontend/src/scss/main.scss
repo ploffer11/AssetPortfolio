@@ -1,6 +1,78 @@
-.main-section {
-  height: 200vh;
+.main-container {
+  background-color: rgba(65, 105, 225, 1);
+  font-family: "Loto", sans-serif;
 
+  & > div,
+  & > footer {
+    width: 100vw;
+  }
+
+  @media (min-width: 1200px) {
+    height: 100vh;
+    overflow: scroll;
+    scroll-snap-type: y mandatory;
+  }
+}
+
+.main-fade-in-section {
+  margin-top: 6vh;
+  height: 60vh;
+  margin-bottom: 34vh;
+  flex-direction: column;
+  color: white;
+
+  @media (min-width: 1200px) {
+    scroll-snap-align: end;
+  }
+}
+
+.main-description-section {
+  flex-direction: column;
+  font-family: "Loto", sans-serif;
+  color: white;
+  background-color: mediumseagreen;
+
+  @media (min-width: 1200px) {
+    scroll-snap-align: start;
+  }
+}
+
+.main-footer {
+  background-color: rgb(147, 194, 255);
+  flex-direction: column;
+
+  p {
+    margin-top: 0rem;
+    margin-bottom: 1rem;
+    font-family: "Loto", sans-serif;
+    font-weight: 300;
+    font-size: 2rem;
+  }
+  svg {
+    color: black;
+    width: 3rem;
+    height: 3rem;
+  }
+
+  &-contact {
+    margin-top: 2vh;
+    font-family: "Loto", sans-serif;
+    font-weight: 100;
+    font-size: 1rem;
+  }
+
+  height: 27vh;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  @media (min-width: 1200px) {
+    scroll-snap-align: start;
+    height: 25vh;
+    padding-bottom: 0vh;
+    padding-top: 0vh;
+  }
+}
+
+.main-section {
   @media (min-width: 1200px) {
     padding-top: 7vh;
     height: 93vh;
@@ -78,49 +150,5 @@
       font-family: "Noto Sans KR", sans-serif;
       font-size: 1.3rem;
     }
-  }
-}
-
-.main-footer {
-  height: 25vh;
-  background-color: rgb(147, 194, 255);
-  // display: flex;
-  // align-items: center;
-  // justify-content: space-around;
-  flex-direction: column;
-
-  p {
-    margin-top: 0rem;
-    margin-bottom: 1rem;
-    font-family: "Loto", sans-serif;
-    font-weight: 300;
-    font-size: 2rem;
-    // color: ;
-  }
-  svg {
-    color: black;
-    width: 3rem;
-    height: 3rem;
-  }
-
-  &-contact {
-    margin-top: 2vh;
-    font-family: "Loto", sans-serif;
-    font-weight: 100;
-    font-size: 1rem;
-  }
-}
-
-.main-arrow-down {
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-  top: 95vh;
-
-  svg {
-    color: white;
-    height: 5vh;
-    width: 10vw;
   }
 }
