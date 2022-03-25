@@ -32,8 +32,8 @@ export class AssetController {
     @Body() insertAssetDto: InsertAssetDto,
     @Body('authorization', ParseTokenPipe) { uid },
   ) {
-    let assets: AssetEntity[] = insertAssetDto['asset'];
     console.log('[POST] /asset');
+    let assets: AssetEntity[] = insertAssetDto['asset'];
     console.log(assets);
     return this.assetService.insertAsset(uid, assets);
   }

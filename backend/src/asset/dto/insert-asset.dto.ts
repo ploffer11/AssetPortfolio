@@ -6,9 +6,9 @@ export class InsertAssetDto {
   @IsString()
   authorization: string;
 
-  @Transform((params) =>
-    params.value.map((asset) => Object.assign(new AssetEntity(), asset)),
-  )
+  @Transform((params) => {
+    return params.value.map((asset) => Object.assign(new AssetEntity(), asset));
+  })
   @ValidateNested()
   asset: AssetEntity[];
 }

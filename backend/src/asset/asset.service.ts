@@ -68,6 +68,11 @@ export class AssetService {
    */
   async getAllAsset(uid: number) {
     let assets = await this.assetRepository.find({ uid });
+    assets = assets.map((asset) => {
+      delete asset['pk'];
+      delete asset['uid'];
+      return asset;
+    });
     console.log('[AssetService] all assets', assets);
     return assets;
   }

@@ -97,11 +97,36 @@ const AssetTable = () => {
               size="large"
               onClick={async () => {
                 setLoading(true);
+                console.log("asset", asset);
                 try {
                   await axios.post(
                     process.env.REACT_APP_SERVER_HOST + "/asset",
                     {
-                      asset: asset,
+                      asset: asset.map(
+                        ({
+                          index,
+                          count,
+                          buyPrice,
+                          sellPrice,
+                          name,
+                          assetCode,
+                          description,
+                          currency,
+                          currencySymbol,
+                          isUpdateNow,
+                        }) => ({
+                          index,
+                          count,
+                          buyPrice,
+                          sellPrice,
+                          name,
+                          assetCode,
+                          description,
+                          currency,
+                          currencySymbol,
+                          isUpdateNow,
+                        })
+                      ),
                       authorization: cookies.authorization,
                     },
                     {
@@ -112,7 +137,9 @@ const AssetTable = () => {
                     }
                   );
                   setLoading(false);
-                } catch (e) {}
+                } catch (e) {
+                  console.log(e.response);
+                }
               }}
             >
               <SaveAlt sx={{ marginRight: "10px" }} />
