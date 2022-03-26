@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import SignInDialog from "./SignInDialog";
 import SignUpDialog from "./SignUpDialog";
 import PageContent from "./PageContent";
+import SnackbarAlert from "./SnackbarAlert";
 
 const PageView = (props = { signInOpen: false }) => {
   const [signInOpen, setSignInOpen] = useState(props.signInOpen);
@@ -18,9 +19,13 @@ const PageView = (props = { signInOpen: false }) => {
 
   return (
     <>
+      <SnackbarAlert />
       <AppBar
         position="fixed"
-        sx={{ backgroundColor: "white", marginBottom: "1.5vh" }}
+        sx={{
+          backgroundColor: "rgba(255, 255, 255, 0.7)",
+          backdropFilter: "blur(20px)",
+        }}
       >
         <Toolbar>
           <Button
@@ -37,11 +42,15 @@ const PageView = (props = { signInOpen: false }) => {
           </Button>
           <Box sx={{ flexGrow: 1 }}></Box>
           {cookies.authorization ? (
-            <Box sx={{ color: "black" }}>
+            <Box
+              sx={{
+                color: "black",
+                "& a": { textDecoration: "none", color: "#1976d2" },
+              }}
+            >
               <Button
                 sx={{
                   marginRight: "1rem",
-                  "& a": { textDecoration: "none", color: "#1976d2" },
                 }}
                 variant="outlined"
                 size="large"
@@ -57,7 +66,7 @@ const PageView = (props = { signInOpen: false }) => {
                   removeCookie("name");
                 }}
               >
-                로그아웃
+                <Link to="/">로그아웃</Link>
               </Button>
             </Box>
           ) : (

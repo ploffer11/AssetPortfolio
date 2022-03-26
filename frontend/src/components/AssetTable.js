@@ -38,14 +38,13 @@ const AssetTable = () => {
     addAsset,
     getSortAsset,
     loadAsset,
+    errorAlert,
+    successAlert,
   } = useStore();
   const [cookies, setCookie] = useCookies(["authorization"]);
 
   const [count, setCount] = useState(1);
   const [loading, setLoading] = useState(false);
-
-  // const [insertIdx, setInsertIdx] = useState(null);
-  // const [placeholder, setPlaceholder] = useState(null);
 
   const columnName = [
     "#",
@@ -136,10 +135,12 @@ const AssetTable = () => {
                       withCredentials: true,
                     }
                   );
-                  setLoading(false);
+                  successAlert("Save asset success");
                 } catch (e) {
                   console.log(e.response);
+                  errorAlert("Save asset failed");
                 }
+                setLoading(false);
               }}
             >
               <SaveAlt sx={{ marginRight: "10px" }} />

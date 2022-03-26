@@ -12,10 +12,13 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Box } from "@mui/system";
 import LoadingButton from "@mui/lab/LoadingButton";
 
+import useStore from "../state";
 import useInputField from "../hook/useInput";
 import "../scss/sign.scss";
 
 const SignUpDialog = ({ open = false, setOpen }) => {
+  const { successAlert } = useStore();
+
   const [loading, setLoading] = useState(false);
   const [failMsg, setFailMsg] = useState("");
   const [focus, setFocus] = useState("");
@@ -61,6 +64,7 @@ const SignUpDialog = ({ open = false, setOpen }) => {
           setLoading(false);
           setOpen(false);
           setClear();
+          successAlert("Email verify mail sended. Please verify your email.");
         })
         .catch((err) => {
           console.log(err.response);

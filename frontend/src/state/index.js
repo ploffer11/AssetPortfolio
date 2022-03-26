@@ -192,6 +192,22 @@ const useStore = create((set, get) => ({
       })
     );
   },
+
+  snackbarOption: { open: false, message: "i love snack", severity: "success" },
+  updateSnackbarOption: (snackbarOption) => {
+    set((state) => ({
+      snackbarOption: Object.assign(state.snackbarOption, snackbarOption),
+    }));
+  },
+  successAlert: (message) => {
+    get().updateSnackbarOption({ open: true, severity: "success", message });
+  },
+  errorAlert: (message) => {
+    get().updateSnackbarOption({ open: true, severity: "error", message });
+  },
+  infoAlert: (message) => {
+    get().updateSnackbarOption({ open: true, severity: "info", message });
+  },
 }));
 
 export default useStore;
