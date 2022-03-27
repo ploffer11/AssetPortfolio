@@ -11,11 +11,11 @@ const App = () => {
           path="/portfolio"
           element={<PageView currentView="portfolio" />}
         />
+        <Route path="/history" element={<PageView currentView="history" />} />
         <Route
           path="/login"
           element={<PageView currentView="main" signInOpen={true} />}
         />
-        <Route path="/chart" element={<StockChart />} />
       </Routes>
     </BrowserRouter>
   );

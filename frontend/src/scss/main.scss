@@ -29,8 +29,8 @@
 .main-description-section {
   flex-direction: column;
   font-family: "Loto", sans-serif;
-  color: white;
-  background-color: mediumseagreen;
+  color: black;
+  background-color: rgb(221, 239, 255);
 
   @media (min-width: 1200px) {
     scroll-snap-align: start;
@@ -116,7 +116,7 @@
 
     img {
       border-radius: 50%;
-      border: 1.5px dashed white;
+      border: 1.5px dashed black;
       padding: 2px;
 
       width: 25vh;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 
@@ -13,7 +13,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { Add, Remove, SaveAlt } from "@mui/icons-material";
+import { Add, Remove, SaveAlt, Sell, Upload } from "@mui/icons-material";
 
 import AssetTableRow from "./AssetTableRow";
 import EarningRateTableCell from "./EarningRateTableCell";
@@ -58,21 +58,89 @@ const AssetTable = () => {
     "설명",
   ];
 
+  const saveAssetCallback = useCallback(async () => {
+    setLoading(true);
+    console.log("asset", asset);
+    try {
+      await axios.post(
+        process.env.REACT_APP_SERVER_HOST + "/asset",
+        {
+          asset: asset.map(
+            ({
+              index,
+              count,
+              buyPrice,
+              sellPrice,
+              name,
+              assetCode,
+              description,
+              currency,
+              currencySymbol,
+              isUpdateNow,
+            }) => ({
+              index,
+              count,
+              buyPrice,
+              sellPrice,
+              name,
+              assetCode,
+              description,
+              currency,
+              currencySymbol,
+              isUpdateNow,
+            })
+          ),
+          authorization: cookies.authorization,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+      successAlert("Save asset success");
+    } catch (e) {
+      console.log(e.response);
+      errorAlert("Save asset failed");
+    }
+    setLoading(false);
+  });
+
+  const addAssetCallback = useCallback(() => {
+    addAsset({ name: `새로운 자산 ${count}` });
+    addChecked(false);
+    setCount(count + 1);
+  });
+
+  const deleteAssetCallback = useCallback(() => {
+    setAsset(
+      asset
+        .filter((row, idx) => {
+          return !checked[idx + 1];
+        })
+        .map((row, idx) => {
+          row.orderIndex = row.index = idx;
+          return row;
+        })
+    );
+  });
+
+  const sellAssetCallback = useCallback(() => {});
+
   useEffect(() => {
     loadAsset(cookies);
   }, []);
 
   useEffect(() => {
     initChecked(asset.length + 1);
-  }, [asset]);
+  }, [asset.length]);
 
   return (
     <Box
       sx={{
-        paddingTop: "10vh",
+        paddingTop: "20vh",
         paddingBottom: "20vh",
-        boxShadow:
-          "0px 0px 3px 1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)",
       }}
     >
       <Box
@@ -86,78 +154,50 @@ const AssetTable = () => {
             width: "min(2000px, 100vw)",
           }}
         >
-          <Box sx={{ display: "flex" }}>
-            <Box sx={{ flexGrow: 1 }}></Box>
-
+          <Box
+            sx={{
+              display: "flex",
+              "& button": {
+                marginLeft: "20px",
+              },
+              "& svg": {
+                marginRight: "10px",
+              },
+            }}
+          >
+            <Box
+              sx={{
+                flexGrow: 1,
+              }}
+            ></Box>
             <LoadingButton
               loading={loading}
               variant="outlined"
               color="secondary"
               size="large"
-              onClick={async () => {
-                setLoading(true);
-                console.log("asset", asset);
-                try {
-                  await axios.post(
-                    process.env.REACT_APP_SERVER_HOST + "/asset",
-                    {
-                      asset: asset.map(
-                        ({
-                          index,
-                          count,
-                          buyPrice,
-                          sellPrice,
-                          name,
-                          assetCode,
-                          description,
-                          currency,
-                          currencySymbol,
-                          isUpdateNow,
-                        }) => ({
-                          index,
-                          count,
-                          buyPrice,
-                          sellPrice,
-                          name,
-                          assetCode,
-                          description,
-                          currency,
-                          currencySymbol,
-                          isUpdateNow,
-                        })
-                      ),
-                      authorization: cookies.authorization,
-                    },
-                    {
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                      withCredentials: true,
-                    }
-                  );
-                  successAlert("Save asset success");
-                } catch (e) {
-                  console.log(e.response);
-                  errorAlert("Save asset failed");
-                }
-                setLoading(false);
-              }}
+              onClick={saveAssetCallback}
             >
-              <SaveAlt sx={{ marginRight: "10px" }} />
+              <Upload />
               Save
             </LoadingButton>
             <Button
-              sx={{ width: "12rem", marginRight: "20px", marginLeft: "20px" }}
+              sx={{ width: "12rem" }}
+              variant="outlined"
+              color="warning"
+              size="large"
+              onClick={sellAssetCallback}
+            >
+              <Sell />
+              Sell Asset
+            </Button>
+            <Button
+              sx={{ width: "12rem" }}
               variant="outlined"
               color="success"
               size="large"
-              onClick={() => {
-                addAsset({ name: `새로운 자산 ${count}` });
-                addChecked(false);
-                setCount(count + 1);
-              }}
+              onClick={addAssetCallback}
             >
-              <Add sx={{ marginRight: "10px" }} />
+              <Add />
               Add Asset
             </Button>
 
@@ -166,20 +206,9 @@ const AssetTable = () => {
               variant="outlined"
               color="error"
               size="large"
-              onClick={() => {
-                setAsset(
-                  asset
-                    .filter((row, idx) => {
-                      return !checked[idx + 1];
-                    })
-                    .map((row, idx) => {
-                      row.orderIndex = row.index = idx;
-                      return row;
-                    })
-                );
-              }}
+              onClick={deleteAssetCallback}
             >
-              <Remove sx={{ marginRight: "10px" }} />
+              <Remove />
               Delete Asset
             </Button>
           </Box>

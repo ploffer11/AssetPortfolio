@@ -23,7 +23,7 @@ const SnackbarAlert = () => {
         open={open}
         message={message}
       >
-        <Alert severity={severity} sx={{ width: "50vw" }}>
+        <Alert severity={severity} sx={{ width: "50vw", minWidth: "350px" }}>
           {message}
         </Alert>
       </Snackbar>

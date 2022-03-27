@@ -40,7 +40,8 @@ const PageView = (props = { signInOpen: false }) => {
           >
             <Link to="/">Asset Portfolio</Link>
           </Button>
-          <Box sx={{ flexGrow: 1 }}></Box>
+
+          <Box sx={{ flexGrow: 1 }} />
           {cookies.authorization ? (
             <Box
               sx={{
@@ -48,6 +49,15 @@ const PageView = (props = { signInOpen: false }) => {
                 "& a": { textDecoration: "none", color: "#1976d2" },
               }}
             >
+              <Button
+                sx={{
+                  marginRight: "1rem",
+                }}
+                variant="outlined"
+                size="large"
+              >
+                <Link to="/history">매매내역</Link>
+              </Button>
               <Button
                 sx={{
                   marginRight: "1rem",

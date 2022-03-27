@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { keyframes } from "@emotion/react";
 import Box from "@mui/material/Box";
-import { GitHub, KeyboardDoubleArrowDown, LinkedIn } from "@mui/icons-material";
+import { GitHub, LinkedIn } from "@mui/icons-material";
 
 import "../scss/index.scss";
 import "../scss/main.scss";
@@ -80,7 +80,7 @@ const MainPage = () => {
         <Box className="main-section">
           <Box
             className="main-section-grid-left"
-            sx={{ borderBottom: "1px solid white" }}
+            sx={{ borderBottom: "1px solid rgb(150, 150, 150)" }}
           >
             <Box className="main-section-img">
               <img src="./img/cash.jpg" />
@@ -97,7 +97,7 @@ const MainPage = () => {
 
           <Box
             className="main-section-grid-right"
-            sx={{ borderBottom: "1px solid white" }}
+            sx={{ borderBottom: "1px solid rgb(150, 150, 150)" }}
           >
             <Box className="main-section-text">
               <h2>Real time update</h2>
