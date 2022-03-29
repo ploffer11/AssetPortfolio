@@ -13,15 +13,15 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { Add, Remove, SaveAlt, Sell, Upload } from "@mui/icons-material";
+import { Add, Remove, Sell, Upload } from "@mui/icons-material";
 
 import AssetTableRow from "./AssetTableRow";
 import EarningRateTableCell from "./EarningRateTableCell";
 import SortButton from "./SortButton";
 import TotalPriceCell from "./TotalPriceCell";
-import "../scss/tableRow.scss";
-
+import "../scss/table.scss";
 import useStore from "../state";
+
 const AssetTable = () => {
   const {
     buyPriceSum,
@@ -79,9 +79,9 @@ const AssetTable = () => {
               isUpdateNow,
             }) => ({
               index,
-              count,
-              buyPrice,
-              sellPrice,
+              count: parseInt(count),
+              buyPrice: parseFloat(buyPrice),
+              sellPrice: parseFloat(sellPrice),
               name,
               assetCode,
               description,
@@ -139,176 +139,175 @@ const AssetTable = () => {
   return (
     <Box
       sx={{
-        paddingTop: "20vh",
-        paddingBottom: "20vh",
+        paddingTop: "10rem",
+        paddingBottom: "10rem",
+        display: "flex",
+        // margin: "auto",
+        // justifyContent: "center",
+        width: "100vw",
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
+      <Box sx={{ margin: "auto" }}>
         <Box
           sx={{
-            width: "min(2000px, 100vw)",
+            display: "flex",
+            "& button": {
+              marginLeft: "20px",
+            },
+            "& svg": {
+              marginRight: "10px",
+            },
           }}
         >
           <Box
             sx={{
-              display: "flex",
-              "& button": {
-                marginLeft: "20px",
-              },
-              "& svg": {
-                marginRight: "10px",
-              },
+              flexGrow: 1,
             }}
+          ></Box>
+          <LoadingButton
+            loading={loading}
+            variant="outlined"
+            color="secondary"
+            size="large"
+            onClick={saveAssetCallback}
           >
-            <Box
-              sx={{
-                flexGrow: 1,
-              }}
-            ></Box>
-            <LoadingButton
-              loading={loading}
-              variant="outlined"
-              color="secondary"
-              size="large"
-              onClick={saveAssetCallback}
-            >
-              <Upload />
-              Save
-            </LoadingButton>
-            <Button
-              sx={{ width: "12rem" }}
-              variant="outlined"
-              color="warning"
-              size="large"
-              onClick={sellAssetCallback}
-            >
-              <Sell />
-              Sell Asset
-            </Button>
-            <Button
-              sx={{ width: "12rem" }}
-              variant="outlined"
-              color="success"
-              size="large"
-              onClick={addAssetCallback}
-            >
-              <Add />
-              Add Asset
-            </Button>
+            <Upload />
+            Save
+          </LoadingButton>
+          <Button
+            sx={{ width: "12rem" }}
+            variant="outlined"
+            color="warning"
+            size="large"
+            onClick={sellAssetCallback}
+          >
+            <Sell />
+            Sell Asset
+          </Button>
+          <Button
+            sx={{ width: "12rem" }}
+            variant="outlined"
+            color="success"
+            size="large"
+            onClick={addAssetCallback}
+          >
+            <Add />
+            Add Asset
+          </Button>
 
-            <Button
-              sx={{ width: "12rem" }}
-              variant="outlined"
-              color="error"
-              size="large"
-              onClick={deleteAssetCallback}
-            >
-              <Remove />
-              Delete Asset
-            </Button>
-          </Box>
-          <Box
+          <Button
+            sx={{ width: "12rem" }}
+            variant="outlined"
+            color="error"
+            size="large"
+            onClick={deleteAssetCallback}
+          >
+            <Remove />
+            Delete Asset
+          </Button>
+        </Box>
+        <Box
+          sx={{
+            marginTop: "1vh",
+          }}
+        >
+          <TableContainer
+            component={Paper}
             sx={{
-              marginTop: "1vh",
+              width: "2000px",
             }}
           >
-            <TableContainer component={Paper}>
-              <Table
-                sx={{
-                  tableLayout: "auto",
-                  width: "100%",
-                  "& tr:hover": {
-                    backgroundColor: "rgba(0, 0, 0, 0.08)",
-                    transition: "background-color 0.3s",
-                  },
-                  "& tr": {
-                    backgroundColor: "transparent",
-                    transition: "background-color 1s",
-                    fontFamily: "'Noto Sans KR', sans-serif",
-                  },
-                  "& td": {
-                    fontSize: "1.05rem",
-                    fontFamily: "'Noto Sans KR', sans-serif",
-                  },
-                  "& th": {
-                    backgroundColor: "rgba(65,105,225,1)",
-                    color: "white",
-                    fontWeight: "bold",
-                    fontSize: "1.2rem",
-                    fontFamily: "'Noto Sans KR', sans-serif",
-                  },
+            <Table
+              sx={{
+                tableLayout: "auto",
+                width: "100%",
+                "& tr:hover": {
+                  backgroundColor: "rgba(0, 0, 0, 0.08)",
+                  transition: "background-color 0.3s",
+                },
+                "& tr": {
+                  backgroundColor: "transparent",
+                  transition: "background-color 1s",
                   fontFamily: "'Noto Sans KR', sans-serif",
-                }}
-                aria-label="simple table"
-              >
-                <TableHead>
-                  <TableRow className="asset-table-head">
-                    <TableCell>
-                      <Checkbox
-                        sx={{
+                },
+                "& td": {
+                  fontSize: "1.05rem",
+                  fontFamily: "'Noto Sans KR', sans-serif",
+                },
+                "& th": {
+                  backgroundColor: "rgba(65,105,225,1)",
+                  color: "white",
+                  fontWeight: "bold",
+                  fontSize: "1.2rem",
+                  fontFamily: "'Noto Sans KR', sans-serif",
+                },
+                fontFamily: "'Noto Sans KR', sans-serif",
+              }}
+              aria-label="simple table"
+            >
+              <TableHead>
+                <TableRow className="asset-table-head">
+                  <TableCell>
+                    <Checkbox
+                      sx={{
+                        color: "white",
+                        "&.Mui-checked": {
                           color: "white",
-                          "&.Mui-checked": {
-                            color: "white",
-                          },
-                        }}
-                        checked={checked[0] || false}
-                        onChange={(e) => {
-                          setCheckedAll(e.target.checked);
-                        }}
-                      />
-                    </TableCell>
-                    {columnName.map((name, idx) => {
-                      return (
-                        <TableCell key={name}>
-                          <SortButton text={name} columnIndex={idx} />
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                </TableHead>
-
-                <TableBody>
-                  {(sortColumnIndex !== -1 ? getSortAsset() : asset).map(
-                    (row, idx) => {
-                      return <AssetTableRow key={row.key} row={row} />;
-                    }
-                  )}
-
-                  <TableRow
-                    sx={{
-                      borderTop: "2px solid gray",
-                    }}
-                  >
-                    <TableCell colSpan="6" align="center">
-                      합계
-                    </TableCell>
-
-                    <TotalPriceCell
-                      asset={asset}
-                      priceType="buyPrice"
-                      setTotalPrice={setBuyPriceSum}
+                        },
+                      }}
+                      checked={checked[0] || false}
+                      onChange={(e) => {
+                        setCheckedAll(e.target.checked);
+                      }}
                     />
-                    <TotalPriceCell
-                      asset={asset}
-                      priceType="sellPrice"
-                      setTotalPrice={setSellPriceSum}
-                    />
+                  </TableCell>
+                  {columnName.map((name, idx) => {
+                    return (
+                      <TableCell key={name}>
+                        <SortButton text={name} columnIndex={idx} />
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              </TableHead>
 
-                    <EarningRateTableCell
-                      buyPrice={buyPriceSum}
-                      evalPrice={sellPriceSum}
-                    />
-                    <TableCell></TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Box>
+              <TableBody>
+                {(sortColumnIndex !== -1 ? getSortAsset() : asset).map(
+                  (row, idx) => {
+                    return <AssetTableRow key={row.key} row={row} />;
+                  }
+                )}
+
+                <TableRow
+                  sx={{
+                    borderTop: "2px solid gray",
+                  }}
+                  // className="asset-table-row"
+                >
+                  <TableCell colSpan="6" align="center">
+                    합계
+                  </TableCell>
+
+                  <TotalPriceCell
+                    asset={asset}
+                    priceType="buyPrice"
+                    setTotalPrice={setBuyPriceSum}
+                  />
+                  <TotalPriceCell
+                    asset={asset}
+                    priceType="sellPrice"
+                    setTotalPrice={setSellPriceSum}
+                  />
+
+                  <EarningRateTableCell
+                    buyPrice={buyPriceSum}
+                    evalPrice={sellPriceSum}
+                  />
+                  <TableCell></TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Box>
       </Box>
     </Box>

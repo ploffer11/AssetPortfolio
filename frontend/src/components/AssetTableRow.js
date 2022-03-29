@@ -10,7 +10,7 @@ import CurrentPriceTableCell from "./CurrentPriceTableCell";
 import AutoCompleteTableCell from "./AutoCompleteTableCell";
 import PriceBox from "./PriceBox";
 import useStore from "../state";
-import "../scss/tableRow.scss";
+import "../scss/table.scss";
 import StockChart from "./StockChart";
 import { Box, Button } from "@mui/material";
 import { ArrowDropDown, ArrowDropUp } from "@mui/icons-material";
