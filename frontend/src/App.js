@@ -16,6 +16,7 @@ const App = () => {
           path="/login"
           element={<PageView currentView="main" signInOpen={true} />}
         />
+        <Route path="/mobile" element={<PageView currentView="mobile" />} />
       </Routes>
     </BrowserRouter>
   );

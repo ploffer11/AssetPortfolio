@@ -12,7 +12,7 @@ import { Box } from "@mui/system";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Close, Lock, Email } from "@mui/icons-material";
 
-import useInputField from "../hook/useInput";
+import useInputField from "../hook/useInputField";
 
 import "../scss/sign.scss";
 

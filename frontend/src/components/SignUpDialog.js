@@ -13,7 +13,7 @@ import { Box } from "@mui/system";
 import LoadingButton from "@mui/lab/LoadingButton";
 
 import useStore from "../state";
-import useInputField from "../hook/useInput";
+import useInputField from "../hook/useInputField";
 import "../scss/sign.scss";
 
 const SignUpDialog = ({ open = false, setOpen }) => {
