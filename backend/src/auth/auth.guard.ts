@@ -21,6 +21,7 @@ export class AuthGuard implements CanActivate {
     try {
       let decodeCookie = decodeURIComponent(request.headers.cookie);
       let jwtString = decodeCookie.split('Bearer ')[1];
+      console.log('jwtString: ', jwtString);
       this.authService.verify(jwtString);
       console.log('[AuthGuard] Auth Success');
       return true;

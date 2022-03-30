@@ -101,6 +101,36 @@ export class UsersService {
     }
   }
 
+  async getBalance(uid: number): Promise<Object> {
+    let user = await this.userRepository.findOne({ uid });
+    if (!user) {
+      throw new BadRequestException('uid is not exist in DB');
+    }
+
+    return {
+      statusCode: 200,
+      message: 'OK, Get balance success',
+      balance: user.balance,
+    };
+  }
+
+  async saveBalance(uid: number, balance: number): Promise<Object> {
+    let user = await this.userRepository.findOne({ uid });
+    if (!user) {
+      throw new BadRequestException('uid is not exist in DB');
+    }
+
+    user.balance = balance;
+    await this.userRepository.save(user).then((user) => {
+      console.log('[UsersService] Save Asset', user);
+    });
+
+    return {
+      statusCode: 200,
+      message: 'OK, Save balance success',
+    };
+  }
+
   /**
    * 유저의 이메일을 db에서 확인해 존재하는지 확인.
    * @param email

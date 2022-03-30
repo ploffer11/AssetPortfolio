@@ -6,9 +6,11 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
   Query,
   Res,
   Redirect,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { AuthService } from 'src/auth/auth.service';
@@ -16,6 +18,9 @@ import { AuthService } from 'src/auth/auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserLoginDto } from './dto/user-login.dto';
 import { VerifyEmailDto } from './dto/verify-email.dto';
+
+import { AuthGuard } from 'src/auth/auth.guard';
+import { ParseTokenPipe } from 'src/pipe/parse-token.pipe';
 
 @Controller('users')
 export class UsersController {
@@ -44,5 +49,20 @@ export class UsersController {
     const { email, password } = dto;
     console.log('[POST] /users/login ');
     return this.usersService.login(email, password);
+  }
+
+  @Get('/balance')
+  async getBalance(@Query('authorization', ParseTokenPipe) { uid }) {
+    console.log('[GET] /users/balance');
+    return await this.usersService.getBalance(uid);
+  }
+
+  @Post('/balance')
+  async saveBalance(
+    @Body('authorization', ParseTokenPipe) { uid },
+    @Body('balance', ParseIntPipe) balance,
+  ) {
+    console.log('[POST] /users/balance');
+    return this.usersService.saveBalance(uid, balance);
   }
 }

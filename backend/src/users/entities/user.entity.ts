@@ -5,6 +5,9 @@ export class UserEntity {
   @PrimaryGeneratedColumn()
   uid: number;
 
+  @Column()
+  balance: number;
+
   @Column({ length: 60 })
   email: string;
 
