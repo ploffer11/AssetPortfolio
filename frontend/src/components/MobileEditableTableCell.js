@@ -93,12 +93,18 @@ const MobileEditableTableCell = ({
         cursor: "pointer",
         overflow: "hidden",
       }}
+      onClick={() => {
+        setIsEditableNow(true);
+      }}
       onBlur={() => {
         setIsEditableNow(false);
         changeCol(text);
       }}
-      onClick={() => {
-        setIsEditableNow(true);
+      onKeyPress={(event) => {
+        if (event.key === "Enter") {
+          setIsEditableNow(false);
+          changeCol(text);
+        }
       }}
     >
       <Box>{component}</Box>

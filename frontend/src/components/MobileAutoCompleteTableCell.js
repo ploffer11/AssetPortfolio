@@ -50,13 +50,6 @@ const AutoCompleteTableCell = ({
         width,
       }}
       align={align}
-      onDragStart={(e) => {
-        if (isEditableNow) {
-          e.stopPropagation();
-          e.preventDefault();
-        }
-      }}
-      draggable={isEditableNow}
     >
       <Box
         onClick={() => {
@@ -65,6 +58,12 @@ const AutoCompleteTableCell = ({
         onBlur={() => {
           setIsEditableNow(false);
           changeCols({ name: text });
+        }}
+        onKeyPress={(event) => {
+          if (event.key === "Enter") {
+            setIsEditableNow(false);
+            changeCols({ name: text });
+          }
         }}
         sx={{
           "& .MuiPaper-root": { width: "100rem" },

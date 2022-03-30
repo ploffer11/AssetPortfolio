@@ -25,7 +25,7 @@ const BalanceTableCell = ({}) => {
           sx={{
             "& input": {
               fontWeight: "bold",
-              textAlign: "right",
+              textAlign: "left",
               width: "100%",
             },
           }}
@@ -34,23 +34,31 @@ const BalanceTableCell = ({}) => {
         />
       );
     } else {
-      setComponent(<PriceBox price={parseInt(balance)} currencySymbol="₩" />);
+      setComponent(
+        <PriceBox
+          price={parseInt(balance)}
+          currencySymbol="₩"
+          textAlign="left"
+        />
+      );
     }
   }, [isEditableNow, balance]);
 
   useEffect(() => {
-    (async () => {
-      let res = await axios.post(
-        process.env.REACT_APP_SERVER_HOST + `/users/balance`,
-        { balance: parseInt(balance), authorization: cookies.authorization },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
-    })();
+    if (balance) {
+      (async () => {
+        let res = await axios.post(
+          process.env.REACT_APP_SERVER_HOST + `/users/balance`,
+          { balance: parseInt(balance), authorization: cookies.authorization },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          }
+        );
+      })();
+    }
   }, [balance]);
 
   useEffect(() => {

@@ -1,34 +1,27 @@
 import { Box } from "@mui/material";
 
-const PriceBox = ({ price, children, currencySymbol = "₩" }) => {
+const PriceBox = ({
+  price,
+  children,
+  currencySymbol = "₩",
+  textAlign = "right",
+}) => {
   return (
     <Box
       sx={{
-        // display: "flex",
-        // flexDirection: "row",
         position: "relative",
-        textAlign: "right",
+        textAlign,
       }}
     >
-      <Box sx={{ position: "absolute", left: "1rem" }}>
-        {children ? (
-          // <Box sx={{ flexGrow: 1, marginRight: "5px", paddingLeft: "43px" }}>
-          <Box>{children}</Box>
-        ) : (
-          <Box
-          // sx={{
-          //   flexGrow: 1,
-          //   fontWeight: "bold",
-          //   marginRight: "5px",
-          //   paddingLeft: "50px",
-          // }}
-          >
-            {currencySymbol}
-          </Box>
-        )}
+      <Box
+        sx={{
+          position: "absolute",
+          left: `${textAlign === "right" ? 1 : -1}rem`,
+        }}
+      >
+        {children ? <Box>{children}</Box> : <Box>{currencySymbol}</Box>}
       </Box>
       {price.toLocaleString()}
-      {/* <Box sx={{ textAlign: "right" }}>/Box> */}
     </Box>
   );
 };

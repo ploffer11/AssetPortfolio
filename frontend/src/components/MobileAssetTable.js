@@ -207,7 +207,7 @@ const MobileAssetTable = () => {
           <TableContainer
             component={Paper}
             sx={{
-              width: "1000px",
+              width: "1500px",
             }}
           >
             <Table
@@ -281,7 +281,7 @@ const MobileAssetTable = () => {
                     잔고
                   </TableCell>
                   <BalanceTableCell />
-                  <TableCell colSpan="2" align="center">
+                  <TableCell colSpan="3" align="center">
                     합계
                   </TableCell>
 
